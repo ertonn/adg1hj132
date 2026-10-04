@@ -1,0 +1,158 @@
+{
+  "site": {
+    "title": "Nevila Samarxhi Akulli · Grafik- & Webdesign",
+    "description": "Portfolio für Grafikdesign, Editorial Design und Webentwicklung aus Tirana, Albanien."
+  },
+  "nav": {
+    "work": "Arbeiten",
+    "services": "Leistungen",
+    "clients": "Kunden",
+    "about": "Über mich",
+    "contact": "Kontakt",
+    "menu": "Menü",
+    "close": "Menü schließen",
+    "home": "Start"
+  },
+  "common": {
+    "close": "Schließen",
+    "readMore": "Mehr lesen",
+    "viewProject": "Projekt ansehen",
+    "next": "Weiter",
+    "prev": "Zurück",
+    "all": "Alle",
+    "backToTop": "Nach oben",
+    "loading": "Wird geladen…",
+    "email": "E-Mail",
+    "phone": "Telefon",
+    "copy": "Kopieren",
+    "copied": "Kopiert",
+    "of": "von",
+    "image": "Bild",
+    "images": "Bilder"
+  },
+  "hero": {
+    "ctaPrimary": "Projekt starten",
+    "ctaSecondary": "Arbeiten ansehen",
+    "available": "Verfügbar"
+  },
+  "work": {
+    "filterLabel": "Nach Kategorie filtern",
+    "empty": "Keine Projekte in dieser Kategorie.",
+    "client": "Kunde",
+    "year": "Jahr",
+    "openLabel": "Projekt öffnen"
+  },
+  "about": {
+    "skills": "Werkzeuge & Fähigkeiten",
+    "timeline": "Erfahrung",
+    "downloadCv": "Lebenslauf herunterladen"
+  },
+  "contact": {
+    "name": "Ihr Name",
+    "email": "E-Mail",
+    "subject": "Projektart",
+    "budget": "Budget",
+    "message": "Nachricht",
+    "selectSubject": "Bitte wählen",
+    "selectBudget": "Bereich wählen",
+    "consent": "Ich stimme der Verarbeitung meiner Daten zur Beantwortung dieser Anfrage zu.",
+    "send": "Nachricht senden",
+    "sending": "Wird gesendet…",
+    "success": "Danke, Ihre Nachricht wurde gesendet. Ich antworte innerhalb von zwei Werktagen.",
+    "error": "Die Nachricht konnte nicht gesendet werden. Bitte erneut versuchen oder direkt schreiben.",
+    "required": "Dieses Feld ist erforderlich.",
+    "invalidEmail": "Bitte eine gültige E-Mail-Adresse eingeben.",
+    "tooShort": "Bitte mindestens 20 Zeichen schreiben.",
+    "spam": "Senden blockiert. Bitte in Kürze erneut versuchen.",
+    "direct": "Oder schreiben Sie mir direkt",
+    "consentRequired": "Bitte stimmen Sie der Datenverarbeitung zu.",
+    "location": "Standort",
+    "privacyNote": "Ihre Angaben dienen ausschließlich der Beantwortung dieser Anfrage."
+  },
+  "footer": {
+    "nav": "Navigation",
+    "legal": "Rechtliches",
+    "social": "Soziale Netzwerke",
+    "contact": "Kontakt",
+    "rights": "Alle Rechte vorbehalten.",
+    "cookiePrefs": "Cookie-Einstellungen",
+    "madeIn": "Gestaltet und gebaut in Tirana."
+  },
+  "legal": {
+    "privacy": "Datenschutzerklärung",
+    "terms": "Nutzungsbedingungen",
+    "cookies": "Cookie-Richtlinie",
+    "accessibility": "Erklärung zur Barrierefreiheit",
+    "updated": "Zuletzt aktualisiert",
+    "back": "Zurück zur Startseite"
+  },
+  "a11y": {
+    "title": "Barrierefreiheit",
+    "open": "Optionen zur Barrierefreiheit",
+    "reset": "Auf Standard zurücksetzen",
+    "note": "Ihre Auswahl wird nur in diesem Browser gespeichert.",
+    "skip": "Zum Inhalt springen",
+    "theme": "Design",
+    "textSize": "Schriftgröße",
+    "contrast": "Kontrast",
+    "motion": "Animationen",
+    "font": "Schriftart",
+    "spacing": "Abstände",
+    "underline": "Links unterstreichen",
+    "value": {
+      "auto": "Automatisch",
+      "light": "Hell",
+      "dark": "Dunkel",
+      "md": "Normal",
+      "lg": "Groß",
+      "xl": "Sehr groß",
+      "normal": "Normal",
+      "high": "Hoch",
+      "reduced": "Reduziert",
+      "default": "Standard",
+      "readable": "Gut lesbar",
+      "loose": "Weit",
+      "on": "An",
+      "off": "Aus"
+    },
+    "toLight": "Zu hellem Design wechseln",
+    "toDark": "Zu dunklem Design wechseln"
+  },
+  "consent": {
+    "title": "Cookie-Einwilligung",
+    "body": "Wir nutzen nur den lokalen Speicher, der für den Betrieb der Website nötig ist. Analyse und Präferenzen sind optional.",
+    "acceptAll": "Alle akzeptieren",
+    "rejectAll": "Optionale ablehnen",
+    "customise": "Anpassen",
+    "privacyPolicy": "Datenschutz",
+    "cookiePolicy": "Cookies",
+    "prefsTitle": "Cookie-Einstellungen",
+    "prefsBody": "Wählen Sie die Kategorien, die Sie erlauben möchten. Jederzeit änderbar.",
+    "savePrefs": "Auswahl speichern",
+    "cat": {
+      "necessary": "Notwendig",
+      "preferences": "Präferenzen",
+      "analytics": "Analyse",
+      "marketing": "Marketing"
+    },
+    "catDesc": {
+      "necessary": "Sprache, Barrierefreiheit und die Einwilligung selbst. Immer aktiv.",
+      "preferences": "Design- und Anzeigeeinstellungen.",
+      "analytics": "Anonyme Besuchsstatistiken.",
+      "marketing": "Derzeit nicht genutzt."
+    }
+  },
+  "lang": {
+    "label": "Sprache",
+    "choose": "Sprache wählen"
+  },
+  "clients": {
+    "projectCount": "{n} Projekte",
+    "viewWork": "Arbeiten ansehen",
+    "noWork": "Noch keine veröffentlichten Projekte.",
+    "projectCountOne": "1 Projekt"
+  },
+  "testimonials": {
+    "eyebrow": "Referenzen"
+  }
+}

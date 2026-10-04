@@ -1,0 +1,234 @@
+/* Page shell: container, header, navigation, sections, footer. */
+
+.container {
+  width: 100%;
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.prose { max-width: var(--maxw-prose); }
+
+.section { padding-block: clamp(var(--s-8), 10vw, var(--s-10)); }
+.section + .section { border-block-start: 1px solid var(--line); }
+.section--flush { padding-block-start: 0; border-block-start: 0; }
+
+/* Shared eyebrow + heading pair used by every section. */
+.section-head {
+  display: grid;
+  gap: var(--s-4);
+  margin-block-end: var(--s-7);
+}
+@media (width >= 56rem) {
+  .section-head { grid-template-columns: 14rem 1fr; gap: var(--s-6); align-items: start; }
+}
+
+.eyebrow {
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--ink-3);
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+}
+.eyebrow::before {
+  content: "";
+  inline-size: var(--s-5);
+  block-size: 1px;
+  background: currentColor;
+  flex: none;
+}
+
+.section-title { font-size: var(--fs-xl); }
+.section-intro { color: var(--ink-2); font-size: var(--fs-md); max-width: var(--maxw-prose); margin-block-start: var(--s-4); }
+
+/* Header */
+.site-header {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: var(--z-header);
+  background: color-mix(in srgb, var(--paper) 82%, transparent);
+  backdrop-filter: blur(12px);
+  border-block-end: 1px solid transparent;
+}
+.site-header[data-stuck="true"] { border-block-end-color: var(--line); }
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  gap: var(--s-5);
+  block-size: var(--header-h);
+}
+
+.nav { margin-inline-start: auto; }
+.nav__list { display: flex; align-items: center; gap: clamp(var(--s-4), 2vw, var(--s-6)); list-style: none; margin: 0; padding: 0; }
+
+.nav__link {
+  position: relative;
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  color: var(--ink-2);
+  padding-block: var(--s-2);
+}
+.nav__link::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: 0;
+  block-size: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+}
+.nav__link:hover, .nav__link[aria-current="true"] { color: var(--ink); }
+.nav__link:hover::after, .nav__link[aria-current="true"]::after { transform: scaleX(1); }
+
+.header-tools { display: flex; align-items: center; gap: var(--s-2); }
+
+/* Mobile navigation drawer */
+/* Two classes, so this beats .icon-btn's display regardless of file order. */
+.icon-btn.nav-toggle { display: none; }
+
+@media (width < 56rem) {
+  .icon-btn.nav-toggle { display: grid; place-items: center; inline-size: 2.75rem; block-size: 2.75rem; }
+  /* The drawer is out of flow, so this is what pushes the tools to the right edge. */
+  .header-tools { margin-inline-start: auto; }
+  .nav {
+    position: fixed;
+    inset-block-start: var(--header-h);
+    inset-inline: 0;
+    /* The header's backdrop-filter makes it the containing block for fixed children, so
+       inset-block-end: 0 would collapse this to nothing. Height must be explicit. */
+    block-size: calc(100dvh - var(--header-h));
+    z-index: var(--z-overlay);
+    background: var(--paper);
+    padding: var(--s-6) var(--gutter) var(--s-8);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    transform: translateY(-8px);
+    opacity: 0;
+    visibility: hidden;
+  }
+  .nav[data-open="true"] { opacity: 1; transform: none; visibility: visible; }
+  .nav__list { flex-direction: column; align-items: stretch; gap: 0; }
+  .nav__link { display: block; font-size: var(--fs-lg); font-family: var(--font-display); padding-block: var(--s-4); border-block-end: 1px solid var(--line); }
+  .nav__link::after { display: none; }
+}
+
+/* Hero */
+.hero { padding-block: clamp(var(--s-8), 12vw, var(--s-10)) var(--s-9); }
+.hero__title {
+  font-size: var(--fs-3xl);
+  font-weight: 600;
+  letter-spacing: -0.045em;
+}
+.hero__title em { font-family: var(--font-serif); font-style: italic; font-weight: 400; letter-spacing: -0.02em; color: var(--accent); }
+.hero__lede { font-size: var(--fs-md); color: var(--ink-2); max-width: 34rem; margin-block-start: var(--s-5); }
+.hero__actions { display: flex; flex-wrap: wrap; gap: var(--s-3); margin-block-start: var(--s-6); }
+
+.hero__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-5) var(--s-7);
+  margin-block-start: var(--s-8);
+  padding-block-start: var(--s-5);
+  border-block-start: 1px solid var(--line);
+}
+.stat__value { font-family: var(--font-display); font-size: var(--fs-lg); font-weight: 600; display: block; }
+.stat__label { font-size: var(--fs-xs); letter-spacing: var(--tracking-wide); text-transform: uppercase; color: var(--ink-3); }
+
+/* Generic auto-fit grids — one rule, many sections. */
+.grid { display: grid; gap: var(--s-5); }
+.grid--works { grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr)); }
+.grid--services { grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr)); }
+.grid--clients { grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr)); }
+.grid--quotes { grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); }
+.grid--split { gap: var(--s-7); }
+@media (width >= 56rem) { .grid--split { grid-template-columns: 1fr 1fr; } }
+
+/* Portrait stays a column, never a banner that pushes the bio off screen. */
+.grid--about { gap: var(--s-6); }
+@media (width >= 48rem) { .grid--about { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.4fr); gap: var(--s-7); align-items: start; } }
+
+/* Form gets the room; the details column stays a readable sidebar. */
+.grid--contact { gap: var(--s-6); }
+@media (width >= 62rem) { .grid--contact { grid-template-columns: minmax(0, 1.7fr) minmax(16rem, 1fr); gap: var(--s-7); } }
+
+/* Footer */
+.site-footer {
+  background: var(--paper-2);
+  border-block-start: 1px solid var(--line);
+  padding-block: var(--s-8) var(--s-5);
+}
+/* Explicit tracks, not auto-fit — the three link columns must never wrap apart. */
+.footer__grid {
+  display: grid;
+  gap: var(--s-7) var(--s-6);
+  grid-template-columns: 1fr;
+}
+@media (width >= 40rem) {
+  .footer__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .footer__brand { grid-column: 1 / -1; }
+}
+@media (width >= 64rem) {
+  .footer__grid { grid-template-columns: minmax(0, 1.6fr) repeat(3, minmax(0, 1fr)); }
+  .footer__brand { grid-column: auto; }
+}
+.footer__blurb { color: var(--ink-2); max-width: 26rem; margin-block-start: var(--s-4); font-size: var(--fs-sm); }
+
+.footer__title {
+  font-size: var(--fs-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-block-end: var(--s-4);
+}
+.footer__list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-3); font-size: var(--fs-sm); }
+.footer__list a { text-decoration: none; color: var(--ink-2); }
+.footer__list a:hover { color: var(--accent); }
+
+.footer__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3) var(--s-5);
+  align-items: center;
+  justify-content: space-between;
+  margin-block-start: var(--s-8);
+  padding-block-start: var(--s-5);
+  border-block-start: 1px solid var(--line);
+  font-size: var(--fs-xs);
+  color: var(--ink-3);
+}
+
+/* ---------- Tablet and phone ---------- */
+
+/* Tablet: two work columns read better than three cramped ones. */
+@media (48rem <= width < 64rem) {
+  .grid--works { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .grid--services { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .grid--clients { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .grid--quotes { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .section-head { grid-template-columns: 1fr; gap: var(--s-3); }
+}
+
+@media (width < 48rem) {
+  .section { padding-block: var(--s-8); }
+  .hero { padding-block: var(--s-7) var(--s-8); }
+  .hero__meta { gap: var(--s-4) var(--s-5); margin-block-start: var(--s-6); }
+  .grid { gap: var(--s-4); }
+  .footer__grid { gap: var(--s-6); }
+  .footer__bottom { margin-block-start: var(--s-6); }
+  .stat__value { font-size: var(--fs-md); }
+}
+
+/* Phone: single column everywhere, full-width tap targets. */
+@media (width < 30rem) {
+  .grid--works, .grid--services, .grid--clients, .grid--quotes { grid-template-columns: 1fr; }
+  /* Two short labels fit side by side; stacking them made each look oversized. */
+  .hero__actions .btn { padding: 0.65em 1.1em; font-size: var(--fs-xs); min-block-size: 2.75rem; }
+  .hero__meta { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s-3); }
+}

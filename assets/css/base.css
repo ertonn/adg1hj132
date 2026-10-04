@@ -1,0 +1,93 @@
+/* Reset, typography and global accessibility affordances. */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+* { margin: 0; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-h) + var(--s-4));
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  line-height: var(--lh-base);
+  font-synthesis-weight: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+body.is-locked { overflow: hidden; }
+
+img, svg, video, canvas { display: block; max-width: 100%; }
+img { height: auto; background: var(--paper-2); }
+
+input, button, textarea, select { font: inherit; color: inherit; }
+button { background: none; border: 0; cursor: pointer; }
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tracking-tight);
+  text-wrap: balance;
+}
+
+p, li { text-wrap: pretty; }
+
+a { color: inherit; text-decoration-color: color-mix(in srgb, currentColor 35%, transparent); text-underline-offset: 0.18em; }
+a:hover { text-decoration-color: currentColor; }
+
+:where(ul, ol)[role="list"] { list-style: none; padding: 0; }
+
+/* One visible focus style everywhere, keyboard-only. */
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+  border-radius: var(--radius);
+}
+:focus:not(:focus-visible) { outline: none; }
+
+::selection { background: var(--accent); color: var(--paper); }
+
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Skip link reveals itself on focus. */
+.skip-link {
+  position: fixed;
+  inset-block-start: var(--s-2);
+  inset-inline-start: var(--s-2);
+  z-index: calc(var(--z-toast) + 1);
+  padding: var(--s-3) var(--s-4);
+  background: var(--ink);
+  color: var(--paper);
+  border-radius: var(--radius);
+  transform: translateY(-200%);
+  transition: transform var(--dur-2) var(--ease-out);
+}
+.skip-link:focus { transform: none; }
+
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+[data-motion="reduced"] { scroll-behavior: auto; }
+
+/* Offscreen sections skip layout and paint until they are scrolled near. */
+.section { content-visibility: auto; contain-intrinsic-size: auto 600px; }
+.hero, #work { content-visibility: visible; }
+
+@media print {
+  .reveal, .stagger > * { opacity: 1 !important; transform: none !important; }
+  .site-header, .a11y-dock, .cookie-bar, .lightbox { display: none !important; }
+  body { background: #fff; color: #000; }
+}

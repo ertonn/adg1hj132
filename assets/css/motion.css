@@ -1,0 +1,165 @@
+/* Motion layer. Only transform and opacity animate, so every effect stays on the compositor. */
+
+/* ---------- Keyframes ---------- */
+@keyframes fade { from { opacity: 0; } }
+@keyframes rise { from { opacity: 0; transform: translateY(var(--lift-sm)); } }
+@keyframes rise-lg { from { opacity: 0; transform: translateY(var(--lift)); } }
+@keyframes slide-up { from { transform: translateY(100%); } }
+@keyframes sheet-up { from { transform: translateY(6%); } }
+@keyframes pop { from { opacity: 0; transform: scale(0.82); } }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+@keyframes pulse { 50% { opacity: 0.35; transform: scale(0.8); } }
+/* Both ends explicit: the implicit "to" would resolve to the element's own scaleX(0). */
+@keyframes grow-x { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes grow-y { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+@keyframes logo-wipe { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+
+/* ---------- Page entrance ---------- */
+/* Choreographed with delays rather than JS timers; nothing blocks first paint. */
+.site-header { animation: rise var(--dur-3) var(--ease-out) both; }
+
+.hero > .container > * { animation: rise-lg var(--dur-3) var(--ease-out) both; }
+.hero > .container > :nth-child(1) { animation-delay: 60ms; }
+.hero > .container > :nth-child(2) { animation-delay: 140ms; }
+.hero > .container > :nth-child(3) { animation-delay: 240ms; }
+.hero > .container > :nth-child(4) { animation-delay: 320ms; }
+.hero > .container > :nth-child(5) { animation-delay: 400ms; }
+
+/* The accent word arrives after the headline has settled. */
+.hero__title em { display: inline-block; animation: rise var(--dur-3) var(--ease-spring) 420ms both; }
+
+/* ---------- Scroll reveal ---------- */
+/* IntersectionObserver adds .is-in once, then unobserves — no scroll handler. */
+.reveal { opacity: 0; transform: translateY(var(--lift)); transition: opacity var(--dur-3) var(--ease-out), transform var(--dur-3) var(--ease-out); }
+.reveal.is-in { opacity: 1; transform: none; }
+
+/* Children stagger off an index set once at render time. */
+.stagger > * { opacity: 0; transform: translateY(var(--lift-sm)); transition: opacity var(--dur-2) var(--ease-out), transform var(--dur-2) var(--ease-out); }
+.is-in .stagger > *, .stagger.is-in > * { opacity: 1; transform: none; transition-delay: calc(var(--i, 0) * var(--stagger)); }
+
+/* ---------- Scroll-driven, zero main-thread cost ---------- */
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    /* Reading-progress rule under the header. */
+    .scroll-progress {
+      transform-origin: left center;
+      animation: grow-x linear both;
+      animation-timeline: scroll(root block);
+    }
+    /* The hero recedes as it leaves rather than cutting off. */
+    :root:not([data-motion="reduced"]) .hero > .container {
+      animation: hero-recede linear both;
+      animation-timeline: view(block);
+      animation-range: exit 0% exit 90%;
+    }
+  }
+}
+@keyframes hero-recede { to { opacity: 0.35; transform: translateY(-28px); } }
+
+/* ---------- Component motion ---------- */
+.site-header { transition: border-color var(--dur-2) var(--ease), background var(--dur-2) var(--ease); }
+
+.nav__link::after { transition: transform var(--dur-2) var(--ease-out); }
+.nav__link { transition: color var(--dur-1) var(--ease); }
+
+.btn { transition: background var(--dur-1) var(--ease), color var(--dur-1) var(--ease), border-color var(--dur-1) var(--ease), transform var(--dur-1) var(--ease); }
+.btn:hover { transform: translateY(-1px); }
+.btn:active { transform: translateY(0) scale(0.985); }
+
+.icon-btn { transition: background var(--dur-1) var(--ease), color var(--dur-1) var(--ease), border-color var(--dur-1) var(--ease), transform var(--dur-1) var(--ease); }
+.icon-btn:active { transform: scale(0.92); }
+/* Theme icon swaps with a quarter turn so the change reads as deliberate. */
+.icon-btn svg { transition: transform var(--dur-2) var(--ease-spring); }
+.theme-toggle:hover svg { transform: rotate(-20deg); }
+
+.chip { transition: color var(--dur-1) var(--ease), background var(--dur-1) var(--ease), border-color var(--dur-1) var(--ease), transform var(--dur-1) var(--ease); }
+.chip:active { transform: scale(0.96); }
+
+.work__media img { transition: transform var(--dur-4) var(--ease-out); }
+.work:hover .work__media img, .work:focus-visible .work__media img { transform: scale(1.045); }
+.work__title { transition: color var(--dur-2) var(--ease); }
+.work:hover .work__title { color: var(--accent); }
+.work__badge { animation: pop var(--dur-2) var(--ease-spring) both; }
+
+.service { transition: border-color var(--dur-2) var(--ease), transform var(--dur-2) var(--ease-out); }
+.service:hover { transform: translateY(-3px); }
+.service__icon { transition: transform var(--dur-2) var(--ease-spring); }
+.service:hover .service__icon { transform: scale(1.12) rotate(-6deg); }
+
+.client { transition: border-color var(--dur-2) var(--ease), background var(--dur-2) var(--ease), transform var(--dur-2) var(--ease-out); }
+.client[data-interactive="true"]:hover, .client[data-interactive="true"]:focus-visible { transform: translateY(-3px); }
+.client__mark { transition: transform var(--dur-2) var(--ease-spring); }
+.client[data-interactive="true"]:hover .client__mark { transform: scale(1.08); }
+.client__go { transition: opacity var(--dur-2) var(--ease), transform var(--dur-2) var(--ease-out); }
+
+.quote { transition: transform var(--dur-2) var(--ease-out), border-color var(--dur-2) var(--ease); }
+.quote:hover { transform: translateY(-2px); }
+
+.input, .textarea, .select { transition: border-color var(--dur-1) var(--ease), box-shadow var(--dur-1) var(--ease); }
+
+/* ---------- Overlays ---------- */
+.overlay { animation: fade var(--dur-2) var(--ease); }
+.panel { animation: rise var(--dur-2) var(--ease-out); }
+.cookie-bar { animation: slide-up var(--dur-3) var(--ease-out); }
+.a11y-dock__panel, .lang__menu { animation: rise var(--dur-2) var(--ease-out); transform-origin: bottom right; }
+.toast { animation: rise var(--dur-2) var(--ease-out); }
+
+/* Gallery tiles cascade in as the overlay opens. */
+.cgallery__grid > * { animation: rise var(--dur-2) var(--ease-out) both; animation-delay: calc(60ms + var(--i, 0) * 40ms); }
+
+/* Lightbox images crossfade instead of snapping between slides. */
+.lightbox__stage img { animation: fade var(--dur-2) var(--ease); }
+/* Background only. The arrows are centred with `translate`, so animating `transform`
+   here would stack a second offset on top of it and make them jump. */
+.lightbox__nav { transition: background var(--dur-1) var(--ease); }
+
+@media (width < 48rem) {
+  .panel, .panel--wide { animation: sheet-up var(--dur-3) var(--ease-out); }
+}
+
+/* ---------- Logo ---------- */
+/* The swooshes are filled tapered shapes, so they reveal by wipe rather than stroke-draw. */
+.logo__mark .logo__sweep { animation: logo-wipe var(--dur-3) var(--ease-out) backwards; }
+.logo__mark .logo__sweep--b { animation-delay: 120ms; }
+/* fill-box keeps the origin on the path itself, not the whole viewBox. */
+.logo__mark .logo__stem { transform-box: fill-box; transform-origin: bottom; animation: grow-y var(--dur-2) var(--ease-out) backwards; }
+.logo__mark .logo__tip { transform-box: fill-box; transform-origin: center; animation: pop var(--dur-2) var(--ease-spring) 480ms backwards; }
+.logo__mark { transition: color var(--dur-2) var(--ease); }
+.logo:hover .logo__mark { color: var(--accent); }
+
+.pill__dot { animation: pulse 2.4s var(--ease) infinite; }
+
+.a11y-dock__toggle { transition: transform var(--dur-2) var(--ease-spring); }
+.a11y-dock__toggle:hover { transform: scale(1.08); }
+.a11y-dock__toggle:active { transform: scale(0.94); }
+
+.nav { transition: opacity var(--dur-2) var(--ease), transform var(--dur-2) var(--ease-out), visibility var(--dur-2); }
+.footer__list a { transition: color var(--dur-1) var(--ease), transform var(--dur-1) var(--ease); }
+.footer__list a:hover { transform: translateX(3px); }
+
+/* ---------- View transitions ---------- */
+/* Theme, language and filter swaps cross-fade natively; unsupported browsers just cut. */
+::view-transition-old(root), ::view-transition-new(root) { animation-duration: var(--dur-2); }
+
+/* ---------- Reduced motion ---------- */
+/* One kill switch for the OS setting and the in-page toggle alike. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 1ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+    transition-delay: 0ms !important;
+  }
+  .reveal, .stagger > * { opacity: 1 !important; transform: none !important; }
+}
+
+[data-motion="reduced"] *, [data-motion="reduced"] *::before, [data-motion="reduced"] *::after {
+  animation-duration: 1ms !important;
+  animation-delay: 0ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 1ms !important;
+  transition-delay: 0ms !important;
+}
+[data-motion="reduced"] .reveal, [data-motion="reduced"] .stagger > * { opacity: 1 !important; transform: none !important; }

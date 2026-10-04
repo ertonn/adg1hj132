@@ -1,0 +1,158 @@
+{
+  "site": {
+    "title": "Nevila Samarxhi Akulli · Graphic & web design",
+    "description": "Portfolio of graphic design, editorial design and web development from Tirana, Albania."
+  },
+  "nav": {
+    "work": "Work",
+    "services": "Services",
+    "clients": "Clients",
+    "about": "About",
+    "contact": "Contact",
+    "menu": "Menu",
+    "close": "Close menu",
+    "home": "Home"
+  },
+  "common": {
+    "close": "Close",
+    "readMore": "Read more",
+    "viewProject": "View project",
+    "next": "Next",
+    "prev": "Previous",
+    "all": "All",
+    "backToTop": "Back to top",
+    "loading": "Loading…",
+    "email": "Email",
+    "phone": "Phone",
+    "copy": "Copy",
+    "copied": "Copied",
+    "of": "of",
+    "image": "Image",
+    "images": "images"
+  },
+  "hero": {
+    "ctaPrimary": "Start a project",
+    "ctaSecondary": "See the work",
+    "available": "Available"
+  },
+  "work": {
+    "filterLabel": "Filter by category",
+    "empty": "No projects in this category.",
+    "client": "Client",
+    "year": "Year",
+    "openLabel": "Open project"
+  },
+  "about": {
+    "skills": "Tools & skills",
+    "timeline": "Experience",
+    "downloadCv": "Download CV"
+  },
+  "contact": {
+    "name": "Your name",
+    "email": "Email",
+    "subject": "Project type",
+    "budget": "Budget",
+    "message": "Message",
+    "selectSubject": "Choose one",
+    "selectBudget": "Choose a range",
+    "consent": "I agree to my data being processed in order to answer this enquiry.",
+    "send": "Send message",
+    "sending": "Sending…",
+    "success": "Thank you, your message was sent. I reply within two working days.",
+    "error": "The message could not be sent. Please try again or email me directly.",
+    "required": "This field is required.",
+    "invalidEmail": "Please enter a valid email address.",
+    "tooShort": "Please write at least 20 characters.",
+    "spam": "Submission blocked. Please try again shortly.",
+    "direct": "Or email me directly",
+    "consentRequired": "Please accept the data processing notice.",
+    "location": "Location",
+    "privacyNote": "Your details are used only to answer this enquiry."
+  },
+  "footer": {
+    "nav": "Navigation",
+    "legal": "Legal",
+    "social": "Social",
+    "contact": "Contact",
+    "rights": "All rights reserved.",
+    "cookiePrefs": "Cookie preferences",
+    "madeIn": "Designed and built in Tirana."
+  },
+  "legal": {
+    "privacy": "Privacy policy",
+    "terms": "Terms of use",
+    "cookies": "Cookie policy",
+    "accessibility": "Accessibility statement",
+    "updated": "Last updated",
+    "back": "Back to home"
+  },
+  "a11y": {
+    "title": "Accessibility",
+    "open": "Accessibility options",
+    "reset": "Reset to defaults",
+    "note": "Your choices are stored only in this browser.",
+    "skip": "Skip to content",
+    "theme": "Theme",
+    "textSize": "Text size",
+    "contrast": "Contrast",
+    "motion": "Motion",
+    "font": "Typeface",
+    "spacing": "Spacing",
+    "underline": "Underline links",
+    "value": {
+      "auto": "Auto",
+      "light": "Light",
+      "dark": "Dark",
+      "md": "Normal",
+      "lg": "Large",
+      "xl": "Extra large",
+      "normal": "Normal",
+      "high": "High",
+      "reduced": "Reduced",
+      "default": "Default",
+      "readable": "Easy read",
+      "loose": "Loose",
+      "on": "On",
+      "off": "Off"
+    },
+    "toLight": "Switch to light theme",
+    "toDark": "Switch to dark theme"
+  },
+  "consent": {
+    "title": "Cookie consent",
+    "body": "We use the local storage strictly needed for the site to work. Analytics and preferences are optional.",
+    "acceptAll": "Accept all",
+    "rejectAll": "Reject optional",
+    "customise": "Customise",
+    "privacyPolicy": "Privacy",
+    "cookiePolicy": "Cookies",
+    "prefsTitle": "Cookie preferences",
+    "prefsBody": "Choose which categories to allow. You can change this at any time.",
+    "savePrefs": "Save choice",
+    "cat": {
+      "necessary": "Necessary",
+      "preferences": "Preferences",
+      "analytics": "Analytics",
+      "marketing": "Marketing"
+    },
+    "catDesc": {
+      "necessary": "Language, accessibility and the consent record. Always on.",
+      "preferences": "Theme and display choices.",
+      "analytics": "Anonymous visit statistics.",
+      "marketing": "Not currently used."
+    }
+  },
+  "lang": {
+    "label": "Language",
+    "choose": "Choose a language"
+  },
+  "clients": {
+    "projectCount": "{n} projects",
+    "viewWork": "View work",
+    "noWork": "No published projects yet.",
+    "projectCountOne": "1 project"
+  },
+  "testimonials": {
+    "eyebrow": "References"
+  }
+}

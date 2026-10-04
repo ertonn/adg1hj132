@@ -1,0 +1,30 @@
+# Apache equivalent of _headers. Remove if your host uses Netlify/Cloudflare Pages.
+<IfModule mod_headers.c>
+  Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "DENY"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "geolocation=(), microphone=(), camera=(), payment=()"
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self'; form-action 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'"
+  <FilesMatch "\.(css|js|svg|woff2)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <Files "content.json">
+    Header set Cache-Control "public, max-age=60, must-revalidate"
+  </Files>
+</IfModule>
+
+# Gate the admin panel at the server until a real backend exists.
+<Files "admin.html">
+  Header always set X-Robots-Tag "noindex, nofollow"
+  # AuthType Basic
+  # AuthName "Admin"
+  # AuthUserFile /absolute/path/.htpasswd
+  # Require valid-user
+</Files>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json image/svg+xml
+</IfModule>
+
+ErrorDocument 404 /404.html

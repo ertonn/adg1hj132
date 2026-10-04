@@ -1,0 +1,187 @@
+/* Admin chrome only — the panel reuses every component from the public site. */
+
+/* One source for the bar height, since the sidebar sticks below it. */
+:root { --admin-bar-h: 3.75rem; }
+
+.admin-gate { display: grid; place-items: center; min-block-size: 100dvh; padding: var(--gutter); }
+
+.admin-bar {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: var(--z-header);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-3);
+  min-block-size: var(--admin-bar-h);
+  padding: var(--s-3) var(--s-5);
+  background: var(--paper);
+  border-block-end: 1px solid var(--line);
+}
+
+.admin-layout { display: grid; align-items: start; min-block-size: calc(100dvh - var(--admin-bar-h)); }
+@media (width >= 60rem) { .admin-layout { grid-template-columns: 15rem 1fr; } }
+
+.admin-nav {
+  padding: var(--s-4);
+  border-inline-end: 1px solid var(--line);
+  position: sticky;
+  inset-block-start: var(--admin-bar-h);
+}
+.admin-nav ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+
+/* Below the sidebar breakpoint the panel list becomes a horizontal rail. */
+@media (width < 60rem) {
+  /* Static, not sticky: the bar wraps to two rows on narrow phones, so any fixed
+     offset here would end up sliding underneath it. */
+  .admin-nav {
+    position: static;
+    padding: var(--s-2) var(--s-3);
+    background: var(--paper);
+    border-inline-end: 0;
+    border-block-end: 1px solid var(--line);
+  }
+  /* The sidebar holds two lists split by a rule; scroll the whole rail, not each list,
+     so they read as one row instead of two stacked scrollers. */
+  .admin-nav {
+    display: flex;
+    align-items: center;
+    gap: var(--s-1);
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    scrollbar-width: thin;
+  }
+  .admin-nav ul { display: flex; gap: var(--s-1); }
+  .admin-nav li { flex: none; scroll-snap-align: start; }
+  .admin-nav hr { margin: 0; flex: none; inline-size: 1px; block-size: 1.5rem; border: 0; border-inline-start: 1px solid var(--line); }
+  .admin-nav__item { padding: var(--s-2) var(--s-3); }
+}
+
+.admin-nav__item {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  inline-size: 100%;
+  padding: var(--s-3) var(--s-4);
+  font-size: var(--fs-sm);
+  text-align: start;
+  white-space: nowrap;
+  border-radius: var(--radius);
+  color: var(--ink-2);
+  transition: background var(--dur-1) var(--ease), color var(--dur-1) var(--ease);
+}
+.admin-nav__item:hover { background: var(--paper-2); color: var(--ink); }
+.admin-nav__item[aria-current="true"] { background: var(--ink); color: var(--paper); }
+.admin-nav__item svg { flex: none; }
+
+.admin-panel { max-width: 52rem; padding: var(--s-6) var(--s-5) var(--s-9); }
+.admin-panel__head { margin-block-end: var(--s-6); padding-block-end: var(--s-4); border-block-end: 1px solid var(--line); }
+.admin-panel__head h2 { font-size: var(--fs-lg); }
+
+/* Repeater item: a collapsed summary row plus its nested fields. */
+.admin-card { border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--paper-2); }
+.admin-card + .admin-card { margin-block-start: var(--s-3); }
+.admin-card > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3);
+  padding: var(--s-3) var(--s-4);
+  cursor: pointer;
+  font-weight: 500;
+  list-style: none;
+}
+.admin-card > summary::-webkit-details-marker { display: none; }
+.admin-card > summary::before { content: "▸"; color: var(--ink-3); margin-inline-end: var(--s-2); }
+.admin-card[open] > summary::before { content: "▾"; }
+.admin-card__body { padding: 0 var(--s-4) var(--s-4); border-block-start: 1px solid var(--line); padding-block-start: var(--s-4); }
+
+.admin-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-4);
+  padding: var(--s-3) var(--s-4);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper-2);
+}
+.admin-row .checkbox { margin: 0; }
+
+/* Add control pinned above its list, with the current count beside it. */
+.list-add {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  padding-block-end: var(--s-3);
+  margin-block-end: var(--s-1);
+  border-block-end: 1px solid var(--line);
+}
+.list-add .tiny { margin-inline-start: auto; font-family: var(--font-mono); }
+
+.admin-panel .field__label { font-weight: 600; }
+.admin-panel input[type="file"] { padding: var(--s-2); font-size: var(--fs-sm); }
+
+/* Placeholder-auth notice: has to look like a warning, not a tip. */
+.admin-warning {
+  display: grid;
+  gap: var(--s-2);
+  padding: var(--s-4) var(--s-5);
+  background: color-mix(in srgb, var(--danger) 10%, transparent);
+  border: 1px solid color-mix(in srgb, var(--danger) 45%, transparent);
+  border-radius: var(--radius-lg);
+}
+.admin-warning p { margin: 0; }
+
+.admin-thumb { max-block-size: 6rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper-2); }
+
+/* Draft dialog: body scrolls, actions stay reachable at the foot. */
+.modal__body { max-block-size: min(62dvh, 40rem); overflow-y: auto; padding-inline-end: var(--s-2); }
+@media (width < 48rem) { .modal__body { max-block-size: 60dvh; } }
+.modal__body .field:last-child { margin-block-end: 0; }
+.modal__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--s-3);
+  margin-block-start: var(--s-5);
+  padding-block-start: var(--s-5);
+  border-block-start: 1px solid var(--line);
+}
+@media (width < 30rem) { .modal__actions .btn { flex: 1 1 100%; } }
+
+/* ---------- Phone ---------- */
+@media (width < 48rem) {
+  .admin-bar { padding: var(--s-2) var(--s-4); gap: var(--s-2); }
+  .admin-bar > .row:first-child { flex: 1 1 auto; min-inline-size: 0; }
+  .admin-bar strong { font-size: var(--fs-sm); }
+  .admin-panel { padding: var(--s-5) var(--s-4) var(--s-8); }
+  .admin-panel__head { margin-block-end: var(--s-5); }
+
+  /* A long project title must not shove the reorder buttons off the row. */
+  .admin-card > summary { gap: var(--s-2); padding: var(--s-3); }
+  .admin-card > summary > span:first-of-type { min-inline-size: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .admin-card__body { padding-inline: var(--s-3); }
+
+  .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(min(100%, 7rem), 1fr)); gap: var(--s-2); }
+  .admin-row { gap: var(--s-2); padding: var(--s-3); }
+}
+
+@media (width < 30rem) {
+  /* Keep the bar to one line: identity and the preview label are the first to go. */
+  .admin-bar__who { display: none; }
+  .admin-bar__view span { display: none; }
+  .admin-bar__view { padding-inline: 0.7em; }
+  #save-state { flex-basis: 100%; order: 3; }
+  .admin-nav__item span { font-size: var(--fs-xs); }
+}
+
+/* Gallery editor: thumbnails with reorder/delete controls. */
+.gallery-grid { display: grid; gap: var(--s-3); grid-template-columns: repeat(auto-fill, minmax(min(100%, 9rem), 1fr)); margin-block-end: var(--s-3); }
+.gallery-item { margin: 0; display: grid; gap: var(--s-2); padding: var(--s-2); border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); }
+.gallery-item .admin-thumb { inline-size: 100%; block-size: 5rem; object-fit: cover; max-block-size: none; }
+.gallery-item__bar { display: flex; justify-content: center; gap: var(--s-1); }
+.gallery-item__bar .icon-btn { inline-size: 2rem; block-size: 2rem; }
+/* The arrows move items along the row, so point them that way. */
+.gallery-item__bar .icon-btn:first-child svg { transform: rotate(-90deg); }
+.gallery-item__bar .icon-btn:nth-child(2) svg { transform: rotate(-90deg); }

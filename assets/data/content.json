@@ -1,0 +1,1467 @@
+{
+  "meta": {
+    "schema": 1,
+    "updatedAt": "2026-09-11T00:00:00.000Z"
+  },
+  "settings": {
+    "defaultLang": "sq",
+    "languages": [
+      "sq",
+      "en"
+    ],
+    "accent": "#4c3fa3",
+    "sections": [
+      {
+        "id": "hero",
+        "enabled": true
+      },
+      {
+        "id": "work",
+        "enabled": true
+      },
+      {
+        "id": "about",
+        "enabled": true
+      },
+      {
+        "id": "services",
+        "enabled": true
+      },
+      {
+        "id": "clients",
+        "enabled": true
+      },
+      {
+        "id": "testimonials",
+        "enabled": true
+      },
+      {
+        "id": "contact",
+        "enabled": true
+      }
+    ]
+  },
+  "profile": {
+    "name": "Nevila Samarxhi Akulli",
+    "initials": "NS",
+    "role": {
+      "sq": "Dizajnere grafike & pedagoge",
+      "en": "Graphic designer & lecturer",
+      "it": "Graphic designer e docente",
+      "de": "Grafikdesignerin & Dozentin",
+      "fr": "Graphiste & enseignante",
+      "es": "Diseñadora gráfica y docente"
+    },
+    "location": {
+      "sq": "Tiranë, Shqipëri",
+      "en": "Tirana, Albania",
+      "it": "Tirana, Albania",
+      "de": "Tirana, Albanien",
+      "fr": "Tirana, Albanie",
+      "es": "Tirana, Albania"
+    },
+    "email": "nevilasamarxhi@gmail.com",
+    "phone": "+355 68 22 03 356",
+    "portrait": "assets/img/portrait.webp",
+    "cvUrl": "",
+    "availability": {
+      "sq": "E lirë për projekte nga Janari",
+      "en": "Available for projects from January",
+      "it": "Disponibile per progetti da gennaio",
+      "de": "Ab Januar für Projekte verfügbar",
+      "fr": "Disponible pour des projets dès janvier",
+      "es": "Disponible para proyectos desde enero"
+    },
+    "atWork": "assets/img/about-lecture.webp"
+  },
+  "hero": {
+    "headline": {
+      "sq": "Dizajn që <em>komunikon</em>, jo vetëm dekoron.",
+      "en": "Design that <em>communicates</em>, not just decorates.",
+      "it": "Design che <em>comunica</em>, non solo decora.",
+      "de": "Design, das <em>kommuniziert</em>, nicht nur schmückt.",
+      "fr": "Un design qui <em>communique</em>, pas seulement qui décore.",
+      "es": "Diseño que <em>comunica</em>, no solo decora."
+    },
+    "lede": {
+      "sq": "Njëzet e pesë vjet grafikë editoriale, identitet vizual dhe tipografi për media, institucione dhe biznese në Shqipëri, si dhe faqe interneti që i çojnë ato online.",
+      "en": "Twenty-five years of editorial design, visual identity and typography for media, institutions and businesses across Albania, plus the websites that take them online.",
+      "it": "Venticinque anni di grafica editoriale, identità visiva e tipografia per media, istituzioni e imprese in Albania, e i siti web che li portano online.",
+      "de": "25 Jahre Editorial Design, visuelle Identität und Typografie für Medien, Institutionen und Unternehmen in Albanien, samt der Websites, die sie online bringen.",
+      "fr": "Vingt-cinq ans de design éditorial, d'identité visuelle et de typographie pour les médias, institutions et entreprises d'Albanie, et les sites web qui les mettent en ligne.",
+      "es": "Veinticinco años de diseño editorial, identidad visual y tipografía para medios, instituciones y empresas de Albania, y los sitios web que los llevan en línea."
+    },
+    "stats": [
+      {
+        "value": "25+",
+        "label": {
+          "sq": "Vite përvojë",
+          "en": "Years of practice",
+          "it": "Anni di attività",
+          "de": "Jahre Erfahrung",
+          "fr": "Ans de pratique",
+          "es": "Años de práctica"
+        }
+      },
+      {
+        "value": "200+",
+        "label": {
+          "sq": "Projekte të dorëzuara",
+          "en": "Projects delivered",
+          "it": "Progetti realizzati",
+          "de": "Umgesetzte Projekte",
+          "fr": "Projets livrés",
+          "es": "Proyectos entregados"
+        }
+      },
+      {
+        "value": "6",
+        "label": {
+          "sq": "Gjuhë pune",
+          "en": "Working languages",
+          "it": "Lingue di lavoro",
+          "de": "Arbeitssprachen",
+          "fr": "Langues de travail",
+          "es": "Idiomas de trabajo"
+        }
+      }
+    ]
+  },
+  "work": {
+    "title": {
+      "sq": "Punë të përzgjedhura",
+      "en": "Selected work",
+      "it": "Lavori selezionati",
+      "de": "Ausgewählte Arbeiten",
+      "fr": "Travaux sélectionnés",
+      "es": "Trabajos seleccionados"
+    },
+    "intro": {
+      "sq": "Gazeta, libra, identitete dhe ekspozita. Klikoni një projekt për ta parë të plotë.",
+      "en": "Newspapers, books, identities and exhibitions. Open a project to see it in full.",
+      "it": "Giornali, libri, identità ed esposizioni. Apri un progetto per vederlo per intero.",
+      "de": "Zeitungen, Bücher, Identitäten und Ausstellungen. Projekt öffnen für die ganze Arbeit.",
+      "fr": "Journaux, livres, identités et expositions. Ouvrez un projet pour le voir en entier.",
+      "es": "Periódicos, libros, identidades y exposiciones. Abre un proyecto para verlo completo."
+    }
+  },
+  "categories": [
+    {
+      "id": "editorial",
+      "label": {
+        "sq": "Editoriale",
+        "en": "Editorial",
+        "it": "Editoriale",
+        "de": "Editorial",
+        "fr": "Édition",
+        "es": "Editorial"
+      }
+    },
+    {
+      "id": "identity",
+      "label": {
+        "sq": "Identitet",
+        "en": "Identity",
+        "it": "Identità",
+        "de": "Identität",
+        "fr": "Identité",
+        "es": "Identidad"
+      }
+    },
+    {
+      "id": "publishing",
+      "label": {
+        "sq": "Botime",
+        "en": "Publishing",
+        "it": "Editoria",
+        "de": "Verlag",
+        "fr": "Publication",
+        "es": "Publicación"
+      }
+    },
+    {
+      "id": "exhibition",
+      "label": {
+        "sq": "Ekspozita",
+        "en": "Exhibition",
+        "it": "Mostre",
+        "de": "Ausstellung",
+        "fr": "Exposition",
+        "es": "Exposición"
+      }
+    },
+    {
+      "id": "web",
+      "label": {
+        "sq": "Web",
+        "en": "Web",
+        "it": "Web",
+        "de": "Web",
+        "fr": "Web",
+        "es": "Web"
+      }
+    }
+  ],
+  "works": [
+    {
+      "id": "w-gazeta",
+      "featured": true,
+      "category": "editorial",
+      "clientId": "c-gazeta",
+      "client": "Gazeta Shqiptare",
+      "year": "1999–2024",
+      "cover": "assets/img/work-01.svg",
+      "images": [
+        "assets/img/work-01.svg",
+        "assets/img/work-07.svg",
+        "assets/img/work-16.svg"
+      ],
+      "title": {
+        "sq": "Gazeta Shqiptare: dizajn i përditshëm",
+        "en": "Gazeta Shqiptare: daily design"
+      },
+      "summary": {
+        "sq": "Faqosje e përditshme, suplemente dhe arkiv për gazetën kombëtare.",
+        "en": "Daily layout, supplements and archive for the national daily."
+      },
+      "body": {
+        "sq": "Si dizajnere e parë dhe më pas shefe e grafikës në grupin mediatik EDISUD, kam drejtuar identitetin vizual të gazetës për një çerek shekulli: rrjetin e faqosjes, hierarkinë tipografike, infografikat dhe suplementet javore, si dhe kalimin e redaksisë drejt botimit online.",
+        "en": "As lead designer and later head of graphics at the EDISUD media group, I shaped the paper's visual identity for a quarter of a century: the layout grid, typographic hierarchy, infographics and weekly supplements, and the newsroom's move to online publishing."
+      },
+      "tags": [
+        "Layout",
+        "Typography",
+        "Infographics",
+        "InDesign"
+      ]
+    },
+    {
+      "id": "w-bunkart2",
+      "featured": true,
+      "category": "exhibition",
+      "clientId": "c-bunkart",
+      "client": "BunkArt 1 & 2",
+      "year": "2024–",
+      "cover": "assets/img/work-02.svg",
+      "images": [
+        "assets/img/work-02.svg",
+        "assets/img/work-10.svg"
+      ],
+      "title": {
+        "sq": "BunkArt 2: grafikë ekspozite",
+        "en": "BunkArt 2: exhibition graphics"
+      },
+      "summary": {
+        "sq": "Panele, sinjalistikë dhe materiale interpretuese për muzeun.",
+        "en": "Panels, wayfinding and interpretive material for the museum."
+      },
+      "body": {
+        "sq": "Grafikë mjedisore për një nga muzetë më të vizituar të Tiranës: panele interpretuese dygjuhëshe, sinjalistikë dhe materiale të shtypura që duhet të lexohen qartë në dritë të ulët dhe hapësira betoni.",
+        "en": "Environmental graphics for one of Tirana's most-visited museums: bilingual interpretive panels, wayfinding and print material that must stay legible in low light and raw concrete spaces."
+      },
+      "tags": [
+        "Exhibition",
+        "Wayfinding",
+        "Bilingual"
+      ]
+    },
+    {
+      "id": "w-qbz",
+      "featured": true,
+      "category": "publishing",
+      "clientId": "c-qbz",
+      "client": "Qendra e Botimeve Zyrtare",
+      "year": "2021–2024",
+      "cover": "assets/img/work-03.svg",
+      "images": [
+        "assets/img/work-03.svg",
+        "assets/img/work-11.svg",
+        "assets/img/work-19.svg"
+      ],
+      "title": {
+        "sq": "Botime zyrtare të shtetit",
+        "en": "Official state publications"
+      },
+      "summary": {
+        "sq": "Kodet, Kushtetuta, Fletorja Zyrtare dhe përmbledhje vjetore.",
+        "en": "Legal codes, the Constitution, the Official Gazette and annual digests."
+      },
+      "body": {
+        "sq": "Sistem tipografik për dokumente ligjore ku saktësia është gjithçka: hierarki nenesh, numërim i qëndrueshëm, tabela dhe indekse që funksionojnë njësoj në shtyp dhe në PDF.",
+        "en": "A typographic system for legal documents where precision is everything: article hierarchy, stable numbering, tables and indexes that behave the same in print and in PDF."
+      },
+      "tags": [
+        "Book design",
+        "Typesetting",
+        "Systems"
+      ]
+    },
+    {
+      "id": "w-nentori",
+      "featured": true,
+      "category": "identity",
+      "clientId": "c-studio",
+      "client": "Studio (punë e pavarur)",
+      "year": "2023",
+      "cover": "assets/img/work-04.svg",
+      "images": [
+        "assets/img/work-04.svg",
+        "assets/img/work-12.svg"
+      ],
+      "title": {
+        "sq": "Nëntori: identitet vizual",
+        "en": "Nëntori: visual identity"
+      },
+      "summary": {
+        "sq": "Markë, paletë dhe udhëzues përdorimi për një studio arkitekture.",
+        "en": "Mark, palette and usage guide for an architecture studio."
+      },
+      "body": {
+        "sq": "Identitet i ndërtuar mbi një rrjet gjeometrik: një shenjë që funksionon nga vula te fasada, dy familje shkronjash dhe një udhëzues i shkurtër që ekipi mund ta zbatojë vetë.",
+        "en": "An identity built on a geometric grid: a mark that works from stamp to facade, two type families, and a short guide the team can apply without help."
+      },
+      "tags": [
+        "Logo",
+        "Brand guide",
+        "Stationery"
+      ]
+    },
+    {
+      "id": "w-liqen",
+      "featured": false,
+      "category": "publishing",
+      "clientId": "c-publishers",
+      "client": "Botues të ndryshëm",
+      "year": "2022",
+      "cover": "assets/img/work-05.svg",
+      "images": [
+        "assets/img/work-05.svg",
+        "assets/img/work-20.svg"
+      ],
+      "title": {
+        "sq": "Dritare mbi liqen",
+        "en": "Dritare mbi liqen"
+      },
+      "summary": {
+        "sq": "Kopertinë dhe faqosje e brendshme për një përmbledhje poezish.",
+        "en": "Cover and interior for a poetry collection."
+      },
+      "body": {
+        "sq": "Kopertina niset nga vargu, jo nga trendi: një formë e vetme, shumë hapësirë e bardhë dhe një bllok tipografik që mban titullin e gjatë pa u ngushtuar.",
+        "en": "The cover starts from the verse, not from a trend: a single form, generous white space, and a type block that carries a long title without crowding it."
+      },
+      "tags": [
+        "Cover",
+        "Interior",
+        "Print"
+      ]
+    },
+    {
+      "id": "w-portofol",
+      "featured": false,
+      "category": "web",
+      "clientId": "c-studio",
+      "client": "Studio (punë e pavarur)",
+      "year": "2025",
+      "cover": "assets/img/work-06.svg",
+      "images": [
+        "assets/img/work-06.svg",
+        "assets/img/work-17.svg"
+      ],
+      "title": {
+        "sq": "Portofol dhe faqe studioje",
+        "en": "Portfolio and studio sites"
+      },
+      "summary": {
+        "sq": "Faqe të shpejta, shumëgjuhëshe dhe të aksesueshme.",
+        "en": "Fast, multilingual, accessible sites."
+      },
+      "body": {
+        "sq": "Dizajn dhe ndërtim i faqeve që ngarkohen shpejt, lexohen nga lexuesit e ekranit dhe administrohen pa ndihmë teknike.",
+        "en": "Design and build for sites that load fast, read well in screen readers, and are editable without technical help."
+      },
+      "tags": [
+        "HTML",
+        "CSS",
+        "Accessibility",
+        "CMS"
+      ]
+    },
+    {
+      "id": "w-qyteti",
+      "featured": false,
+      "category": "editorial",
+      "clientId": "c-gazeta",
+      "client": "Gazeta Shqiptare",
+      "year": "2021",
+      "cover": "assets/img/work-07.svg",
+      "images": [
+        "assets/img/work-07.svg",
+        "assets/img/work-13.svg"
+      ],
+      "title": {
+        "sq": "Qyteti i ri: dosje urbanistike",
+        "en": "Qyteti i ri: an urban dossier"
+      },
+      "summary": {
+        "sq": "Dosje e gjatë me hartë, fotografi dhe grafikë shpjeguese.",
+        "en": "A long-form dossier with maps, photography and explanatory graphics."
+      },
+      "body": {
+        "sq": "Tetë faqe mbi transformimin e qendrës së Tiranës, me një rrjet elastik që mban hartat e mëdha pa i shkëputur nga teksti.",
+        "en": "Eight pages on the transformation of central Tirana, on a flexible grid that holds large maps without cutting them off from the text."
+      },
+      "tags": [
+        "Editorial",
+        "Maps",
+        "Long-form"
+      ]
+    },
+    {
+      "id": "w-fokus",
+      "featured": false,
+      "category": "editorial",
+      "clientId": "c-edisud",
+      "client": "EDISUD Spa",
+      "year": "2019",
+      "cover": "assets/img/work-08.svg",
+      "images": [
+        "assets/img/work-08.svg",
+        "assets/img/work-16.svg"
+      ],
+      "title": {
+        "sq": "FOKUS: rinovim i revistës",
+        "en": "FOKUS: magazine redesign"
+      },
+      "summary": {
+        "sq": "Rinovim i plotë i masthead-it, rrjetit dhe rubrikave.",
+        "en": "A full redesign of the masthead, grid and sections."
+      },
+      "body": {
+        "sq": "Rinovim që shkurtoi kohën e faqosjes për redaksinë dhe i dha revistës një hierarki të qartë midis dosjeve, intervistave dhe rubrikave të shkurtra.",
+        "en": "A redesign that cut production time for the newsroom and gave the magazine a clear hierarchy between dossiers, interviews and short columns."
+      },
+      "tags": [
+        "Magazine",
+        "Masthead",
+        "Grid"
+      ]
+    },
+    {
+      "id": "w-tipo",
+      "featured": true,
+      "category": "identity",
+      "clientId": "c-focus",
+      "client": "Focus Press",
+      "year": "2024",
+      "cover": "assets/img/work-09.svg",
+      "images": [
+        "assets/img/work-09.svg",
+        "assets/img/work-18.svg"
+      ],
+      "title": {
+        "sq": "Java e Dizajnit: fushatë",
+        "en": "Design Week: campaign"
+      },
+      "summary": {
+        "sq": "Postera, program dhe materiale për festivalin e dizajnit.",
+        "en": "Posters, programme and collateral for the design festival."
+      },
+      "body": {
+        "sq": "Një sistem posterash ku ndryshon vetëm fjala dominuese dhe ngjyra, në mënyrë që fushata të njihet edhe kur shihet me bisht të syrit.",
+        "en": "A poster system where only the dominant word and colour change, so the campaign stays recognisable even when seen out of the corner of an eye."
+      },
+      "tags": [
+        "Poster",
+        "Campaign",
+        "Typography"
+      ]
+    },
+    {
+      "id": "w-bunkart1",
+      "featured": false,
+      "category": "exhibition",
+      "clientId": "c-bunkart",
+      "client": "BunkArt 1 & 2",
+      "year": "2024–",
+      "cover": "assets/img/work-10.svg",
+      "images": [
+        "assets/img/work-10.svg",
+        "assets/img/work-02.svg"
+      ],
+      "title": {
+        "sq": "BunkArt 1: sinjalistikë",
+        "en": "BunkArt 1: wayfinding"
+      },
+      "summary": {
+        "sq": "Orientim dhe panele për tunelin qendror.",
+        "en": "Orientation and panels for the central tunnel."
+      },
+      "body": {
+        "sq": "Sinjalistikë për një hapësirë pa dritë natyrale, ku çdo tabelë duhet lexuar nga tre metra dhe në dy gjuhë.",
+        "en": "Wayfinding for a space with no natural light, where every sign must read from three metres away and in two languages."
+      },
+      "tags": [
+        "Signage",
+        "Exhibition"
+      ]
+    },
+    {
+      "id": "w-kodi",
+      "featured": false,
+      "category": "publishing",
+      "clientId": "c-qbz",
+      "client": "Qendra e Botimeve Zyrtare",
+      "year": "2023",
+      "cover": "assets/img/work-11.svg",
+      "images": [
+        "assets/img/work-11.svg",
+        "assets/img/work-19.svg",
+        "assets/img/work-03.svg"
+      ],
+      "title": {
+        "sq": "Kodi Civil: botim i tetë",
+        "en": "Civil Code: eighth edition"
+      },
+      "summary": {
+        "sq": "Faqosje, indeks dhe sistem numërimi për një volum 900-faqesh.",
+        "en": "Typesetting, index and numbering system for a 900-page volume."
+      },
+      "body": {
+        "sq": "Një volum ku çdo referencë duhet të gjendet në sekonda: koka faqesh aktive, indeks i dyfishtë dhe një hierarki nenesh që nuk thyhet kurrë mes faqeve.",
+        "en": "A volume where any reference must be findable in seconds: running heads, a double index, and an article hierarchy that never breaks across pages."
+      },
+      "tags": [
+        "Typesetting",
+        "Index",
+        "Long document"
+      ]
+    },
+    {
+      "id": "w-ujevara",
+      "featured": false,
+      "category": "identity",
+      "clientId": "c-studio",
+      "client": "Studio (punë e pavarur)",
+      "year": "2022",
+      "cover": "assets/img/work-12.svg",
+      "images": [
+        "assets/img/work-12.svg",
+        "assets/img/work-04.svg"
+      ],
+      "title": {
+        "sq": "Ujëvara: markë ushqimore",
+        "en": "Ujëvara: food brand"
+      },
+      "summary": {
+        "sq": "Identitet dhe paketim për një prodhues vendas.",
+        "en": "Identity and packaging for a local producer."
+      },
+      "body": {
+        "sq": "Markë e ndërtuar për rafte të mbushura: kontrast i lartë, një shenjë e thjeshtë dhe etiketa që mbeten të lexueshme edhe në formatin më të vogël.",
+        "en": "A brand built for crowded shelves: high contrast, one simple mark, and labels that stay legible at the smallest size."
+      },
+      "tags": [
+        "Packaging",
+        "Logo",
+        "Label"
+      ]
+    },
+    {
+      "id": "w-suplement",
+      "featured": false,
+      "category": "editorial",
+      "clientId": "c-gazeta",
+      "client": "Gazeta Shqiptare",
+      "year": "2015–2024",
+      "cover": "assets/img/work-13.svg",
+      "images": [
+        "assets/img/work-13.svg",
+        "assets/img/work-01.svg"
+      ],
+      "title": {
+        "sq": "Suplemente javore",
+        "en": "Weekly supplements"
+      },
+      "summary": {
+        "sq": "Kulturë, ekonomi dhe sport, çdo javë për nëntë vjet.",
+        "en": "Culture, economy and sport, every week for nine years."
+      },
+      "body": {
+        "sq": "Tri suplemente me personalitete të ndryshme, por me të njëjtin rrjet bazë, në mënyrë që redaksia të mund t'i prodhonte brenda ditës.",
+        "en": "Three supplements with distinct personalities on one shared underlying grid, so the newsroom could produce each within the day."
+      },
+      "tags": [
+        "Supplement",
+        "Weekly",
+        "Grid"
+      ]
+    },
+    {
+      "id": "w-shije",
+      "featured": false,
+      "category": "editorial",
+      "clientId": "c-edisud",
+      "client": "EDISUD Spa",
+      "year": "2018",
+      "cover": "assets/img/work-14.svg",
+      "images": [
+        "assets/img/work-14.svg",
+        "assets/img/work-08.svg"
+      ],
+      "title": {
+        "sq": "SHIJE: revistë gastronomike",
+        "en": "SHIJE: food magazine"
+      },
+      "summary": {
+        "sq": "Revistë sezonale me fokus te fotografia.",
+        "en": "A seasonal magazine built around photography."
+      },
+      "body": {
+        "sq": "Faqosje që i lë fotografisë hapësirën kryesore dhe përdor tipografinë vetëm sa për të udhëhequr leximin.",
+        "en": "A layout that gives photography the leading role and uses typography only as much as it takes to guide the reader."
+      },
+      "tags": [
+        "Magazine",
+        "Food",
+        "Photography"
+      ]
+    },
+    {
+      "id": "w-taverna",
+      "featured": false,
+      "category": "identity",
+      "clientId": "c-focus",
+      "client": "Focus Press",
+      "year": "2021",
+      "cover": "assets/img/work-15.svg",
+      "images": [
+        "assets/img/work-15.svg",
+        "assets/img/work-09.svg"
+      ],
+      "title": {
+        "sq": "Taverna e Vjetër: menu dhe shenjë",
+        "en": "Taverna e Vjetër: menu and sign"
+      },
+      "summary": {
+        "sq": "Menu, tabelë dhe materiale të vogla për një restorant.",
+        "en": "Menu, signage and small print for a restaurant."
+      },
+      "body": {
+        "sq": "Një menu që rezistonte përdorimit të përditshëm: pak faqe, hierarki e qartë çmimesh dhe letër që mbante njolla pa u dukur e konsumuar.",
+        "en": "A menu built to survive daily use: few pages, a clear price hierarchy, and stock that took stains without looking worn."
+      },
+      "tags": [
+        "Menu",
+        "Signage",
+        "Print"
+      ]
+    },
+    {
+      "id": "w-arkivi",
+      "featured": false,
+      "category": "editorial",
+      "clientId": "c-edisud",
+      "client": "EDISUD Spa",
+      "year": "2024",
+      "cover": "assets/img/work-16.svg",
+      "images": [
+        "assets/img/work-16.svg",
+        "assets/img/work-07.svg"
+      ],
+      "title": {
+        "sq": "Arkivi: njëzet e pesë vjet faqe",
+        "en": "Archive: twenty-five years of pages"
+      },
+      "summary": {
+        "sq": "Retrospektivë e faqosjeve nga 1999 deri 2024.",
+        "en": "A retrospective of layouts from 1999 to 2024."
+      },
+      "body": {
+        "sq": "Një përmbledhje që tregon si ndryshoi gjuha vizuale e gazetës bashkë me teknologjinë e shtypit dhe me vetë lexuesin.",
+        "en": "A retrospective showing how the paper's visual language changed alongside print technology and the reader."
+      },
+      "tags": [
+        "Retrospective",
+        "Archive"
+      ]
+    },
+    {
+      "id": "w-dyqan",
+      "featured": false,
+      "category": "web",
+      "clientId": "c-balkanweb",
+      "client": "Balkanweb",
+      "year": "2025",
+      "cover": "assets/img/work-17.svg",
+      "images": [
+        "assets/img/work-17.svg",
+        "assets/img/work-06.svg"
+      ],
+      "title": {
+        "sq": "Dyqan online",
+        "en": "Online shop"
+      },
+      "summary": {
+        "sq": "Katalog dhe arkë për një markë të vogël.",
+        "en": "Catalogue and checkout for a small brand."
+      },
+      "body": {
+        "sq": "Faqe e ndërtuar rreth fotografisë së produktit, me një rrugë blerjeje që mbaron në tre hapa dhe funksionon njësoj në telefon.",
+        "en": "A site built around product photography, with a purchase path that finishes in three steps and behaves the same on a phone."
+      },
+      "tags": [
+        "E-commerce",
+        "Catalogue",
+        "Mobile"
+      ]
+    },
+    {
+      "id": "w-festa",
+      "featured": false,
+      "category": "identity",
+      "clientId": "c-news24",
+      "client": "News24",
+      "year": "2023",
+      "cover": "assets/img/work-18.svg",
+      "images": [
+        "assets/img/work-18.svg",
+        "assets/img/work-09.svg"
+      ],
+      "title": {
+        "sq": "Festa: fushatë verore",
+        "en": "Festa: summer campaign"
+      },
+      "summary": {
+        "sq": "Identitet eventi, postera dhe grafikë për ekran.",
+        "en": "Event identity, posters and on-screen graphics."
+      },
+      "body": {
+        "sq": "Një paletë e fortë dhe një shenjë e vetme që funksionon te posteri, te ekrani i televizionit dhe te formati vertikal i rrjeteve.",
+        "en": "One strong palette and a single mark that works on a poster, on the television screen and in a vertical social format."
+      },
+      "tags": [
+        "Event",
+        "Broadcast",
+        "Social"
+      ]
+    },
+    {
+      "id": "w-kushtetuta",
+      "featured": false,
+      "category": "publishing",
+      "clientId": "c-qbz",
+      "client": "Qendra e Botimeve Zyrtare",
+      "year": "2022",
+      "cover": "assets/img/work-19.svg",
+      "images": [
+        "assets/img/work-19.svg",
+        "assets/img/work-11.svg"
+      ],
+      "title": {
+        "sq": "Kushtetuta: botim zyrtar",
+        "en": "The Constitution: official edition"
+      },
+      "summary": {
+        "sq": "Botim reprezentativ me faqosje klasike.",
+        "en": "A presentation edition with classical typesetting."
+      },
+      "body": {
+        "sq": "Botim ku tipografia duhet të jetë e padukshme: pa zbukurime, me një ritëm leximi që nuk ndryshon nga faqja e parë te e fundit.",
+        "en": "An edition where the typography must be invisible: no ornament, and a reading rhythm that never changes from first page to last."
+      },
+      "tags": [
+        "Typesetting",
+        "Official",
+        "Classical"
+      ]
+    },
+    {
+      "id": "w-manual",
+      "featured": false,
+      "category": "publishing",
+      "clientId": "c-umt",
+      "client": "Universiteti Metropolitan Tirana",
+      "year": "2025",
+      "cover": "assets/img/work-20.svg",
+      "images": [
+        "assets/img/work-20.svg",
+        "assets/img/work-05.svg"
+      ],
+      "title": {
+        "sq": "Tipografia: manual universitar",
+        "en": "Typography: a university manual"
+      },
+      "summary": {
+        "sq": "Manual mësimor me shembuj dhe ushtrime.",
+        "en": "A teaching manual with examples and exercises."
+      },
+      "body": {
+        "sq": "Manual i shkruar dhe i faqosur për studentët e vitit të parë, ku çdo shembull tregohet në të njëjtën faqe me rregullin që shpjegon.",
+        "en": "A manual written and typeset for first-year students, where every example sits on the same page as the rule it explains."
+      },
+      "tags": [
+        "Education",
+        "Manual",
+        "Typography"
+      ]
+    }
+  ],
+  "services": {
+    "title": {
+      "sq": "Shërbime",
+      "en": "Services",
+      "it": "Servizi",
+      "de": "Leistungen",
+      "fr": "Services",
+      "es": "Servicios"
+    },
+    "intro": {
+      "sq": "Punoj me organizata dhe biznese nga koncepti te dorëzimi final, në shqip, anglisht dhe italisht.",
+      "en": "I work with organisations and businesses from concept to final delivery, in Albanian, English and Italian.",
+      "it": "Lavoro con organizzazioni e aziende dal concept alla consegna finale, in albanese, inglese e italiano.",
+      "de": "Ich begleite Organisationen und Unternehmen vom Konzept bis zur finalen Übergabe, auf Albanisch, Englisch und Italienisch.",
+      "fr": "J'accompagne organisations et entreprises du concept à la livraison finale, en albanais, anglais et italien.",
+      "es": "Trabajo con organizaciones y empresas desde el concepto hasta la entrega final, en albanés, inglés e italiano."
+    },
+    "items": [
+      {
+        "id": "s-brand",
+        "icon": "spark",
+        "title": {
+          "sq": "Identitet vizual",
+          "en": "Visual identity",
+          "it": "Identità visiva",
+          "de": "Visuelle Identität",
+          "fr": "Identité visuelle",
+          "es": "Identidad visual"
+        },
+        "desc": {
+          "sq": "Logo, paletë, tipografi dhe udhëzues i plotë përdorimi.",
+          "en": "Logo, palette, typography and a complete usage guide.",
+          "it": "Logo, palette, tipografia e guida d'uso completa.",
+          "de": "Logo, Farbpalette, Typografie und vollständiger Styleguide.",
+          "fr": "Logo, palette, typographie et guide d'utilisation complet.",
+          "es": "Logotipo, paleta, tipografía y guía de uso completa."
+        },
+        "note": {
+          "sq": "nga 2–4 javë",
+          "en": "from 2–4 weeks",
+          "it": "da 2–4 settimane",
+          "de": "ab 2–4 Wochen",
+          "fr": "à partir de 2–4 semaines",
+          "es": "desde 2–4 semanas"
+        }
+      },
+      {
+        "id": "s-editorial",
+        "icon": "book",
+        "title": {
+          "sq": "Dizajn editorial",
+          "en": "Editorial design",
+          "it": "Design editoriale",
+          "de": "Editorial Design",
+          "fr": "Design éditorial",
+          "es": "Diseño editorial"
+        },
+        "desc": {
+          "sq": "Libra, revista, raporte vjetore dhe katalogë. Nga rrjeti te shtypi.",
+          "en": "Books, magazines, annual reports and catalogues. From grid to press.",
+          "it": "Libri, riviste, bilanci e cataloghi. Dalla griglia alla stampa.",
+          "de": "Bücher, Magazine, Geschäftsberichte und Kataloge. Vom Raster bis zum Druck.",
+          "fr": "Livres, magazines, rapports annuels et catalogues. De la grille à l'impression.",
+          "es": "Libros, revistas, memorias anuales y catálogos. De la retícula a la imprenta."
+        },
+        "note": {
+          "sq": "sipas volumit",
+          "en": "scoped by volume",
+          "it": "in base al volume",
+          "de": "nach Umfang",
+          "fr": "selon le volume",
+          "es": "según el volumen"
+        }
+      },
+      {
+        "id": "s-web",
+        "icon": "code",
+        "title": {
+          "sq": "Faqe interneti",
+          "en": "Web design & build",
+          "it": "Siti web",
+          "de": "Webdesign & Umsetzung",
+          "fr": "Sites web",
+          "es": "Diseño y desarrollo web"
+        },
+        "desc": {
+          "sq": "Faqe të shpejta e shumëgjuhëshe, me panel administrimi dhe aksesueshmëri.",
+          "en": "Fast multilingual sites with an admin panel and accessibility built in.",
+          "it": "Siti multilingue veloci, con pannello di amministrazione e accessibilità.",
+          "de": "Schnelle mehrsprachige Websites mit Adminbereich und Barrierefreiheit.",
+          "fr": "Sites multilingues rapides, avec panneau d'administration et accessibilité.",
+          "es": "Sitios multilingües rápidos, con panel de administración y accesibilidad."
+        },
+        "note": {
+          "sq": "nga 3 javë",
+          "en": "from 3 weeks",
+          "it": "da 3 settimane",
+          "de": "ab 3 Wochen",
+          "fr": "à partir de 3 semaines",
+          "es": "desde 3 semanas"
+        }
+      },
+      {
+        "id": "s-print",
+        "icon": "layers",
+        "title": {
+          "sq": "Shtyp & prodhim",
+          "en": "Print & production",
+          "it": "Stampa e produzione",
+          "de": "Druck & Produktion",
+          "fr": "Impression & production",
+          "es": "Impresión y producción"
+        },
+        "desc": {
+          "sq": "Përgatitje për shtyp, mbikëqyrje prodhimi dhe kontroll ngjyrash.",
+          "en": "Pre-press preparation, production supervision and colour control.",
+          "it": "Prestampa, supervisione della produzione e controllo colore.",
+          "de": "Druckvorstufe, Produktionsbegleitung und Farbkontrolle.",
+          "fr": "Prépresse, suivi de production et contrôle des couleurs.",
+          "es": "Preimpresión, supervisión de producción y control de color."
+        },
+        "note": {
+          "sq": "me orë ose projekt",
+          "en": "hourly or per project",
+          "it": "a ore o a progetto",
+          "de": "stündlich oder pro Projekt",
+          "fr": "à l'heure ou au projet",
+          "es": "por hora o por proyecto"
+        }
+      },
+      {
+        "id": "s-motion",
+        "icon": "play",
+        "title": {
+          "sq": "Video & motion",
+          "en": "Video & motion",
+          "it": "Video e motion",
+          "de": "Video & Motion",
+          "fr": "Vidéo & motion",
+          "es": "Vídeo y motion"
+        },
+        "desc": {
+          "sq": "Montim, grafikë në lëvizje dhe përmbajtje për rrjete sociale.",
+          "en": "Editing, motion graphics and social media content.",
+          "it": "Montaggio, motion graphics e contenuti social.",
+          "de": "Schnitt, Motion Graphics und Social-Media-Inhalte.",
+          "fr": "Montage, motion design et contenus sociaux.",
+          "es": "Edición, motion graphics y contenido para redes."
+        },
+        "note": {
+          "sq": "paketa mujore",
+          "en": "monthly packages",
+          "it": "pacchetti mensili",
+          "de": "Monatspakete",
+          "fr": "forfaits mensuels",
+          "es": "paquetes mensuales"
+        }
+      },
+      {
+        "id": "s-teaching",
+        "icon": "users",
+        "title": {
+          "sq": "Trajnime & konsulencë",
+          "en": "Training & consulting",
+          "it": "Formazione e consulenza",
+          "de": "Schulung & Beratung",
+          "fr": "Formation & conseil",
+          "es": "Formación y consultoría"
+        },
+        "desc": {
+          "sq": "Workshop-e tipografie dhe dizajni për ekipe dhe institucione arsimore.",
+          "en": "Typography and design workshops for teams and educational institutions.",
+          "it": "Workshop di tipografia e design per team e istituzioni educative.",
+          "de": "Typografie- und Design-Workshops für Teams und Bildungseinrichtungen.",
+          "fr": "Ateliers de typographie et de design pour équipes et établissements.",
+          "es": "Talleres de tipografía y diseño para equipos e instituciones educativas."
+        },
+        "note": {
+          "sq": "në vend ose online",
+          "en": "on site or online",
+          "it": "in sede o online",
+          "de": "vor Ort oder online",
+          "fr": "sur place ou en ligne",
+          "es": "presencial u online"
+        }
+      }
+    ]
+  },
+  "clients": {
+    "title": {
+      "sq": "Klientë & bashkëpunime",
+      "en": "Clients & collaborations",
+      "it": "Clienti e collaborazioni",
+      "de": "Kunden & Kooperationen",
+      "fr": "Clients & collaborations",
+      "es": "Clientes y colaboraciones"
+    },
+    "intro": {
+      "sq": "Media, institucione publike, universitete dhe biznese private.",
+      "en": "Media, public institutions, universities and private businesses.",
+      "it": "Media, istituzioni pubbliche, università e aziende private.",
+      "de": "Medien, öffentliche Institutionen, Universitäten und Privatunternehmen.",
+      "fr": "Médias, institutions publiques, universités et entreprises privées.",
+      "es": "Medios, instituciones públicas, universidades y empresas privadas."
+    },
+    "items": [
+      {
+        "id": "c-gazeta",
+        "name": "Gazeta Shqiptare",
+        "url": "",
+        "logo": "assets/img/logo-c-gazeta.svg",
+        "sector": {
+          "sq": "Media",
+          "en": "Media",
+          "it": "Media",
+          "de": "Medien",
+          "fr": "Médias",
+          "es": "Medios"
+        },
+        "blurb": {
+          "sq": "Gazeta e përditshme kombëtare: faqosje, suplemente dhe infografika për njëzet e pesë vjet.",
+          "en": "The national daily: layout, supplements and infographics across twenty-five years."
+        }
+      },
+      {
+        "id": "c-edisud",
+        "name": "EDISUD Spa",
+        "url": "",
+        "logo": "assets/img/logo-c-edisud.svg",
+        "sector": {
+          "sq": "Grup mediatik",
+          "en": "Media group",
+          "it": "Gruppo editoriale",
+          "de": "Mediengruppe",
+          "fr": "Groupe média",
+          "es": "Grupo de medios"
+        },
+        "blurb": {
+          "sq": "Grupi mediatik italo-shqiptar: televizion, radio dhe botime online.",
+          "en": "The Italian-Albanian media group: television, radio and online publishing."
+        }
+      },
+      {
+        "id": "c-focus",
+        "name": "Focus Press",
+        "url": "",
+        "logo": "assets/img/logo-c-focus.svg",
+        "sector": {
+          "sq": "Botime",
+          "en": "Publishing",
+          "it": "Editoria",
+          "de": "Verlag",
+          "fr": "Édition",
+          "es": "Editorial"
+        },
+        "blurb": {
+          "sq": "Shtëpi botuese dhe shtypshkronjë, Tiranë.",
+          "en": "Publishing house and press, Tirana."
+        }
+      },
+      {
+        "id": "c-bunkart",
+        "name": "BunkArt 1 & 2",
+        "url": "",
+        "logo": "assets/img/logo-c-bunkart.svg",
+        "sector": {
+          "sq": "Muze",
+          "en": "Museum",
+          "it": "Museo",
+          "de": "Museum",
+          "fr": "Musée",
+          "es": "Museo"
+        },
+        "blurb": {
+          "sq": "Dy muze historie në bunkerë të Luftës së Ftohtë, me mbi 100 mijë vizitorë në vit.",
+          "en": "Two history museums inside Cold War bunkers, drawing over 100,000 visitors a year."
+        }
+      },
+      {
+        "id": "c-qbz",
+        "name": "Qendra e Botimeve Zyrtare",
+        "url": "",
+        "logo": "assets/img/logo-c-qbz.svg",
+        "sector": {
+          "sq": "Institucion shtetëror",
+          "en": "State institution",
+          "it": "Istituzione statale",
+          "de": "Staatliche Einrichtung",
+          "fr": "Institution publique",
+          "es": "Institución estatal"
+        },
+        "blurb": {
+          "sq": "Botuesi zyrtar i legjislacionit shqiptar: Fletorja Zyrtare, kodet dhe Kushtetuta.",
+          "en": "Official publisher of Albanian legislation: the Official Gazette, legal codes and the Constitution."
+        }
+      },
+      {
+        "id": "c-umt",
+        "name": "Universiteti Metropolitan Tirana",
+        "url": "",
+        "logo": "assets/img/logo-c-umt.svg",
+        "sector": {
+          "sq": "Arsim",
+          "en": "Education",
+          "it": "Istruzione",
+          "de": "Bildung",
+          "fr": "Éducation",
+          "es": "Educación"
+        },
+        "blurb": {
+          "sq": "Pedagoge në grafikë editoriale, tipografi dhe postproduksion.",
+          "en": "Lecturer in editorial graphics, typography and post-production."
+        }
+      },
+      {
+        "id": "c-news24",
+        "name": "News24",
+        "url": "",
+        "logo": "assets/img/logo-c-news24.svg",
+        "sector": {
+          "sq": "Televizion",
+          "en": "Television",
+          "it": "Televisione",
+          "de": "Fernsehen",
+          "fr": "Télévision",
+          "es": "Televisión"
+        },
+        "blurb": {
+          "sq": "Grafikë ekrani dhe identitet për kanalin e lajmeve.",
+          "en": "On-screen graphics and identity for the news channel."
+        }
+      },
+      {
+        "id": "c-balkanweb",
+        "name": "Balkanweb",
+        "url": "",
+        "logo": "assets/img/logo-c-balkanweb.svg",
+        "sector": {
+          "sq": "Media online",
+          "en": "Online media",
+          "it": "Media online",
+          "de": "Onlinemedien",
+          "fr": "Média en ligne",
+          "es": "Medios online"
+        },
+        "blurb": {
+          "sq": "Portali i lajmeve: grafikë dhe përmbajtje vizuale.",
+          "en": "News portal: graphics and visual content."
+        }
+      },
+      {
+        "id": "c-publishers",
+        "name": "Botues të ndryshëm",
+        "url": "",
+        "logo": "assets/img/logo-c-publishers.svg",
+        "sector": {
+          "sq": "Botime",
+          "en": "Publishing",
+          "it": "Editoria",
+          "de": "Verlag",
+          "fr": "Édition",
+          "es": "Editorial"
+        },
+        "blurb": {
+          "sq": "Kopertina dhe faqosje për shtëpi botuese shqiptare, nga poezia te manualet universitare.",
+          "en": "Covers and interiors for Albanian publishers, from poetry to university manuals."
+        }
+      },
+      {
+        "id": "c-studio",
+        "name": "Studio (punë e pavarur)",
+        "url": "",
+        "logo": "assets/img/logo-c-studio.svg",
+        "sector": {
+          "sq": "E pavarur",
+          "en": "Independent",
+          "it": "Indipendente",
+          "de": "Unabhängig",
+          "fr": "Indépendant",
+          "es": "Independiente"
+        },
+        "blurb": {
+          "sq": "Identitete dhe faqe interneti për biznese të vogla dhe organizata.",
+          "en": "Identities and websites for small businesses and organisations."
+        }
+      }
+    ]
+  },
+  "about": {
+    "title": {
+      "sq": "Rreth meje",
+      "en": "About",
+      "it": "Chi sono",
+      "de": "Über mich",
+      "fr": "À propos",
+      "es": "Sobre mí"
+    },
+    "body": {
+      "sq": "Jam Nevila Samarxhi Akulli, dizajnere grafike me bazë në Tiranë. Kam nisur në redaksi në vitin 1996 dhe kalova njëzet e pesë vjet duke ndërtuar pamjen e përditshme të Gazetës Shqiptare: fillimisht si dizajnere e parë, pastaj si shefe e grafikës për grupin mediatik EDISUD. Sot punoj me institucione, botues dhe biznese, dhe jap mësim dizajn grafik, komunikim vizual dhe tipografi në universitet. Besoj te puna e qetë, te rrjeti tipografik dhe te dizajni që zgjat më shumë se trendi.",
+      "en": "I am Nevila Samarxhi Akulli, a graphic designer based in Tirana. I started in a newsroom in 1996 and spent twenty-five years shaping the daily face of Gazeta Shqiptare: first as lead designer, later as head of graphics for the EDISUD media group. Today I work with institutions, publishers and businesses, and I teach graphic design, visual communication and typography at university level. I believe in quiet work, in the typographic grid, and in design that outlasts the trend.",
+      "it": "Sono Nevila Samarxhi Akulli, graphic designer con base a Tirana. Ho iniziato in redazione nel 1996 e ho passato venticinque anni a costruire il volto quotidiano di Gazeta Shqiptare: prima come designer principale, poi come responsabile grafica del gruppo EDISUD. Oggi lavoro con istituzioni, editori e aziende, e insegno design grafico, comunicazione visiva e tipografia all'università.",
+      "de": "Ich bin Nevila Samarxhi Akulli, Grafikdesignerin in Tirana. 1996 begann ich in einer Redaktion und prägte 25 Jahre lang das tägliche Gesicht von Gazeta Shqiptare: zuerst als leitende Designerin, später als Grafikleiterin der Mediengruppe EDISUD. Heute arbeite ich mit Institutionen, Verlagen und Unternehmen und lehre Grafikdesign, visuelle Kommunikation und Typografie an der Universität.",
+      "fr": "Je suis Nevila Samarxhi Akulli, graphiste basée à Tirana. J'ai commencé en rédaction en 1996 et passé vingt-cinq ans à façonner le visage quotidien de Gazeta Shqiptare: d'abord comme designer principale, puis comme responsable graphique du groupe EDISUD. Aujourd'hui je travaille avec des institutions, des éditeurs et des entreprises, et j'enseigne le design graphique, la communication visuelle et la typographie à l'université.",
+      "es": "Soy Nevila Samarxhi Akulli, diseñadora gráfica afincada en Tirana. Empecé en una redacción en 1996 y pasé veinticinco años dando forma al rostro diario de Gazeta Shqiptare: primero como diseñadora principal y después como responsable de gráfica del grupo EDISUD. Hoy trabajo con instituciones, editoriales y empresas, y enseño diseño gráfico, comunicación visual y tipografía en la universidad."
+    },
+    "skills": [
+      "Adobe InDesign",
+      "Illustrator",
+      "Photoshop",
+      "After Effects",
+      "Premiere Pro",
+      "Figma",
+      "Typography",
+      "Pre-press",
+      "HTML / CSS"
+    ],
+    "timeline": [
+      {
+        "year": "2024–",
+        "text": {
+          "sq": "Staf akademik me kohë të plotë: Dizajn Grafik, Komunikim Vizual, Tipografi",
+          "en": "Full-time academic staff: Graphic Design, Visual Communication, Typography"
+        }
+      },
+      {
+        "year": "2025–",
+        "text": {
+          "sq": "Pedagoge me kohë të pjesshme, Universiteti Metropolitan Tirana",
+          "en": "Part-time lecturer, Metropolitan University of Tirana"
+        }
+      },
+      {
+        "year": "2024–",
+        "text": {
+          "sq": "Dizajnere, BunkArt 1 & 2",
+          "en": "Designer, BunkArt 1 & 2"
+        }
+      },
+      {
+        "year": "2021–2024",
+        "text": {
+          "sq": "Dizajnere, Qendra e Botimeve Zyrtare",
+          "en": "Designer, Official Publications Centre"
+        }
+      },
+      {
+        "year": "1999–2024",
+        "text": {
+          "sq": "Shefe e grafikës, Grupi mediatik EDISUD / Gazeta Shqiptare",
+          "en": "Head of graphics, EDISUD media group / Gazeta Shqiptare"
+        }
+      },
+      {
+        "year": "1996–1999",
+        "text": {
+          "sq": "Dizajnere e parë, redaksi",
+          "en": "Lead designer, newsroom"
+        }
+      }
+    ],
+    "atWorkCaption": {
+      "sq": "Leksion mbi dizajnin editorial, Tiranë",
+      "en": "Editorial design lecture, Tirana"
+    }
+  },
+  "testimonials": {
+    "title": {
+      "sq": "Fjalë klientësh",
+      "en": "What clients say",
+      "it": "Dicono i clienti",
+      "de": "Kundenstimmen",
+      "fr": "Ce que disent les clients",
+      "es": "Lo que dicen los clientes"
+    },
+    "items": [
+      {
+        "id": "t-1",
+        "quote": {
+          "sq": "Nevila e kupton tekstin para se të prekë formën. Kjo duket në çdo faqe.",
+          "en": "Nevila understands the text before she touches the form. It shows on every page."
+        },
+        "author": "Redaksia, Gazeta Shqiptare",
+        "role": {
+          "sq": "Media",
+          "en": "Media"
+        }
+      },
+      {
+        "id": "t-2",
+        "quote": {
+          "sq": "Dorëzim në kohë, skedarë të pastër dhe zero probleme në shtyp.",
+          "en": "Delivered on time, clean files, and zero problems at the printer."
+        },
+        "author": "Focus Press",
+        "role": {
+          "sq": "Botime",
+          "en": "Publishing"
+        }
+      },
+      {
+        "id": "t-3",
+        "quote": {
+          "sq": "Na dha një sistem që ekipi ynë e përdor vetë, pa na u dashur ta pyesim çdo javë.",
+          "en": "She gave us a system our own team can run, without asking her every week."
+        },
+        "author": "Studio Nëntori",
+        "role": {
+          "sq": "Arkitekturë",
+          "en": "Architecture"
+        }
+      },
+      {
+        "id": "t-4",
+        "quote": {
+          "sq": "Panelet lexohen qartë edhe në gjysmëerrësirën e tunelit. Kjo ishte gjithë sfida.",
+          "en": "The panels read clearly even in the half-dark of the tunnel. That was the whole challenge."
+        },
+        "author": "BunkArt",
+        "role": {
+          "sq": "Muze",
+          "en": "Museum"
+        }
+      },
+      {
+        "id": "t-5",
+        "quote": {
+          "sq": "Saktësi absolute në një volum 900-faqesh, pa asnjë korrigjim në fazën e fundit.",
+          "en": "Absolute precision across a 900-page volume, with no corrections at the final stage."
+        },
+        "author": "Qendra e Botimeve Zyrtare",
+        "role": {
+          "sq": "Institucion",
+          "en": "Institution"
+        }
+      }
+    ]
+  },
+  "contact": {
+    "title": {
+      "sq": "Le të punojmë bashkë",
+      "en": "Let's work together",
+      "it": "Lavoriamo insieme",
+      "de": "Arbeiten wir zusammen",
+      "fr": "Travaillons ensemble",
+      "es": "Trabajemos juntos"
+    },
+    "intro": {
+      "sq": "Tregoni shkurt projektin, afatin dhe buxhetin. Përgjigjem brenda dy ditësh pune.",
+      "en": "Tell me briefly about the project, the deadline and the budget. I reply within two working days.",
+      "it": "Raccontami in breve il progetto, la scadenza e il budget. Rispondo entro due giorni lavorativi.",
+      "de": "Beschreiben Sie kurz Projekt, Termin und Budget. Ich antworte innerhalb von zwei Werktagen.",
+      "fr": "Décrivez brièvement le projet, le délai et le budget. Je réponds sous deux jours ouvrés.",
+      "es": "Cuéntame brevemente el proyecto, el plazo y el presupuesto. Respondo en dos días laborables."
+    },
+    "endpoint": "",
+    "budgets": [
+      "< 500 €",
+      "500–1.500 €",
+      "1.500–5.000 €",
+      "> 5.000 €"
+    ]
+  },
+  "socials": [
+    {
+      "id": "linkedin",
+      "label": "LinkedIn",
+      "url": "https://linkedin.com/",
+      "icon": "linkedin"
+    },
+    {
+      "id": "email",
+      "label": "Email",
+      "url": "mailto:nevilasamarxhi@gmail.com",
+      "icon": "mail"
+    }
+  ],
+  "footer": {
+    "blurb": {
+      "sq": "Studio dizajni grafik dhe zhvillimi web me bazë në Tiranë, që punon me klientë në Shqipëri dhe Europë.",
+      "en": "Graphic design and web development studio based in Tirana, working with clients across Albania and Europe.",
+      "it": "Studio di graphic design e sviluppo web con base a Tirana, per clienti in Albania e in Europa.",
+      "de": "Studio für Grafikdesign und Webentwicklung in Tirana, für Kundinnen und Kunden in Albanien und Europa.",
+      "fr": "Studio de design graphique et de développement web basé à Tirana, pour des clients en Albanie et en Europe.",
+      "es": "Estudio de diseño gráfico y desarrollo web con base en Tirana, para clientes de Albania y Europa."
+    },
+    "legalName": "Nevila Samarxhi Akulli",
+    "nipt": "",
+    "address": {
+      "sq": "Tiranë, Shqipëri",
+      "en": "Tirana, Albania"
+    }
+  },
+  "legal": {
+    "privacy": {
+      "title": {
+        "sq": "Politika e privatësisë",
+        "en": "Privacy policy",
+        "it": "Informativa sulla privacy",
+        "de": "Datenschutzerklärung",
+        "fr": "Politique de confidentialité",
+        "es": "Política de privacidad"
+      },
+      "updated": "2026-09-11",
+      "body": {
+        "sq": "<p>Kjo faqe respekton Ligjin nr. 9887/2008 «Për mbrojtjen e të dhënave personale», i ndryshuar, dhe Rregulloren (BE) 2016/679 (GDPR) për vizitorët nga Bashkimi Europian.</p><h3>Kontrolluesi i të dhënave</h3><p>Nevila Samarxhi Akulli, Tiranë, Shqipëri. Kontakt: nevilasamarxhi@gmail.com</p><h3>Çfarë mbledhim</h3><p>Mbledhim vetëm të dhënat që na dërgoni vullnetarisht nëpërmjet formularit të kontaktit: emrin, adresën e email-it dhe përmbajtjen e mesazhit. Nuk përdorim gjurmues reklamash.</p><h3>Baza ligjore dhe afati i ruajtjes</h3><p>Baza ligjore është pëlqimi juaj dhe interesi ynë legjitim për t'iu përgjigjur kërkesave. Mesazhet ruhen deri në 24 muaj dhe më pas fshihen.</p><h3>Të drejtat tuaja</h3><p>Keni të drejtën e aksesit, korrigjimit, fshirjes, kufizimit, kundërshtimit dhe transportueshmërisë së të dhënave. Për t'i ushtruar, na shkruani në adresën më sipër. Keni gjithashtu të drejtë të ankoheni pranë Komisionerit për të Drejtën e Informimit dhe Mbrojtjen e të Dhënave Personale (IDP), Tiranë: www.idp.al</p><h3>Transferime dhe përpunues</h3><p>Faqja strehohet nga një ofrues shërbimi që mund të ndodhet brenda Zonës Ekonomike Europiane. Nuk shesim dhe nuk ndajmë të dhëna me palë të treta për qëllime marketingu.</p>",
+        "en": "<p>This site complies with Albanian Law no. 9887/2008 «On the Protection of Personal Data», as amended, and with Regulation (EU) 2016/679 (GDPR) for visitors from the European Union.</p><h3>Data controller</h3><p>Nevila Samarxhi Akulli, Tirana, Albania. Contact: nevilasamarxhi@gmail.com</p><h3>What we collect</h3><p>We collect only the data you voluntarily send through the contact form: your name, email address and the content of your message. We use no advertising trackers.</p><h3>Legal basis and retention</h3><p>The legal basis is your consent and our legitimate interest in responding to enquiries. Messages are kept for up to 24 months and then deleted.</p><h3>Your rights</h3><p>You have the right of access, rectification, erasure, restriction, objection and data portability. To exercise them, write to the address above. You may also lodge a complaint with the Information and Data Protection Commissioner (IDP), Tirana: www.idp.al</p><h3>Transfers and processors</h3><p>The site is hosted by a service provider that may be located within the European Economic Area. We do not sell or share data with third parties for marketing purposes.</p>"
+      }
+    },
+    "cookies": {
+      "title": {
+        "sq": "Politika e cookies",
+        "en": "Cookie policy",
+        "it": "Informativa sui cookie",
+        "de": "Cookie-Richtlinie",
+        "fr": "Politique de cookies",
+        "es": "Política de cookies"
+      },
+      "updated": "2026-09-11",
+      "body": {
+        "sq": "<p>Përdorim vetëm ruajtje lokale të domosdoshme për funksionimin e faqes. Asnjë cookie gjurmimi nuk vendoset pa pëlqimin tuaj.</p><h3>Kategoritë</h3><ul><li><strong>Të domosdoshme:</strong> gjuha e zgjedhur, preferencat e aksesueshmërisë dhe vetë regjistrimi i pëlqimit. Nuk mund të çaktivizohen.</li><li><strong>Preferenca:</strong> tema e errët/e çelët dhe zgjedhje të tjera pamore.</li><li><strong>Analitika:</strong> statistika anonime vizitash. Të çaktivizuara si parazgjedhje.</li><li><strong>Marketing:</strong> nuk përdoren aktualisht.</li></ul><h3>Si t'i menaxhoni</h3><p>Mund të ndryshoni zgjedhjen tuaj në çdo moment nga lidhja «Preferencat e cookies» në fund të faqes, ose duke pastruar të dhënat e faqes në shfletuesin tuaj.</p>",
+        "en": "<p>We use only the local storage strictly necessary for the site to work. No tracking cookie is set without your consent.</p><h3>Categories</h3><ul><li><strong>Necessary:</strong> chosen language, accessibility preferences and the consent record itself. These cannot be disabled.</li><li><strong>Preferences:</strong> dark/light theme and other display choices.</li><li><strong>Analytics:</strong> anonymous visit statistics. Off by default.</li><li><strong>Marketing:</strong> not currently used.</li></ul><h3>Managing your choice</h3><p>You can change your choice at any time from the «Cookie preferences» link in the footer, or by clearing site data in your browser.</p>"
+      }
+    },
+    "accessibility": {
+      "title": {
+        "sq": "Deklarata e aksesueshmërisë",
+        "en": "Accessibility statement",
+        "it": "Dichiarazione di accessibilità",
+        "de": "Erklärung zur Barrierefreiheit",
+        "fr": "Déclaration d'accessibilité",
+        "es": "Declaración de accesibilidad"
+      },
+      "updated": "2026-09-11",
+      "body": {
+        "sq": "<p>Kjo faqe synon të përmbushë nivelin AA të Udhëzimeve për Aksesueshmërinë e Përmbajtjes në Web (WCAG) 2.2.</p><h3>Çfarë kemi bërë</h3><ul><li>Strukturë semantike me pika referimi dhe një lidhje «Kalo te përmbajtja».</li><li>Navigim i plotë me tastierë dhe fokus i dukshëm kudo.</li><li>Kontrast ngjyrash që plotëson ose tejkalon 4.5:1 për tekstin.</li><li>Panel preferencash: madhësi teksti, kontrast i lartë, shkronja lehtësisht të lexueshme, hapësira të gjera, nënvizim lidhjesh dhe reduktim animacionesh.</li><li>Respektim i cilësimit të sistemit «prefers-reduced-motion».</li><li>Tekst alternativ për imazhet dhe etiketa për çdo fushë formulari.</li></ul><h3>Kufizime të njohura</h3><p>Disa imazhe arkivore nuk kanë përshkrim të plotë. Po punojmë për t'i plotësuar.</p><h3>Na njoftoni</h3><p>Nëse hasni një pengesë, na shkruani në nevilasamarxhi@gmail.com dhe përgjigjemi brenda dy ditësh pune.</p>",
+        "en": "<p>This site aims to meet level AA of the Web Content Accessibility Guidelines (WCAG) 2.2.</p><h3>What we have done</h3><ul><li>Semantic structure with landmarks and a «Skip to content» link.</li><li>Full keyboard navigation with a visible focus indicator throughout.</li><li>Colour contrast meeting or exceeding 4.5:1 for text.</li><li>A preferences panel: text size, high contrast, easy-read typeface, loose spacing, link underlines and reduced motion.</li><li>The system «prefers-reduced-motion» setting is respected.</li><li>Alternative text for images and a label on every form field.</li></ul><h3>Known limitations</h3><p>Some archive images lack a full description. We are working through them.</p><h3>Tell us</h3><p>If you hit a barrier, write to nevilasamarxhi@gmail.com and we will reply within two working days.</p>"
+      }
+    },
+    "terms": {
+      "title": {
+        "sq": "Kushtet e përdorimit",
+        "en": "Terms of use",
+        "it": "Termini d'uso",
+        "de": "Nutzungsbedingungen",
+        "fr": "Conditions d'utilisation",
+        "es": "Términos de uso"
+      },
+      "updated": "2026-09-11",
+      "body": {
+        "sq": "<p>Duke përdorur këtë faqe pranoni kushtet e mëposhtme.</p><h3>Pronësia intelektuale</h3><p>Të gjitha veprat, imazhet dhe tekstet e paraqitura janë të mbrojtura nga Ligji nr. 35/2016 «Për të drejtat e autorit dhe të drejtat e tjera të lidhura me to». Riprodhimi pa leje me shkrim është i ndaluar.</p><h3>Përmbajtja e klientëve</h3><p>Punët e paraqitura mbeten pronë e klientëve përkatës dhe shfaqen këtu vetëm si portofol.</p><h3>Kufizimi i përgjegjësisë</h3><p>Përmbajtja ofrohet «siç është». Nuk mbajmë përgjegjësi për dëme që rrjedhin nga përdorimi i faqes.</p><h3>Ligji i zbatueshëm</h3><p>Zbatohet legjislacioni i Republikës së Shqipërisë. Juridiksioni kompetent është Gjykata e Tiranës.</p>",
+        "en": "<p>By using this site you accept the terms below.</p><h3>Intellectual property</h3><p>All works, images and texts shown are protected under Albanian Law no. 35/2016 «On Copyright and Related Rights». Reproduction without written permission is prohibited.</p><h3>Client content</h3><p>Work shown remains the property of the respective clients and appears here solely as a portfolio.</p><h3>Limitation of liability</h3><p>Content is provided «as is». We accept no liability for damages arising from use of the site.</p><h3>Governing law</h3><p>The law of the Republic of Albania applies. The competent jurisdiction is the Tirana Court.</p>"
+      }
+    }
+  },
+  "admin": {
+    "sessionMinutes": 60
+  }
+}

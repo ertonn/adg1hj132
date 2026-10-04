@@ -1,0 +1,158 @@
+{
+  "site": {
+    "title": "Nevila Samarxhi Akulli · Dizajn grafik & web",
+    "description": "Portofol dizajni grafik, grafike editoriale dhe zhvillimi web nga Tirana, Shqipëri."
+  },
+  "nav": {
+    "work": "Punë",
+    "services": "Shërbime",
+    "clients": "Klientë",
+    "about": "Rreth meje",
+    "contact": "Kontakt",
+    "menu": "Menu",
+    "close": "Mbyll menunë",
+    "home": "Ballina"
+  },
+  "common": {
+    "close": "Mbyll",
+    "readMore": "Lexo më shumë",
+    "viewProject": "Shiko projektin",
+    "next": "Tjetër",
+    "prev": "Para",
+    "all": "Të gjitha",
+    "backToTop": "Kthehu lart",
+    "loading": "Duke u ngarkuar…",
+    "email": "Email",
+    "phone": "Telefon",
+    "copy": "Kopjo",
+    "copied": "U kopjua",
+    "of": "nga",
+    "image": "Imazhi",
+    "images": "imazhe"
+  },
+  "hero": {
+    "ctaPrimary": "Nis një projekt",
+    "ctaSecondary": "Shiko punët",
+    "available": "E disponueshme"
+  },
+  "work": {
+    "filterLabel": "Filtro sipas kategorisë",
+    "empty": "Asnjë projekt në këtë kategori.",
+    "client": "Klienti",
+    "year": "Viti",
+    "openLabel": "Hap projektin"
+  },
+  "about": {
+    "skills": "Mjete & aftësi",
+    "timeline": "Përvoja",
+    "downloadCv": "Shkarko CV-në"
+  },
+  "contact": {
+    "name": "Emri juaj",
+    "email": "Email",
+    "subject": "Lloji i projektit",
+    "budget": "Buxheti",
+    "message": "Mesazhi",
+    "selectSubject": "Zgjidhni një opsion",
+    "selectBudget": "Zgjidhni një interval",
+    "consent": "Pranoj që të dhënat e mia të përpunohen për t'iu përgjigjur kësaj kërkese.",
+    "send": "Dërgo mesazhin",
+    "sending": "Duke dërguar…",
+    "success": "Faleminderit, mesazhi u dërgua. Përgjigjem brenda dy ditësh pune.",
+    "error": "Mesazhi nuk u dërgua dot. Provoni përsëri ose më shkruani drejtpërdrejt.",
+    "required": "Kjo fushë është e detyrueshme.",
+    "invalidEmail": "Shkruani një adresë email të vlefshme.",
+    "tooShort": "Ju lutem shkruani të paktën 20 karaktere.",
+    "spam": "Dërgim i bllokuar. Provoni sërish pas pak.",
+    "direct": "Ose më shkruani drejtpërdrejt",
+    "consentRequired": "Duhet të pranoni përpunimin e të dhënave.",
+    "location": "Vendndodhja",
+    "privacyNote": "Të dhënat tuaja përdoren vetëm për t'iu përgjigjur kësaj kërkese."
+  },
+  "footer": {
+    "nav": "Navigimi",
+    "legal": "Ligjore",
+    "social": "Rrjete sociale",
+    "contact": "Kontakt",
+    "rights": "Të gjitha të drejtat e rezervuara.",
+    "cookiePrefs": "Preferencat e cookies",
+    "madeIn": "Projektuar dhe ndërtuar në Tiranë."
+  },
+  "legal": {
+    "privacy": "Politika e privatësisë",
+    "terms": "Kushtet e përdorimit",
+    "cookies": "Politika e cookies",
+    "accessibility": "Deklarata e aksesueshmërisë",
+    "updated": "Përditësuar më",
+    "back": "Kthehu në ballinë"
+  },
+  "a11y": {
+    "title": "Aksesueshmëria",
+    "open": "Opsionet e aksesueshmërisë",
+    "reset": "Rikthe parazgjedhjet",
+    "note": "Zgjedhjet ruhen vetëm në shfletuesin tuaj.",
+    "skip": "Kalo te përmbajtja",
+    "theme": "Tema",
+    "textSize": "Madhësia e tekstit",
+    "contrast": "Kontrasti",
+    "motion": "Animacionet",
+    "font": "Shkronjat",
+    "spacing": "Hapësira",
+    "underline": "Nënvizo lidhjet",
+    "value": {
+      "auto": "Automatik",
+      "light": "E çelët",
+      "dark": "E errët",
+      "md": "Normale",
+      "lg": "E madhe",
+      "xl": "Shumë e madhe",
+      "normal": "Normal",
+      "high": "I lartë",
+      "reduced": "Të reduktuara",
+      "default": "Parazgjedhur",
+      "readable": "Lehtësisht të lexueshme",
+      "loose": "Të gjera",
+      "on": "Po",
+      "off": "Jo"
+    },
+    "toLight": "Kalo në temën e çelët",
+    "toDark": "Kalo në temën e errët"
+  },
+  "consent": {
+    "title": "Pëlqimi për cookies",
+    "body": "Përdorim ruajtje lokale të domosdoshme për funksionimin e faqes. Analitika dhe preferencat janë opsionale.",
+    "acceptAll": "Prano të gjitha",
+    "rejectAll": "Refuzo opsionalet",
+    "customise": "Personalizo",
+    "privacyPolicy": "Privatësia",
+    "cookiePolicy": "Cookies",
+    "prefsTitle": "Preferencat e cookies",
+    "prefsBody": "Zgjidhni kategoritë që dëshironi të lejoni. Mund ta ndryshoni në çdo moment.",
+    "savePrefs": "Ruaj zgjedhjen",
+    "cat": {
+      "necessary": "Të domosdoshme",
+      "preferences": "Preferenca",
+      "analytics": "Analitikë",
+      "marketing": "Marketing"
+    },
+    "catDesc": {
+      "necessary": "Gjuha, aksesueshmëria dhe vetë pëlqimi. Gjithmonë aktive.",
+      "preferences": "Tema dhe zgjedhje pamore.",
+      "analytics": "Statistika anonime vizitash.",
+      "marketing": "Nuk përdoret aktualisht."
+    }
+  },
+  "lang": {
+    "label": "Gjuha",
+    "choose": "Zgjidhni gjuhën"
+  },
+  "clients": {
+    "projectCount": "{n} projekte",
+    "viewWork": "Shiko punët",
+    "noWork": "Ende pa projekte të publikuara.",
+    "projectCountOne": "1 projekt"
+  },
+  "testimonials": {
+    "eyebrow": "Referenca"
+  }
+}

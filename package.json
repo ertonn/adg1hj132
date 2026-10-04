@@ -1,0 +1,18 @@
+{
+  "name": "nevila-samarxhi-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Portfolio and job hub for Nevila Samarxhi Akulli — graphic design and web development, Tirana.",
+  "scripts": {
+    "start": "npx --yes serve -l 5173 .",
+    "test": "node tests/contrast.test.mjs && node tests/motion.test.mjs && node tests/site.test.mjs && node tests/admin.test.mjs",
+    "art": "node tools/demo-art.mjs",
+    "brand": "node tools/pdf-logo.mjs \"tools/brand/Logo nevila WEB.pdf\"",
+    "photos": "node tools/photos.mjs"
+  },
+  "devDependencies": {
+    "jsdom": "^26.0.0",
+    "sharp": "^0.35.5"
+  }
+}
