@@ -1,4 +1,4 @@
-# Nevila Samarxhi Akulli — portfolio & studio site
+# Nevila Samarxhi Akulli — portfolio & studio site a
 
 Static portfolio and enquiry hub for a graphic designer and lecturer in Tirana.
 Plain HTML, CSS and ES modules — no framework, no build step, no runtime dependency.
