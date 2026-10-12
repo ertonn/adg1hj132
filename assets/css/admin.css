@@ -218,6 +218,11 @@
 .gallery-grid { display: grid; gap: var(--s-3); grid-template-columns: repeat(auto-fill, minmax(min(100%, 9rem), 1fr)); margin-block-end: var(--s-3); }
 .gallery-item { margin: 0; display: grid; gap: var(--s-2); padding: var(--s-2); border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); }
 .gallery-item .admin-thumb { inline-size: 100%; block-size: 5rem; object-fit: cover; max-block-size: none; }
+/* Category files: PDFs have no picture, so they get a labelled plate and every file its name. */
+.file-thumb { display: grid; place-items: center; font-size: var(--fs-xs); font-weight: 600; letter-spacing: var(--tracking-wide); color: var(--accent); }
+.file-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: var(--fs-xs); color: var(--ink-3); }
+.file-link { display: flex; gap: var(--s-2); margin-block-start: var(--s-2); }
+.file-link .input { flex: 1; min-inline-size: 0; }
 .gallery-item__bar { display: flex; justify-content: center; gap: var(--s-1); }
 .gallery-item__bar .icon-btn { inline-size: 2rem; block-size: 2rem; }
 /* The arrows move items along the row, so point them that way. */

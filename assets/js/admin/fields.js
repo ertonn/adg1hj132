@@ -164,6 +164,56 @@ function gallery(f, path) {
     el("p.field__hint", { text: f.hint ?? "Imazhi i parë përdoret si kopertinë e galerisë së klientit." }));
 }
 
+const isPDF = (src) => /^data:application\/pdf/i.test(src ?? "") || /\.pdf([?#]|$)/i.test(src ?? "");
+
+// Array of { src, name }: the PDFs and images a visitor opens from a category tile.
+function files(f, path) {
+  const host = el("div.gallery-grid");
+  const picker = el("input", { type: "file", accept: "image/*,application/pdf", multiple: true, class: "input", "aria-label": `${f.label}: ngarko skedarë` });
+  const link = el("input.input", { type: "text", placeholder: "assets/docs/katalog.pdf ose https://…", "aria-label": `${f.label}: lidhje ose shteg` });
+
+  const paint = () => {
+    const items = store.get(path, []) ?? [];
+    host.replaceChildren(
+      ...items.map((item, i) =>
+        el("figure.gallery-item", {},
+          isPDF(item.src) ? el("div.admin-thumb.file-thumb", { text: "PDF" }) : el("img.admin-thumb", { src: item.src || "", alt: "" }),
+          el("figcaption.file-name", { text: item.name || `#${i + 1}`, title: item.name || "" }),
+          el("div.gallery-item__bar", {},
+            el("button.icon-btn", { type: "button", "aria-label": "Zhvendos majtas", html: icon("up", { size: 14 }), onclick: () => { store.move(path, i, i - 1); paint(); } }),
+            el("button.icon-btn", { type: "button", "aria-label": "Zhvendos djathtas", html: icon("down", { size: 14 }), onclick: () => { store.move(path, i, i + 1); paint(); } }),
+            el("button.icon-btn", { type: "button", "aria-label": "Fshi skedarin", html: icon("trash", { size: 14 }), onclick: () => { store.removeAt(path, i); paint(); } })))),
+      ...(items.length ? [] : [el("p.tiny", { text: "Ende pa skedarë. Pllaka hapet në faqe sapo të shtoni të parin." })]));
+  };
+
+  // Size is checked before reading, so an oversized file never leaves an empty slot behind.
+  on(picker, "change", () => {
+    [...(picker.files ?? [])].forEach((file) => {
+      if (file.size > MAX_IMAGE_BYTES) return toast(`«${file.name}» është mbi ${Math.round(MAX_IMAGE_BYTES / 1000)} KB. Vendoseni në server dhe shtoni shtegun.`, "error");
+      const reader = new FileReader();
+      reader.onload = () => { store.push(path, { src: reader.result, name: clean(file.name, 120) }); paint(); };
+      reader.readAsDataURL(file);
+    });
+    picker.value = "";
+  });
+
+  const addLink = () => {
+    const src = clean(link.value, 400);
+    if (!src) return;
+    store.push(path, { src, name: clean(decodeURIComponent(src.split(/[?#]/)[0].split("/").pop() || src), 120) });
+    link.value = "";
+    paint();
+  };
+  on(link, "keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); addLink(); } });
+
+  paint();
+  return el("div.field", {},
+    el("p.field__label", { text: f.label }),
+    host, picker,
+    el("div.file-link", {}, link, el("button.btn.btn--ghost.btn--sm", { type: "button", html: `${icon("plus", { size: 16 })}<span>Shto lidhje</span>`, onclick: addLink })),
+    el("p.field__hint", { text: f.hint ?? `Ngarkoni JPG, PNG ose PDF deri në ${Math.round(MAX_IMAGE_BYTES / 1000)} KB secili. Për skedarë më të mëdhenj, vendosini në server dhe shtoni shtegun këtu.` }));
+}
+
 const tags = (f, path) => {
   const control = el("input.input", { id: uid("f"), type: "text" });
   control.value = (store.get(path, []) ?? []).join(", ");
@@ -270,7 +320,7 @@ function sections(f, path) {
 
 // Field type → builder. Adding a type needs no change anywhere else.
 export const FIELDS = {
-  text, textarea, richtext, select, toggle, color, image, gallery, tags, list, sections,
+  text, textarea, richtext, select, toggle, color, image, gallery, files, tags, list, sections,
   i18n: (f, p) => i18nField(f, p, "text"),
   i18nArea: (f, p) => i18nField(f, p, "textarea"),
   i18nRich: (f, p) => i18nField(f, p, "richtext"),

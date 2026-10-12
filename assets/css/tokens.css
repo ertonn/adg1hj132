@@ -19,6 +19,11 @@
   --overlay-veil: 78%;
   --logo-plate: #f9f9fb;
   --logo-mark: #262261;
+  --brand: #262261;
+  --brand-b: #45338f;
+  --brand-c: #1f3d7a;
+  --brand-d: #56297a;
+  --on-brand: #ffffff;
   --shadow-1: 0 1px 2px rgb(18 18 24 / 7%);
   --shadow-2: 0 12px 40px -12px rgb(18 18 24 / 20%);
   color-scheme: light;
@@ -41,6 +46,11 @@
   --overlay-veil: 68%;
   --logo-plate: #f1f1f6;
   --logo-mark: #b9b5e8;
+  --brand: #262261;
+  --brand-b: #45338f;
+  --brand-c: #1f3d7a;
+  --brand-d: #56297a;
+  --on-brand: #ffffff;
   --shadow-1: 0 1px 2px rgb(0 0 0 / 40%);
   --shadow-2: 0 12px 40px -12px rgb(0 0 0 / 60%);
   color-scheme: dark;

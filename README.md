@@ -6,7 +6,7 @@ Plain HTML, CSS and ES modules — no framework, no build step, no runtime depen
 ```
 npm install     # jsdom, for the tests only
 npm start       # serve on http://localhost:5173
-npm test        # contrast + motion lints, then 141 site and 80 admin checks, headless
+npm test        # contrast + motion lints, then 153 site and 88 admin checks, headless
 npm run art     # regenerate the placeholder artwork in assets/img
 ```
 
@@ -26,9 +26,9 @@ assets/
   i18n/               sq · en · it · de · fr · es UI strings
   img/                generated placeholder artwork (SVG), replace with real work
   js/core/            dom · store · i18n · a11y · consent · security · icons
-  js/site/            chrome · sections · contact · lightbox · gallery · legal · main
+  js/site/            chrome · sections · contact · lightbox · category · legal · main
   js/admin/           auth · fields · schema · preview · main
-tools/demo-art.mjs    placeholder artwork generator (work tiles + client logos)
+tools/demo-art.mjs    placeholder artwork generator (work tiles; the client logos it also draws are no longer used)
 tools/pdf-logo.mjs    traces the real logo PDF into SVG; owns favicon/og/logo-full
 tools/photos.mjs      optimises source photographs into WebP
 tools/brand/          source logo PDF, not served
@@ -50,23 +50,34 @@ Text comes in two flavours:
 field never renders blank. Only Albanian and English are filled in for project bodies;
 the other four fall back until she translates them in the panel.
 
-## Clients and their galleries
+## Categories and what is inside them
 
-Each project carries a `clientId`; each client carries an `id`, `name`, `sector` and `blurb`.
-A client card shows a logo (or a generated monogram), sector and project count, and opens an
-overlay gallery of **only that client's work** — from which any project opens in the full view.
-Clients with no linked work render as plain credits rather than dead buttons.
+The old client section (logos of places she has worked) is gone at her request. In its place
+the **Kategoritë** section shows her eight categories — Branding total, Libra, Revista,
+Fletëpalosje, Gazeta, Banera, Broshura, Faqosje të çdo lloj punimi — each as an icon and the word.
+Tiles take one of four tones cut from the logo's navy (`--brand` to `--brand-d`) and one of four
+faint CSS patterns, dealt out by position so neighbours never match; only the icon is hers to
+pick. Under a
+tile sits an optional one-line saying of her own (`note`); empty means nothing is rendered.
 
-She controls all of it from the panel: **Klientët** edits the client records, and each project
-in **Punët** has a *Klienti* dropdown built live from that list, plus a *Galeria e projektit*
-uploader (multi-select, reorder, delete). The first image in a gallery is its cover.
+Each category also holds `files`: PDFs and images she files inside it. A tile with no files is
+plain text; the moment it has one it becomes a button that opens an overlay of thumbnails and
+PDF plates, each opening in a new tab (`assets/js/site/category.js`). The same `categories`
+list drives the filter chips in Work, so there is one list to maintain.
 
-Referential integrity between works, clients and categories is asserted in the audit.
+She edits all of it in the panel under **Kategoritë**: the word, the line, and a files
+uploader (multi-select, reorder, delete, or paste a path/URL). **Uploads are capped at 600 KB
+each** because, until the backend exists, they are stored as data URIs in `localStorage`
+(about 5 MB in total). Larger PDFs go on the server, e.g. `assets/docs/`, and are added by path.
+
+A project's credit is now the free-text `client` field (*Për kë*, optional); there are no
+client records. `assets/img/logo-c-*.svg`, their generator in `tools/demo-art.mjs` and the
+logo-plate audit in `tests/contrast.test.mjs` are left over from the old section and unused.
 
 ## Demo content
 
 The site ships populated so every layout can be judged at realistic density: **20 projects**
-across all five categories, **10 clients each with a logo and linked work**, 5 testimonials,
+across all eight categories, 5 testimonials,
 43 gallery images, and a portrait in About.
 
 `npm run art` regenerates `assets/img` from `tools/demo-art.mjs`. It draws ten templates —
@@ -87,7 +98,7 @@ Every editor is generated from `assets/js/admin/schema.js` — a list of field d
 schema.** No markup, no event wiring, no new CSS.
 
 The `list` type is a repeater: add, delete, reorder, and a nested schema per item — that
-is how Works, Services, Clients, Testimonials and Socials are all edited
+is how Works, Services, Categories, Testimonials and Socials are all edited
 by the same 20 lines of code. Its **Add** control sits above the list with the current item
 count beside it, so it stays reachable when a list runs to twenty entries.
 
@@ -145,6 +156,12 @@ export const store = new Store(new RestAdapter("/api/content"));
 
 The seed file is deep-merged over saved data, so adding a field to `content.json` later
 appears for her without wiping her edits.
+
+Arrays are the exception: a saved array replaces the seed's whole. `upgrade()` in `store.js`
+covers that on every load and import. It keeps `settings.sections` in step with the seed (a
+new section appears, a removed one is dropped), and when `meta.schema` is behind the seed's it
+reshapes old content — schema 2 swapped clients for the eight categories, schema 3 gave them icons. Bump `meta.schema`
+in `content.json` and add a step there whenever the shape of a list changes.
 
 ## Security — what is real and what is not
 
@@ -214,7 +231,7 @@ What moves:
 - **Scroll reveal** — one `IntersectionObserver` that unobserves each node on entry, so no scroll handler runs. Grid children stagger off an `--i` index stamped once at render and capped at 8, so a long list never crawls in.
 - **Scroll-driven** — the reading-progress rail and the hero recede use `animation-timeline`, which runs entirely off the main thread. Behind `@supports`, so older browsers simply see nothing.
 - **View transitions** — theme switch, language switch and work-filter changes cross-fade through `document.startViewTransition()`, wrapped in a `transition()` helper that degrades to a plain swap.
-- **Micro-interactions** — hover lifts, an `:active` press on every control, the work image scale, the client monogram pop.
+- **Micro-interactions** — hover lifts, an `:active` press on every control, the work image scale, the category tile lift.
 
 There is exactly **one throttled scroll listener** left in the codebase (the header's stuck
 border); everything else is observer- or CSS-driven. No `will-change` is declared anywhere —
@@ -235,7 +252,7 @@ Three deliberate tiers rather than incidental reflow.
 rows, and turns overlays into bottom sheets capped in `dvh` so mobile browser chrome cannot
 clip the controls.
 
-**Tablet (768–1024px)** pins Work, Services, Clients **and testimonials** to two columns —
+**Tablet (768–1024px)** pins Work, Services **and testimonials** to two columns (category tiles go four across) —
 auto-fit alone gave testimonials a single wasteful column at that width — unstacks the
 section headers, and switches About to its two-column portrait layout at 768px so iPad
 portrait is not left with a stacked page.

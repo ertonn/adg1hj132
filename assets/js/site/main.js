@@ -6,19 +6,19 @@ import { apply, detect, getLang, setLang, t } from "../core/i18n.js";
 import { initA11y, mountA11yDock } from "../core/a11y.js";
 import { mountConsent } from "../core/consent.js";
 import { mountFooter, mountHeader, trackActiveNav } from "./chrome.js";
-import { renderAbout, renderClients, renderHero, renderServices, renderTestimonials, renderWork } from "./sections.js";
+import { renderAbout, renderCategories, renderHero, renderServices, renderTestimonials, renderWork } from "./sections.js";
 import { renderContact } from "./contact.js";
 import { openProject } from "./lightbox.js";
-import { clientName, openClientGallery } from "./gallery.js";
+import { openCategory } from "./category.js";
 
 const root = $("#page");
 
 // Section id → renderer, so settings.sections drives both order and visibility.
 const RENDERERS = {
   hero: (d) => renderHero(d),
-  work: (d) => renderWork(d, (w) => openProject(w, d.categories, clientName(d, w))),
+  work: (d) => renderWork(d, (w) => openProject(w, d.categories)),
   services: renderServices,
-  clients: (d) => renderClients(d, (c) => openClientGallery(c, d)),
+  categories: (d) => renderCategories(d, openCategory),
   about: renderAbout,
   testimonials: renderTestimonials,
   contact: renderContact,
@@ -62,6 +62,18 @@ function repaint(data) {
   if (again) scrollBy({ top: again.getBoundingClientRect().top - top, behavior: "instant" });
 }
 
+// Not scrollIntoView: from inside a frame it would scroll the editor's own page as well.
+// Sections above are content-visibility:auto, so they take their real height only once
+// scrolled near, a frame late, and the target drifts. Re-aim over a fixed run of frames:
+// stopping at the first on-target frame would stop just before the drift arrives.
+function settleOn(target, frames = 12) {
+  if (!target.isConnected) return;
+  const pad = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 0;
+  const off = target.getBoundingClientRect().top - pad;
+  if (Math.abs(off) >= 2) scrollBy({ top: off, behavior: "instant" });
+  if (frames > 0) requestAnimationFrame(() => settleOn(target, frames - 1));
+}
+
 // Takes content and a section to show from the editor; only the same-origin parent is heard.
 function followEditor() {
   let focus = null;
@@ -72,8 +84,7 @@ function followEditor() {
     if ("focus" in e.data && e.data.focus !== focus) {
       focus = e.data.focus;
       const target = focus === "footer" ? $("footer.site-footer") : focus && document.getElementById(focus);
-      // Not scrollIntoView: from inside a frame it would scroll the editor's own page as well.
-      if (target) scrollTo({ top: scrollY + target.getBoundingClientRect().top - (parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 0), behavior: "instant" });
+      if (target) settleOn(target);
     }
   });
   window.parent.postMessage({ type: "nsa:preview-ready" }, location.origin);

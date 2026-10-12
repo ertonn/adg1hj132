@@ -76,6 +76,10 @@
 .chip { transition: color var(--dur-1) var(--ease), background var(--dur-1) var(--ease), border-color var(--dur-1) var(--ease), transform var(--dur-1) var(--ease); }
 .chip:active { transform: scale(0.96); }
 
+button.cat__word { transition: transform var(--dur-2) var(--ease-out); }
+button.cat__word:hover, button.cat__word:focus-visible { transform: translateY(-3px); }
+.catfiles > * { animation: rise var(--dur-2) var(--ease-out) both; }
+
 .work__media img { transition: transform var(--dur-4) var(--ease-out); }
 .work:hover .work__media img, .work:focus-visible .work__media img { transform: scale(1.045); }
 .work__title { transition: color var(--dur-2) var(--ease); }
@@ -87,11 +91,6 @@
 .service__icon { transition: transform var(--dur-2) var(--ease-spring); }
 .service:hover .service__icon { transform: scale(1.12) rotate(-6deg); }
 
-.client { transition: border-color var(--dur-2) var(--ease), background var(--dur-2) var(--ease), transform var(--dur-2) var(--ease-out); }
-.client[data-interactive="true"]:hover, .client[data-interactive="true"]:focus-visible { transform: translateY(-3px); }
-.client__mark { transition: transform var(--dur-2) var(--ease-spring); }
-.client[data-interactive="true"]:hover .client__mark { transform: scale(1.08); }
-.client__go { transition: opacity var(--dur-2) var(--ease), transform var(--dur-2) var(--ease-out); }
 
 .quote { transition: transform var(--dur-2) var(--ease-out), border-color var(--dur-2) var(--ease); }
 .quote:hover { transform: translateY(-2px); }
@@ -106,7 +105,6 @@
 .toast { animation: rise var(--dur-2) var(--ease-out); }
 
 /* Gallery tiles cascade in as the overlay opens. */
-.cgallery__grid > * { animation: rise var(--dur-2) var(--ease-out) both; animation-delay: calc(60ms + var(--i, 0) * 40ms); }
 
 /* Lightbox images crossfade instead of snapping between slides. */
 .lightbox__stage img { animation: fade var(--dur-2) var(--ease); }

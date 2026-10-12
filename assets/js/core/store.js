@@ -36,6 +36,33 @@ export function merge(base, patch) {
   return out;
 }
 
+// Content saved before the client section became categories still carries the old shape.
+// Arrays in saved data replace the seed's wholesale, so they are reconciled by hand:
+// her edits to projects survive, and only what no longer fits is brought in from the seed.
+export function upgrade(seed, data) {
+  const known = new Set(seed.settings.sections.map((s) => s.id));
+  const kept = data.settings.sections
+    .map((s) => (s.id === "clients" ? { ...s, id: "categories" } : s))
+    .filter((s, i, all) => known.has(s.id) && all.findIndex((x) => x.id === s.id) === i);
+  // A section the seed has gained appears, rather than staying invisible until a reset.
+  data.settings.sections = [...kept, ...seed.settings.sections.filter((s) => !kept.some((k) => k.id === s.id))];
+
+  // Schema 2 swapped the client section for her categories.
+  if ((data.meta?.schema ?? 1) < 2) {
+    data.categories = structuredClone(seed.categories);
+    const ids = new Set(data.categories.map((c) => c.id));
+    for (const work of data.works) {
+      if (!ids.has(work.category)) work.category = seed.works.find((w) => w.id === work.id)?.category ?? data.categories[0].id;
+      delete work.clientId;
+    }
+    delete data.clients;
+  }
+  // Schema 3 gave every category an icon; saved ones take the seed's by id.
+  for (const c of data.categories) c.icon ||= seed.categories.find((s) => s.id === c.id)?.icon ?? "spark";
+  data.meta = { ...data.meta, schema: seed.meta.schema };
+  return data;
+}
+
 const get = (obj, path) => path.split(".").reduce((o, k) => o?.[Array.isArray(o) ? Number(k) : k], obj);
 
 // Write a dotted path, creating objects/arrays as the path implies.
@@ -61,7 +88,7 @@ class Store extends EventTarget {
   async init() {
     this.#seed = await fetch(SEED_URL, { cache: "no-cache" }).then((r) => r.json());
     const saved = await this.adapter.load();
-    this.#data = saved ? merge(this.#seed, saved) : structuredClone(this.#seed);
+    this.#data = saved ? upgrade(this.#seed, { ...merge(this.#seed, saved), meta: { ...this.#seed.meta, ...saved.meta, schema: saved.meta?.schema } }) : structuredClone(this.#seed);
     this.#emit("ready");
     return this.#data;
   }
@@ -129,7 +156,8 @@ class Store extends EventTarget {
   async import(json) {
     const parsed = typeof json === "string" ? JSON.parse(json) : json;
     if (!parsed || typeof parsed !== "object") throw new Error("Invalid content file");
-    this.#data = merge(this.#seed, parsed);
+    // An export taken before an upgrade must import as cleanly as old saved content loads.
+    this.#data = upgrade(this.#seed, { ...merge(this.#seed, parsed), meta: { ...this.#seed.meta, ...parsed.meta, schema: parsed.meta?.schema } });
     this.#dirty = true;
     this.#emit("change", { path: "*" });
     return this.#data;

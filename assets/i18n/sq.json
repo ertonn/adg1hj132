@@ -6,7 +6,7 @@
   "nav": {
     "work": "Punë",
     "services": "Shërbime",
-    "clients": "Klientë",
+    "categories": "Kategoritë",
     "about": "Rreth meje",
     "contact": "Kontakt",
     "menu": "Menu",
@@ -146,13 +146,11 @@
     "label": "Gjuha",
     "choose": "Zgjidhni gjuhën"
   },
-  "clients": {
-    "projectCount": "{n} projekte",
-    "viewWork": "Shiko punët",
-    "noWork": "Ende pa projekte të publikuara.",
-    "projectCountOne": "1 projekt"
-  },
   "testimonials": {
     "eyebrow": "Referenca"
+  },
+  "categories": {
+    "open": "Shiko materialet",
+    "openFile": "Hap skedarin"
   }
 }

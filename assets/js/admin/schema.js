@@ -4,14 +4,13 @@ import { tr } from "../core/i18n.js";
 
 const i18nBlank = { sq: "", en: "" };
 
-// Built from live store data so adding a client immediately offers it to projects.
-const clientOptions = (store) => [{ value: "", label: "pa klient" },
-  ...(store.get("clients.items", []) ?? []).map((c) => ({ value: c.id, label: c.name || c.id }))];
+const CATEGORY_ICONS = [
+  ["shapes", "Forma (identitet)"], ["book", "Libër"], ["spread", "Revistë e hapur"], ["fold", "Fletëpalosje"],
+  ["news", "Gazetë"], ["banner", "Baner"], ["doc", "Broshurë / dokument"], ["grid", "Rrjet faqosjeje"],
+  ["layers", "Shtresa"], ["spark", "Yll"], ["code", "Kod"], ["globe", "Glob"],
+].map(([value, label]) => ({ value, label }));
 
-// Shown beside a project's title so twenty collapsed cards can be told apart.
-const clientLabel = (store, w) => (store.get("clients.items", []) ?? []).find((c) => c.id === w.clientId)?.name ?? w.client;
-
-const categoryOptions = (store) => (store.get("categories", []) ?? []).map((c) => ({ value: c.id, label: tr(c.label) || c.id }));
+const categoryOptions =(store) => (store.get("categories", []) ?? []).map((c) => ({ value: c.id, label: tr(c.label) || c.id }));
 
 export const PANELS = [
   // There is no separate profile panel: each profile.* field is edited in the panel
@@ -51,30 +50,20 @@ export const PANELS = [
       { type: "i18n", path: "work.title", label: "Titulli i seksionit" },
       { type: "i18nArea", path: "work.intro", label: "Hyrja", rows: 3 },
       {
-        type: "list", path: "categories", label: "Kategoritë", addLabel: "Shto kategori",
-        requires: [["label", "Emri"]],
-        idFrom: "label",
-        blank: { id: "", label: { ...i18nBlank } },
-        itemTitle: (c) => tr(c.label) || c.id,
-        item: () => [
-          { type: "i18n", path: "label", label: "Emri" },
-        ],
-      },
-      {
         type: "list", path: "works", label: "Projektet", addLabel: "Shto projekt",
-        requires: [["title", "Titulli"], ["clientId", "Klienti"]],
+        requires: [["title", "Titulli"]],
         idFrom: "title",
-        blank: { id: "", featured: false, category: "editorial", clientId: "", client: "", year: "", cover: "", images: [], title: { ...i18nBlank }, summary: { ...i18nBlank }, body: { ...i18nBlank }, tags: [] },
+        blank: { id: "", featured: false, category: "branding", client: "", year: "", cover: "", images: [], title: { ...i18nBlank }, summary: { ...i18nBlank }, body: { ...i18nBlank }, tags: [] },
         itemTitle: (w) => tr(w.title) || "Projekt i ri",
         itemThumb: (w) => w.cover || w.images?.[0],
-        itemMeta: (w, store) => [clientLabel(store, w), w.year].filter(Boolean).join(" · "),
+        itemMeta: (w) => [w.client, w.year].filter(Boolean).join(" · "),
         item: () => [
           { type: "i18n", path: "title", label: "Titulli" },
           { type: "i18nArea", path: "summary", label: "Përmbledhje e shkurtër", rows: 2 },
           { type: "i18nArea", path: "body", label: "Përshkrimi i plotë", rows: 6 },
-          { type: "select", path: "clientId", label: "Klienti", options: clientOptions, hint: "Përcakton galerinë ku shfaqet ky projekt." },
           { type: "select", path: "category", label: "Kategoria", options: categoryOptions },
           { type: "toggle", path: "featured", label: "Shfaq etiketën e kategorisë mbi kopertinë", hint: "Kur është e zgjedhur, emri i kategorisë del si etiketë në cep të imazhit te lista e punëve." },
+          { type: "text", path: "client", label: "Për kë (opsionale)", max: 120, hint: "Shfaqet nën titullin e projektit. Bosh = nuk shfaqet asgjë." },
           { type: "text", path: "year", label: "Viti", max: 20 },
           { type: "image", path: "cover", label: "Kopertina" },
           { type: "gallery", path: "images", label: "Galeria e projektit" },
@@ -108,32 +97,40 @@ export const PANELS = [
     ],
   },
   {
-    id: "clients",
-    section: "clients",
-    label: "Klientët",
-    icon: "users",
+    id: "categories",
+    section: "categories",
+    label: "Kategoritë",
+    icon: "spark",
     prefix: "",
     schema: [
-      { type: "i18n", path: "clients.title", label: "Titulli i seksionit" },
-      { type: "i18nArea", path: "clients.intro", label: "Hyrja", rows: 2 },
+      { type: "i18n", path: "categoriesHead.title", label: "Titulli i seksionit" },
+      { type: "i18nArea", path: "categoriesHead.intro", label: "Hyrja", rows: 2 },
       {
-        type: "list", path: "clients.items", label: "Klientët", addLabel: "Shto klient",
-        requires: [["name", "Emri"]],
-        idFrom: "name",
-        blank: { id: "", name: "", url: "", logo: "", sector: { ...i18nBlank }, blurb: { ...i18nBlank } },
-        itemTitle: (c) => c.name || "Klient i ri",
-        itemThumb: (c) => c.logo,
-        itemMeta: (c) => tr(c.sector),
+        type: "list", path: "categories", label: "Kategoritë", addLabel: "Shto kategori",
+        requires: [["label", "Fjala"]],
+        idFrom: "label",
+        blank: { id: "", icon: "spark", label: { ...i18nBlank }, note: { ...i18nBlank }, files: [] },
+        itemTitle: (c) => tr(c.label) || c.id,
+        itemMeta: (c) => [c.files?.length ? `${c.files.length} skedarë` : "bosh", tr(c.note)].filter(Boolean).join(" · "),
         item: () => [
-          { type: "text", path: "name", label: "Emri", max: 120 },
-          { type: "i18n", path: "sector", label: "Sektori" },
-          { type: "i18nArea", path: "blurb", label: "Përshkrimi në galeri", rows: 3 },
-          { type: "text", path: "url", label: "Faqja (opsionale)", max: 400 },
-          { type: "image", path: "logo", label: "Logo (opsionale)" },
+          { type: "i18n", path: "label", label: "Fjala", max: 60, hint: "Shfaqet si pllakë me sfondin e logos dhe si filtër te Punët." },
+          { type: "i18n", path: "note", label: "Rreshti poshtë fjalës", max: 160, hint: "Një thënie e shkurtër, p.sh. për shpejtësinë e punës. Bosh = nuk shfaqet asgjë." },
+          { type: "select", path: "icon", label: "Ikona", options: CATEGORY_ICONS, hint: "Ngjyra dhe motivi i pllakës caktohen vetë sipas radhës, që pllakat fqinje të mos ngjajnë." },
+          { type: "files", path: "files", label: "Skedarët brenda (PDF ose JPG)" },
         ],
       },
+    ],
+  },
+  {
+    id: "testimonials",
+    section: "testimonials",
+    label: "Referencat",
+    icon: "users",
+    prefix: "testimonials",
+    schema: [
+      { type: "i18n", path: "title", label: "Titulli i seksionit" },
       {
-        type: "list", path: "testimonials.items", label: "Referencat", addLabel: "Shto referencë",
+        type: "list", path: "items", label: "Referencat", addLabel: "Shto referencë",
         requires: [["quote", "Citimi"], ["author", "Autori"]],
         idFrom: "author",
         blank: { id: "", quote: { ...i18nBlank }, author: "", role: { ...i18nBlank } },

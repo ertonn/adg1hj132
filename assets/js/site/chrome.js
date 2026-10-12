@@ -8,7 +8,7 @@ import { resolvedTheme, setPref } from "../core/a11y.js";
 import { safeURL } from "../core/security.js";
 import { MARK, VIEWBOX } from "./logo-paths.js";
 
-const NAV = ["work", "about", "services", "clients", "contact"];
+const NAV = ["work", "about", "services", "categories", "contact"];
 
 // Chrome is rebuilt on every language change; this drops the previous listeners.
 let chrome = new AbortController();

@@ -70,10 +70,18 @@ check("work cards rendered", d.querySelectorAll(".work").length === seed.works.l
 check("category chips rendered", d.querySelectorAll(".filters .chip").length === seed.categories.length + 1, `${d.querySelectorAll(".filters .chip").length}`);
 check("services rendered", d.querySelectorAll(".service").length === 6, `${d.querySelectorAll(".service").length}`);
 check("process section is gone", !d.querySelector("#process"));
-check("clients rendered", d.querySelectorAll(".client").length === 10, `${d.querySelectorAll(".client").length}`);
-check("client logos render instead of monograms", d.querySelectorAll(".client__mark img").length === 10, `${d.querySelectorAll(".client__mark img").length}`);
-check("logo tiles get the light plate", d.querySelectorAll(".client__mark--logo").length === 10, `${d.querySelectorAll(".client__mark--logo").length}`);
-check("plate is only for real logos", [...d.querySelectorAll(".client__mark--logo")].every((m) => m.querySelector("img")));
+check("category tiles rendered", d.querySelectorAll("#categories .cat").length === seed.categories.length, `${d.querySelectorAll("#categories .cat").length}`);
+check("a tile is just the word", [...d.querySelectorAll("#categories .cat__word")].every((n, i) => n.textContent.trim() === (seed.categories[i].label.sq || seed.categories[i].label.en) || n.textContent.trim() === seed.categories[i].label.en));
+check("the owner's eight categories are the list", seed.categories.map((c) => c.label.sq).join("|") === "Branding total|Libra|Revista|Fletëpalosje|Gazeta|Banera|Broshura|Faqosje të çdo lloj punimi", seed.categories.map((c) => c.label.sq).join("|"));
+const { hasIcon } = await imp("assets/js/core/icons.js");
+check("every tile carries an icon", d.querySelectorAll("#categories .cat__icon svg").length === seed.categories.length && seed.categories.every((c) => hasIcon(c.icon)), seed.categories.map((c) => c.icon).join(","));
+check("each category has its own icon", new Set(seed.categories.map((c) => c.icon)).size === seed.categories.length);
+// Four across: no tile may share a tone or a pattern with the one beside or below it.
+const looks = [...d.querySelectorAll("#categories .cat__word")].map((n) => [n.dataset.tone, n.dataset.pattern]);
+check("neighbouring tiles differ in tone and pattern", looks.every(([tone, pattern], i) => [i % 4 < 3 ? looks[i + 1] : null, looks[i + 4]].every((n) => !n || (n[0] !== tone && n[1] !== pattern))), JSON.stringify(looks));
+check("empty tiles are not buttons", d.querySelectorAll("#categories button").length === 0, `${d.querySelectorAll("#categories button").length}`);
+check("an unwritten line renders nothing", d.querySelectorAll("#categories .cat__note").length === 0);
+check("no client records remain", seed.clients === undefined && seed.works.every((w) => !("clientId" in w)) && !d.querySelector(".client"));
 check("portrait is rendered in About", !!d.querySelector("#about .portrait img"));
 check("at-work photo is rendered in About", !!d.querySelector("#about .at-work img"));
 check("at-work photo is captioned", (d.querySelector("#about .at-work figcaption")?.textContent ?? "").length > 5);
@@ -83,23 +91,8 @@ check("og:image is a raster format", /.(png|jpe?g)$/.test(fs.readFileSync(path.j
 check("og:image file exists", fs.existsSync(path.join(root,"assets/img/og.png")));
 check("portrait has a real alt", (d.querySelector("#about .portrait img")?.getAttribute("alt") ?? "").length > 3);
 check("every category has work", seed.categories.every((c) => seed.works.some((w) => w.category === c.id)));
-check("every client has work", seed.clients.items.every((c) => seed.works.some((w) => w.clientId === c.id)));
 check("every work image file exists", [...new Set(JSON.stringify(seed).match(/assets\/img\/[a-z0-9.-]+/g))].every((p) => fs.existsSync(path.join(root, p))));
 check("work grid is populated", d.querySelectorAll("#work-grid .work").length >= 12, `${d.querySelectorAll("#work-grid .work").length}`);
-check("clients with work are buttons", d.querySelectorAll("button.client").length === 10, `${d.querySelectorAll("button.client").length}`);
-check("no client card is left inert", d.querySelectorAll("div.client").length === 0, `${d.querySelectorAll("div.client").length}`);
-check("every client card shows a mark", d.querySelectorAll(".client__mark").length === 10);
-check("project counts rendered", [...d.querySelectorAll(".client__count")].every((n) => /[0-9]/.test(n.textContent)));
-
-// Client gallery
-d.querySelector("button.client").click();
-const cg = d.querySelector(".overlay .cgallery__grid");
-check("client gallery opens", !!cg);
-check("gallery shows only that client work", cg && cg.querySelectorAll(".work").length >= 1, cg ? String(cg.querySelectorAll(".work").length) : "-");
-check("gallery is a labelled dialog", !!d.querySelector('.overlay [role="dialog"][aria-labelledby="cg-title"]'));
-cg && d.querySelector(".overlay .panel__head .icon-btn").click();
-check("client gallery closes", !d.querySelector(".overlay"));
-
 // Testimonials + contact chrome
 check("quote avatars rendered", d.querySelectorAll(".quote__avatar").length === 5, `${d.querySelectorAll(".quote__avatar").length}`);
 check("quote author and role split", d.querySelectorAll(".quote__author").length === 5 && d.querySelectorAll(".quote__role").length === 5);
@@ -113,7 +106,7 @@ check("about rendered", !!d.querySelector("#about"));
 // Jump links under the bio must point at sections that actually exist on the page.
 const aboutLinks = [...d.querySelectorAll("#about .about__links a")];
 check("about has three jump buttons", aboutLinks.length === 3, String(aboutLinks.length));
-check("jump links target services, clients, contact", aboutLinks.map((a) => a.getAttribute("href")).join(",") === "#services,#clients,#contact", aboutLinks.map((a) => a.getAttribute("href")).join(","));
+check("jump links target services, categories, contact", aboutLinks.map((a) => a.getAttribute("href")).join(",") === "#services,#categories,#contact", aboutLinks.map((a) => a.getAttribute("href")).join(","));
 check("every jump target exists", aboutLinks.every((a) => d.querySelector(a.getAttribute("href"))));
 check("jump links are labelled from nav keys", aboutLinks.every((a) => a.textContent.trim().length > 2));
 check("jump links sit under the bio", d.querySelector("#about .stack > p")?.nextElementSibling?.classList.contains("about__links"));
@@ -135,7 +128,7 @@ check("every section has a label", [...d.querySelectorAll("section[aria-labelled
 check("all images have alt", [...d.querySelectorAll("img")].every((i) => i.hasAttribute("alt")));
 // The rendered src matters, not just the file on disk: safeURL once blanked every relative path.
 const domImgs = [...d.querySelectorAll("img")];
-check("images are actually rendered", domImgs.length >= 30, String(domImgs.length));
+check("images are actually rendered", domImgs.length >= 20, String(domImgs.length));
 check("no image has an empty src", domImgs.every((i) => (i.getAttribute("src") ?? "").trim() !== ""), String(domImgs.filter((i) => !(i.getAttribute("src") ?? "").trim()).length) + " empty");
 check("every rendered src resolves to a file", domImgs.every((i) => fs.existsSync(path.join(root, i.getAttribute("src")))));
 check("no empty hrefs", ![...d.querySelectorAll("a")].some((a) => a.getAttribute("href") === ""));
@@ -280,6 +273,52 @@ check("store remove works", store.get("works").length === nWorks);
 store.move("works", 0, 1);
 check("store move works", store.get("works")[1].id === "w-gazeta");
 check("export is valid JSON", (() => { try { JSON.parse(store.export()); return true; } catch { return false; } })());
+
+// Category files: a tile opens once something is filed inside it.
+store.set("categories.0.note", { sq: "Gati brenda javës.", en: "Ready within the week." });
+store.set("categories.0.files", [
+  { src: "assets/img/work-01.svg", name: "Kopertina.svg" },
+  { src: "assets/docs/katalog.pdf", name: "Katalog.pdf" },
+  { src: "data:application/pdf;base64,JVBERi0xLjQK", name: "I ngarkuar.pdf" },
+  { src: "javascript:alert(1)", name: "bad" },
+]);
+await new Promise((r) => setTimeout(r, 50));
+check("the written line shows under its tile", d.querySelector("#categories .cat__note")?.textContent.length > 5);
+check("only the filled tile becomes a button", d.querySelectorAll("#categories button.cat__word").length === 1, `${d.querySelectorAll("#categories button.cat__word").length}`);
+d.querySelector("#categories button.cat__word").click();
+const catDialog = d.querySelector('.overlay [role="dialog"][aria-labelledby="cat-title"]');
+check("category opens a labelled dialog", !!catDialog && !!d.getElementById("cat-title"));
+check("unsafe files are dropped", catDialog?.querySelectorAll(".catfile").length === 3, `${catDialog?.querySelectorAll(".catfile").length}`);
+check("images show as thumbnails, PDFs as documents", catDialog?.querySelectorAll(".catfile__img").length === 1 && catDialog?.querySelectorAll(".catfile__doc").length === 2);
+check("a hosted PDF links to its file", catDialog?.querySelectorAll(".catfile")[1].getAttribute("href") === "assets/docs/katalog.pdf");
+check("an uploaded PDF never navigates to a data: URL", catDialog?.querySelectorAll(".catfile")[2].getAttribute("href") === "#");
+catDialog?.querySelector(".panel__head .icon-btn").click();
+check("category dialog closes", !d.querySelector(".overlay"));
+
+// Content saved before the client section became categories must upgrade itself on load.
+const { upgrade } = await imp("assets/js/core/store.js");
+const old = JSON.parse(JSON.stringify(seed));
+old.meta = { schema: 1 };
+old.settings.sections = [{ id: "hero", enabled: true }, { id: "work", enabled: true }, { id: "clients", enabled: false }, { id: "contact", enabled: true }];
+old.categories = [{ id: "editorial", label: { sq: "Editoriale" } }];
+old.clients = { items: [{ id: "c-x", name: "X" }] };
+old.works = [{ ...seed.works[0], category: "editorial", clientId: "c-x", title: { sq: "Titull i redaktuar" } }, { id: "mine", category: "web", title: { sq: "E imja" } }];
+const up = upgrade(seed, old);
+check("old clients section becomes categories, in place", up.settings.sections[2].id === "categories" && up.settings.sections[2].enabled === false, JSON.stringify(up.settings.sections.map((s) => s.id)));
+check("sections the saved copy lacks are added", seed.settings.sections.every((s) => up.settings.sections.some((x) => x.id === s.id)) && up.settings.sections.length === seed.settings.sections.length);
+check("old categories are replaced by the eight", up.categories.length === 8 && up.categories[0].id === "branding");
+check("edited projects survive with a valid category", up.works[0].title.sq === "Titull i redaktuar" && up.works[0].category === seed.works[0].category && up.works[1].category === "branding" && !("clientId" in up.works[0]));
+check("client records are dropped and the version stamped", up.clients === undefined && up.meta.schema === seed.meta.schema);
+// Content saved at schema 2 has the eight categories but no icons yet.
+const v2 = JSON.parse(JSON.stringify(seed));
+v2.meta = { schema: 2 };
+v2.categories = v2.categories.map(({ icon, ...rest }) => rest).concat({ id: "hers", label: { sq: "E saja" }, files: [] });
+const v3 = upgrade(seed, v2);
+check("saved categories gain their icons", v3.categories[1].icon === "book" && v3.categories.at(-1).icon === "spark" && v3.meta.schema === 3, v3.categories.map((c) => c.icon).join(","));
+up.categories[0].note = { sq: "x" };
+up.categories[0].icon = "globe";
+check("a chosen icon is not overwritten", upgrade(seed, up).categories[0].icon === "globe");
+check("current content is left alone", upgrade(seed, up).categories[0].note.sq === "x");
 
 console.log("\n" + report.join("\n"));
 console.log(errors.length ? `\n${errors.length} ERRORS:\n` + errors.join("\n") : "\nNo runtime errors.");

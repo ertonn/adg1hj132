@@ -1,6 +1,6 @@
 {
   "meta": {
-    "schema": 1,
+    "schema": 3,
     "updatedAt": "2026-09-11T00:00:00.000Z"
   },
   "settings": {
@@ -28,7 +28,7 @@
         "enabled": true
       },
       {
-        "id": "clients",
+        "id": "categories",
         "enabled": true
       },
       {
@@ -147,67 +147,115 @@
   },
   "categories": [
     {
-      "id": "editorial",
+      "id": "branding",
+      "icon": "shapes",
       "label": {
-        "sq": "Editoriale",
-        "en": "Editorial",
-        "it": "Editoriale",
-        "de": "Editorial",
-        "fr": "Édition",
-        "es": "Editorial"
-      }
+        "sq": "Branding total",
+        "en": "Total branding"
+      },
+      "note": {
+        "sq": "",
+        "en": ""
+      },
+      "files": []
     },
     {
-      "id": "identity",
+      "id": "books",
+      "icon": "book",
       "label": {
-        "sq": "Identitet",
-        "en": "Identity",
-        "it": "Identità",
-        "de": "Identität",
-        "fr": "Identité",
-        "es": "Identidad"
-      }
+        "sq": "Libra",
+        "en": "Books"
+      },
+      "note": {
+        "sq": "",
+        "en": ""
+      },
+      "files": []
     },
     {
-      "id": "publishing",
+      "id": "magazines",
+      "icon": "spread",
       "label": {
-        "sq": "Botime",
-        "en": "Publishing",
-        "it": "Editoria",
-        "de": "Verlag",
-        "fr": "Publication",
-        "es": "Publicación"
-      }
+        "sq": "Revista",
+        "en": "Magazines"
+      },
+      "note": {
+        "sq": "",
+        "en": ""
+      },
+      "files": []
     },
     {
-      "id": "exhibition",
+      "id": "leaflets",
+      "icon": "fold",
       "label": {
-        "sq": "Ekspozita",
-        "en": "Exhibition",
-        "it": "Mostre",
-        "de": "Ausstellung",
-        "fr": "Exposition",
-        "es": "Exposición"
-      }
+        "sq": "Fletëpalosje",
+        "en": "Leaflets"
+      },
+      "note": {
+        "sq": "",
+        "en": ""
+      },
+      "files": []
     },
     {
-      "id": "web",
+      "id": "newspapers",
+      "icon": "news",
       "label": {
-        "sq": "Web",
-        "en": "Web",
-        "it": "Web",
-        "de": "Web",
-        "fr": "Web",
-        "es": "Web"
-      }
+        "sq": "Gazeta",
+        "en": "Newspapers"
+      },
+      "note": {
+        "sq": "",
+        "en": ""
+      },
+      "files": []
+    },
+    {
+      "id": "banners",
+      "icon": "banner",
+      "label": {
+        "sq": "Banera",
+        "en": "Banners"
+      },
+      "note": {
+        "sq": "",
+        "en": ""
+      },
+      "files": []
+    },
+    {
+      "id": "brochures",
+      "icon": "doc",
+      "label": {
+        "sq": "Broshura",
+        "en": "Brochures"
+      },
+      "note": {
+        "sq": "",
+        "en": ""
+      },
+      "files": []
+    },
+    {
+      "id": "layout",
+      "icon": "grid",
+      "label": {
+        "sq": "Faqosje të çdo lloj punimi",
+        "en": "Layout for any kind of work"
+      },
+      "note": {
+        "sq": "",
+        "en": ""
+      },
+      "files": []
     }
   ],
   "works": [
     {
       "id": "w-gazeta",
       "featured": true,
-      "category": "editorial",
-      "clientId": "c-gazeta",
+      "category": "newspapers",
       "client": "Gazeta Shqiptare",
       "year": "1999–2024",
       "cover": "assets/img/work-01.svg",
@@ -238,8 +286,7 @@
     {
       "id": "w-bunkart2",
       "featured": true,
-      "category": "exhibition",
-      "clientId": "c-bunkart",
+      "category": "banners",
       "client": "BunkArt 1 & 2",
       "year": "2024–",
       "cover": "assets/img/work-02.svg",
@@ -268,8 +315,7 @@
     {
       "id": "w-qbz",
       "featured": true,
-      "category": "publishing",
-      "clientId": "c-qbz",
+      "category": "brochures",
       "client": "Qendra e Botimeve Zyrtare",
       "year": "2021–2024",
       "cover": "assets/img/work-03.svg",
@@ -299,8 +345,7 @@
     {
       "id": "w-nentori",
       "featured": true,
-      "category": "identity",
-      "clientId": "c-studio",
+      "category": "branding",
       "client": "Studio (punë e pavarur)",
       "year": "2023",
       "cover": "assets/img/work-04.svg",
@@ -329,8 +374,7 @@
     {
       "id": "w-liqen",
       "featured": false,
-      "category": "publishing",
-      "clientId": "c-publishers",
+      "category": "books",
       "client": "Botues të ndryshëm",
       "year": "2022",
       "cover": "assets/img/work-05.svg",
@@ -359,8 +403,7 @@
     {
       "id": "w-portofol",
       "featured": false,
-      "category": "web",
-      "clientId": "c-studio",
+      "category": "layout",
       "client": "Studio (punë e pavarur)",
       "year": "2025",
       "cover": "assets/img/work-06.svg",
@@ -390,8 +433,7 @@
     {
       "id": "w-qyteti",
       "featured": false,
-      "category": "editorial",
-      "clientId": "c-gazeta",
+      "category": "newspapers",
       "client": "Gazeta Shqiptare",
       "year": "2021",
       "cover": "assets/img/work-07.svg",
@@ -420,8 +462,7 @@
     {
       "id": "w-fokus",
       "featured": false,
-      "category": "editorial",
-      "clientId": "c-edisud",
+      "category": "magazines",
       "client": "EDISUD Spa",
       "year": "2019",
       "cover": "assets/img/work-08.svg",
@@ -450,8 +491,7 @@
     {
       "id": "w-tipo",
       "featured": true,
-      "category": "identity",
-      "clientId": "c-focus",
+      "category": "branding",
       "client": "Focus Press",
       "year": "2024",
       "cover": "assets/img/work-09.svg",
@@ -480,8 +520,7 @@
     {
       "id": "w-bunkart1",
       "featured": false,
-      "category": "exhibition",
-      "clientId": "c-bunkart",
+      "category": "banners",
       "client": "BunkArt 1 & 2",
       "year": "2024–",
       "cover": "assets/img/work-10.svg",
@@ -509,8 +548,7 @@
     {
       "id": "w-kodi",
       "featured": false,
-      "category": "publishing",
-      "clientId": "c-qbz",
+      "category": "books",
       "client": "Qendra e Botimeve Zyrtare",
       "year": "2023",
       "cover": "assets/img/work-11.svg",
@@ -540,8 +578,7 @@
     {
       "id": "w-ujevara",
       "featured": false,
-      "category": "identity",
-      "clientId": "c-studio",
+      "category": "branding",
       "client": "Studio (punë e pavarur)",
       "year": "2022",
       "cover": "assets/img/work-12.svg",
@@ -570,8 +607,7 @@
     {
       "id": "w-suplement",
       "featured": false,
-      "category": "editorial",
-      "clientId": "c-gazeta",
+      "category": "newspapers",
       "client": "Gazeta Shqiptare",
       "year": "2015–2024",
       "cover": "assets/img/work-13.svg",
@@ -600,8 +636,7 @@
     {
       "id": "w-shije",
       "featured": false,
-      "category": "editorial",
-      "clientId": "c-edisud",
+      "category": "magazines",
       "client": "EDISUD Spa",
       "year": "2018",
       "cover": "assets/img/work-14.svg",
@@ -630,8 +665,7 @@
     {
       "id": "w-taverna",
       "featured": false,
-      "category": "identity",
-      "clientId": "c-focus",
+      "category": "leaflets",
       "client": "Focus Press",
       "year": "2021",
       "cover": "assets/img/work-15.svg",
@@ -660,8 +694,7 @@
     {
       "id": "w-arkivi",
       "featured": false,
-      "category": "editorial",
-      "clientId": "c-edisud",
+      "category": "magazines",
       "client": "EDISUD Spa",
       "year": "2024",
       "cover": "assets/img/work-16.svg",
@@ -689,8 +722,7 @@
     {
       "id": "w-dyqan",
       "featured": false,
-      "category": "web",
-      "clientId": "c-balkanweb",
+      "category": "layout",
       "client": "Balkanweb",
       "year": "2025",
       "cover": "assets/img/work-17.svg",
@@ -719,8 +751,7 @@
     {
       "id": "w-festa",
       "featured": false,
-      "category": "identity",
-      "clientId": "c-news24",
+      "category": "leaflets",
       "client": "News24",
       "year": "2023",
       "cover": "assets/img/work-18.svg",
@@ -749,8 +780,7 @@
     {
       "id": "w-kushtetuta",
       "featured": false,
-      "category": "publishing",
-      "clientId": "c-qbz",
+      "category": "books",
       "client": "Qendra e Botimeve Zyrtare",
       "year": "2022",
       "cover": "assets/img/work-19.svg",
@@ -779,8 +809,7 @@
     {
       "id": "w-manual",
       "featured": false,
-      "category": "publishing",
-      "clientId": "c-umt",
+      "category": "brochures",
       "client": "Universiteti Metropolitan Tirana",
       "year": "2025",
       "cover": "assets/img/work-20.svg",
@@ -995,205 +1024,15 @@
       }
     ]
   },
-  "clients": {
+  "categoriesHead": {
     "title": {
-      "sq": "Klientë & bashkëpunime",
-      "en": "Clients & collaborations",
-      "it": "Clienti e collaborazioni",
-      "de": "Kunden & Kooperationen",
-      "fr": "Clients & collaborations",
-      "es": "Clientes y colaboraciones"
+      "sq": "Çfarë bëj",
+      "en": "What I do"
     },
     "intro": {
-      "sq": "Media, institucione publike, universitete dhe biznese private.",
-      "en": "Media, public institutions, universities and private businesses.",
-      "it": "Media, istituzioni pubbliche, università e aziende private.",
-      "de": "Medien, öffentliche Institutionen, Universitäten und Privatunternehmen.",
-      "fr": "Médias, institutions publiques, universités et entreprises privées.",
-      "es": "Medios, instituciones públicas, universidades y empresas privadas."
-    },
-    "items": [
-      {
-        "id": "c-gazeta",
-        "name": "Gazeta Shqiptare",
-        "url": "",
-        "logo": "assets/img/logo-c-gazeta.svg",
-        "sector": {
-          "sq": "Media",
-          "en": "Media",
-          "it": "Media",
-          "de": "Medien",
-          "fr": "Médias",
-          "es": "Medios"
-        },
-        "blurb": {
-          "sq": "Gazeta e përditshme kombëtare: faqosje, suplemente dhe infografika për njëzet e pesë vjet.",
-          "en": "The national daily: layout, supplements and infographics across twenty-five years."
-        }
-      },
-      {
-        "id": "c-edisud",
-        "name": "EDISUD Spa",
-        "url": "",
-        "logo": "assets/img/logo-c-edisud.svg",
-        "sector": {
-          "sq": "Grup mediatik",
-          "en": "Media group",
-          "it": "Gruppo editoriale",
-          "de": "Mediengruppe",
-          "fr": "Groupe média",
-          "es": "Grupo de medios"
-        },
-        "blurb": {
-          "sq": "Grupi mediatik italo-shqiptar: televizion, radio dhe botime online.",
-          "en": "The Italian-Albanian media group: television, radio and online publishing."
-        }
-      },
-      {
-        "id": "c-focus",
-        "name": "Focus Press",
-        "url": "",
-        "logo": "assets/img/logo-c-focus.svg",
-        "sector": {
-          "sq": "Botime",
-          "en": "Publishing",
-          "it": "Editoria",
-          "de": "Verlag",
-          "fr": "Édition",
-          "es": "Editorial"
-        },
-        "blurb": {
-          "sq": "Shtëpi botuese dhe shtypshkronjë, Tiranë.",
-          "en": "Publishing house and press, Tirana."
-        }
-      },
-      {
-        "id": "c-bunkart",
-        "name": "BunkArt 1 & 2",
-        "url": "",
-        "logo": "assets/img/logo-c-bunkart.svg",
-        "sector": {
-          "sq": "Muze",
-          "en": "Museum",
-          "it": "Museo",
-          "de": "Museum",
-          "fr": "Musée",
-          "es": "Museo"
-        },
-        "blurb": {
-          "sq": "Dy muze historie në bunkerë të Luftës së Ftohtë, me mbi 100 mijë vizitorë në vit.",
-          "en": "Two history museums inside Cold War bunkers, drawing over 100,000 visitors a year."
-        }
-      },
-      {
-        "id": "c-qbz",
-        "name": "Qendra e Botimeve Zyrtare",
-        "url": "",
-        "logo": "assets/img/logo-c-qbz.svg",
-        "sector": {
-          "sq": "Institucion shtetëror",
-          "en": "State institution",
-          "it": "Istituzione statale",
-          "de": "Staatliche Einrichtung",
-          "fr": "Institution publique",
-          "es": "Institución estatal"
-        },
-        "blurb": {
-          "sq": "Botuesi zyrtar i legjislacionit shqiptar: Fletorja Zyrtare, kodet dhe Kushtetuta.",
-          "en": "Official publisher of Albanian legislation: the Official Gazette, legal codes and the Constitution."
-        }
-      },
-      {
-        "id": "c-umt",
-        "name": "Universiteti Metropolitan Tirana",
-        "url": "",
-        "logo": "assets/img/logo-c-umt.svg",
-        "sector": {
-          "sq": "Arsim",
-          "en": "Education",
-          "it": "Istruzione",
-          "de": "Bildung",
-          "fr": "Éducation",
-          "es": "Educación"
-        },
-        "blurb": {
-          "sq": "Pedagoge në grafikë editoriale, tipografi dhe postproduksion.",
-          "en": "Lecturer in editorial graphics, typography and post-production."
-        }
-      },
-      {
-        "id": "c-news24",
-        "name": "News24",
-        "url": "",
-        "logo": "assets/img/logo-c-news24.svg",
-        "sector": {
-          "sq": "Televizion",
-          "en": "Television",
-          "it": "Televisione",
-          "de": "Fernsehen",
-          "fr": "Télévision",
-          "es": "Televisión"
-        },
-        "blurb": {
-          "sq": "Grafikë ekrani dhe identitet për kanalin e lajmeve.",
-          "en": "On-screen graphics and identity for the news channel."
-        }
-      },
-      {
-        "id": "c-balkanweb",
-        "name": "Balkanweb",
-        "url": "",
-        "logo": "assets/img/logo-c-balkanweb.svg",
-        "sector": {
-          "sq": "Media online",
-          "en": "Online media",
-          "it": "Media online",
-          "de": "Onlinemedien",
-          "fr": "Média en ligne",
-          "es": "Medios online"
-        },
-        "blurb": {
-          "sq": "Portali i lajmeve: grafikë dhe përmbajtje vizuale.",
-          "en": "News portal: graphics and visual content."
-        }
-      },
-      {
-        "id": "c-publishers",
-        "name": "Botues të ndryshëm",
-        "url": "",
-        "logo": "assets/img/logo-c-publishers.svg",
-        "sector": {
-          "sq": "Botime",
-          "en": "Publishing",
-          "it": "Editoria",
-          "de": "Verlag",
-          "fr": "Édition",
-          "es": "Editorial"
-        },
-        "blurb": {
-          "sq": "Kopertina dhe faqosje për shtëpi botuese shqiptare, nga poezia te manualet universitare.",
-          "en": "Covers and interiors for Albanian publishers, from poetry to university manuals."
-        }
-      },
-      {
-        "id": "c-studio",
-        "name": "Studio (punë e pavarur)",
-        "url": "",
-        "logo": "assets/img/logo-c-studio.svg",
-        "sector": {
-          "sq": "E pavarur",
-          "en": "Independent",
-          "it": "Indipendente",
-          "de": "Unabhängig",
-          "fr": "Indépendant",
-          "es": "Independiente"
-        },
-        "blurb": {
-          "sq": "Identitete dhe faqe interneti për biznese të vogla dhe organizata.",
-          "en": "Identities and websites for small businesses and organisations."
-        }
-      }
-    ]
+      "sq": "Nga identiteti i plotë te faqosja e çdo lloj punimi.",
+      "en": "From a complete brand identity to layout for any kind of work."
+    }
   },
   "about": {
     "title": {

@@ -129,60 +129,84 @@
 .service__desc { font-size: var(--fs-sm); color: var(--ink-2); }
 .service__price { font-size: var(--fs-xs); letter-spacing: var(--tracking-wide); text-transform: uppercase; color: var(--ink-3); margin-block-start: var(--s-2); }
 
-/* ---------- Client card ---------- */
-.client {
+/* ---------- Category tile ---------- */
+/* An icon and the word. Four tones cut from the logo's navy and four faint patterns are
+   dealt out by position (sections.js), so no two neighbours match. */
+.cat { display: grid; align-content: start; gap: var(--s-3); margin: 0; }
+.cat__word {
+  --tone: var(--brand);
   position: relative;
-  display: grid;
-  grid-template-columns: auto 1fr;
-  grid-template-rows: auto auto;
-  column-gap: var(--s-4);
-  row-gap: var(--s-1);
-  align-items: center;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--s-5);
   inline-size: 100%;
-  min-block-size: 6.5rem;
-  padding: var(--s-4) var(--s-5);
+  min-block-size: 9.5rem;
+  padding: var(--s-5);
+  font-family: var(--font-display);
+  font-size: var(--fs-md);
+  font-weight: 600;
+  line-height: var(--lh-snug);
   text-align: start;
-  text-decoration: none;
-  color: inherit;
-  background: var(--paper);
-  border: 1px solid var(--line);
+  color: var(--on-brand);
+  background: linear-gradient(140deg, var(--tone), color-mix(in srgb, var(--tone), white 18%));
+  border: 1px solid color-mix(in srgb, var(--tone), white 24%);
   border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-1);
 }
+.cat__word[data-tone="1"] { --tone: var(--brand-b); }
+.cat__word[data-tone="2"] { --tone: var(--brand-c); }
+.cat__word[data-tone="3"] { --tone: var(--brand-d); }
 
-/* Monogram stands in wherever a client has no logo file. */
-.client__mark {
-  grid-row: span 2;
+/* The pattern lives behind the content and fades out toward the word, so it never fights it. */
+.cat__word::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  mask-image: linear-gradient(to bottom left, #000 5%, transparent 72%);
+  background: radial-gradient(rgb(255 255 255 / 22%) 1px, transparent 1.6px) 0 0 / 14px 14px;
+}
+.cat__word[data-pattern="1"]::before { background: repeating-linear-gradient(135deg, rgb(255 255 255 / 13%) 0 1px, transparent 1px 11px); }
+.cat__word[data-pattern="2"]::before {
+  background:
+    linear-gradient(rgb(255 255 255 / 12%) 1px, transparent 1px) 0 0 / 22px 22px,
+    linear-gradient(90deg, rgb(255 255 255 / 12%) 1px, transparent 1px) 0 0 / 22px 22px;
+}
+.cat__word[data-pattern="3"]::before { background: repeating-radial-gradient(circle at 100% 0, transparent 0 17px, rgb(255 255 255 / 14%) 17px 18px); }
+
+.cat__icon {
   display: grid;
   place-items: center;
-  inline-size: 3rem;
-  block-size: 3rem;
-  font-family: var(--font-display);
-  font-size: var(--fs-sm);
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  color: var(--accent);
-  background: var(--accent-soft);
+  inline-size: 2.75rem;
+  block-size: 2.75rem;
+  background: rgb(255 255 255 / 12%);
+  border: 1px solid rgb(255 255 255 / 20%);
   border-radius: var(--radius);
-  overflow: hidden;
 }
-/* A logo tile keeps a light plate in both themes. Client logos are supplied as flat
-   files with baked-in colours, so a dark tile would swallow every dark-inked mark. */
-.client__mark--logo { background: var(--logo-plate); border: 1px solid var(--line); padding: 3px; }
-.client__mark img { inline-size: 100%; block-size: 100%; object-fit: contain; border-radius: 1px; }
+.cat__note { margin: 0; font-size: var(--fs-sm); color: var(--ink-2); }
+/* A tile with files inside is a button; the arrow is the only thing that says so. */
+button.cat__word { cursor: pointer; }
+.cat__go { position: absolute; inset-block-start: var(--s-5); inset-inline-end: var(--s-5); display: grid; color: var(--on-brand); opacity: 0.75; }
 
-.client__name { font-family: var(--font-display); font-weight: 600; font-size: var(--fs-base); line-height: var(--lh-snug); }
-.client__meta { display: flex; flex-wrap: wrap; gap: var(--s-1) var(--s-3); font-size: var(--fs-xs); color: var(--ink-3); }
-.client__count { color: var(--accent); }
-
-/* Arrow appears only where there is a gallery to open. */
-.client__go {
-  position: absolute;
-  inset-block-start: var(--s-4);
-  inset-inline-end: var(--s-4);
-  color: var(--ink-3);
-  opacity: 0;
-  transform: translateX(-4px);
+/* ---------- Category files overlay ---------- */
+.catfiles { display: grid; gap: var(--s-5); grid-template-columns: repeat(auto-fill, minmax(min(100%, 12rem), 1fr)); }
+.catfile { display: grid; gap: var(--s-2); align-content: start; color: inherit; text-decoration: none; }
+.catfile__img, .catfile__doc {
+  inline-size: 100%;
+  aspect-ratio: 4 / 3;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--paper-2);
 }
+.catfile__img { object-fit: cover; }
+.catfile__doc { display: grid; place-content: center; justify-items: center; gap: var(--s-2); font-size: var(--fs-xs); font-weight: 600; letter-spacing: var(--tracking-wide); color: var(--accent); }
+.catfile__name { font-size: var(--fs-sm); overflow-wrap: anywhere; }
+.catfile:hover .catfile__name { text-decoration: underline; }
 
 /* ---------- About jump links ---------- */
 .about__links { display: flex; flex-wrap: wrap; gap: var(--s-3); }
@@ -209,10 +233,6 @@
 .portrait__cap span { color: var(--ink-3); font-size: var(--fs-xs); }
 /* On phones a full-height portrait would push the bio below the fold. */
 @media (width < 48rem) { .portrait img { aspect-ratio: 3 / 2; max-block-size: 22rem; } }
-
-/* ---------- Client gallery overlay ---------- */
-.cgallery__head { display: grid; gap: var(--s-3); margin-block-end: var(--s-6); }
-.cgallery__grid { display: grid; gap: var(--s-5); grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr)); }
 
 /* ---------- Testimonial ---------- */
 .quote {
@@ -497,16 +517,15 @@
   .panel, .panel--wide { inline-size: 100%; max-block-size: 94dvh; border-radius: var(--radius-lg) var(--radius-lg) 0 0; border-inline: 0; border-block-end: 0; padding: var(--s-5) var(--s-4) var(--s-7); }
   .lightbox__stage img { max-block-size: 48vh; }
   .lightbox__nav { inline-size: 2.75rem; block-size: 2.75rem; }
-  .cgallery__grid { grid-template-columns: repeat(auto-fill, minmax(min(100%, 11rem), 1fr)); gap: var(--s-4); }
 
   .quote { padding: var(--s-5) var(--s-4) var(--s-4); }
   .quote__text { font-size: var(--fs-md); }
   .quote::before { font-size: 3.5rem; }
 
-  .client { padding: var(--s-4); column-gap: var(--s-3); }
-  .client__mark { inline-size: 2.5rem; block-size: 2.5rem; }
-  /* The arrow would collide with the name on a narrow card. */
-  .client__go { display: none; }
+  .cat__word { min-block-size: 8rem; padding: var(--s-4); gap: var(--s-4); font-size: var(--fs-base); }
+  .cat__icon { inline-size: 2.25rem; block-size: 2.25rem; }
+  .cat__go { inset-block-start: var(--s-4); inset-inline-end: var(--s-4); }
+  .catfiles { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-4); }
 
   .a11y-dock { inset-block-end: var(--s-3); inset-inline-end: var(--s-3); }
   .cookie-bar { padding: var(--s-4); }
@@ -516,7 +535,6 @@
 
 /* Touch pointers get no hover reveal, so show the affordance permanently. */
 @media (hover: none) {
-  .client__go { opacity: 1; transform: none; }
   .work__media img { transition: none; }
   /* 40px is under the 44px touch minimum; desktop keeps the compact size. */
   .icon-btn { inline-size: 2.75rem; block-size: 2.75rem; }

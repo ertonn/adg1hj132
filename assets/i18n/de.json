@@ -6,7 +6,7 @@
   "nav": {
     "work": "Arbeiten",
     "services": "Leistungen",
-    "clients": "Kunden",
+    "categories": "Kategorien",
     "about": "Über mich",
     "contact": "Kontakt",
     "menu": "Menü",
@@ -146,13 +146,11 @@
     "label": "Sprache",
     "choose": "Sprache wählen"
   },
-  "clients": {
-    "projectCount": "{n} Projekte",
-    "viewWork": "Arbeiten ansehen",
-    "noWork": "Noch keine veröffentlichten Projekte.",
-    "projectCountOne": "1 Projekt"
-  },
   "testimonials": {
     "eyebrow": "Referenzen"
+  },
+  "categories": {
+    "open": "Arbeiten ansehen",
+    "openFile": "Datei öffnen"
   }
 }

@@ -7,7 +7,7 @@ import { safeURL, sanitizeHTML } from "../core/security.js";
 
 let release = null;
 
-export function openProject(work, categories = [], clientLabel = work.client) {
+export function openProject(work, categories = []) {
   const images = work.images?.length ? work.images : [work.cover];
   let index = 0;
 
@@ -59,7 +59,7 @@ export function openProject(work, categories = [], clientLabel = work.client) {
     el("div.grid.grid--split", { style: "margin-block-start:1.5rem" },
       el("div.prose", { html: sanitizeHTML(`<p>${tr(work.body)}</p>`) }),
       el("dl.stack", { style: "font-size:var(--fs-sm)" },
-        el("div", {}, el("dt.footer__title", { text: t("work.client") }), el("dd", { text: clientLabel })),
+        work.client ? el("div", {}, el("dt.footer__title", { text: t("work.client") }), el("dd", { text: work.client })) : null,
         el("div", {}, el("dt.footer__title", { text: t("work.year") }), el("dd", { text: work.year })))));
 
   on(overlay, "click", (e) => { if (e.target === overlay) close(); });

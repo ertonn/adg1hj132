@@ -1,10 +1,20 @@
 // Section renderers. Each takes the store slice it needs and returns a DOM node.
 
 import { el, esc, stagger, transition } from "../core/dom.js";
-import { plural, t, tr } from "../core/i18n.js";
+import { t, tr } from "../core/i18n.js";
 import { icon } from "../core/icons.js";
 import { safeURL, sanitizeHTML } from "../core/security.js";
-import { clientName, monogram, worksOf } from "./gallery.js";
+import { filesOf } from "./category.js";
+
+// Initials for the testimonial avatars.
+const monogram = (name) =>
+  String(name ?? "")
+    .replace(/[^\p{L}\p{N} ]/gu, " ")
+    .trim()
+    .split(/\s+/)
+    .slice(0, 2)
+    .map((word) => word[0]?.toUpperCase() ?? "")
+    .join("");
 
 // Shared eyebrow/title/intro block so no section repeats its own header markup.
 const head = (eyebrow, title, intro) =>
@@ -17,7 +27,7 @@ const head = (eyebrow, title, intro) =>
 const section = (id, ...children) => el("section.section.reveal", { id, "aria-labelledby": `${id}-title` }, el("div.container", {}, children));
 
 // Sections the About text points on to; ids must exist in settings.sections.
-const ABOUT_LINKS = ["services", "clients", "contact"];
+const ABOUT_LINKS = ["services", "categories", "contact"];
 
 // Tag the h2 produced by head() so aria-labelledby resolves.
 const titled = (id, node) => { node.querySelector(".section-title").id = `${id}-title`; return node; };
@@ -58,7 +68,7 @@ export function renderWork(data, onOpen) {
       el("div", {},
         el("h3.work__title", { text: tr(w.title) }),
         el("p.muted", { style: "font-size:var(--fs-sm)", text: tr(w.summary) }),
-        el("p.work__meta", {}, el("span", { text: clientName(data, w) }), el("span", { text: w.year }))));
+        el("p.work__meta", {}, w.client ? el("span", { text: w.client }) : null, el("span", { text: w.year }))));
 
   const paint = () => transition(() => {
     const list = works.filter((w) => active === "all" || w.category === active);
@@ -97,32 +107,34 @@ export function renderServices(data) {
           s.note ? el("p.service__price", { text: tr(s.note) }) : null)))));
 }
 
-export function renderClients(data, onOpen) {
-  const { clients } = data;
+// Tone and pattern per tile position. The two rows are offset so that in the four-across
+// grid no tile shares a tone or a pattern with the one beside or below it.
+const TONES = [0, 1, 2, 3, 2, 3, 0, 1];
+const PATTERNS = [0, 1, 2, 3, 1, 0, 3, 2];
 
-  const card = (c) => {
-    const count = worksOf(data, c.id).length;
-    const mark = el("span.client__mark", { class: c.logo ? "client__mark--logo" : "", "aria-hidden": "true" },
-      c.logo ? el("img", { src: safeURL(c.logo, ""), alt: "", loading: "lazy", decoding: "async" }) : el("span", { text: monogram(c.name) }));
+// What she does, at a glance: one word per tile on the logo's navy, and under it
+// an optional line of her own. The same list drives the Work filter chips.
+export function renderCategories(data, onOpen) {
+  const { categories, categoriesHead } = data;
 
+  // A tile only becomes a button once she has filed something inside it.
+  const word = (c, i) => {
+    const look = { tone: TONES[i % TONES.length], pattern: PATTERNS[i % PATTERNS.length] };
     const body = [
-      mark,
-      el("span.client__name", { text: c.name }),
-      el("span.client__meta", {},
-        c.sector ? el("span", { text: tr(c.sector) }) : null,
-        count ? el("span.client__count", { text: plural("clients.projectCount", count) }) : null),
-      count ? el("span.client__go", { html: icon("arrow", { size: 18 }) }) : null,
+      el("span.cat__icon", { "aria-hidden": "true", html: icon(c.icon, { size: 22 }) }),
+      el("span", { text: tr(c.label) }),
     ];
-
-    // Only clients with work are interactive; the rest stay as credits.
-    return count
-      ? el("button.client", { type: "button", dataset: { interactive: "true" }, "aria-label": `${c.name}: ${t("clients.viewWork")}`, onclick: () => onOpen(c) }, body)
-      : el("div.client", {}, body);
+    return filesOf(c).length
+      ? el("button.cat__word", { type: "button", dataset: look, "aria-label": `${tr(c.label)}: ${t("categories.open")}`, onclick: () => onOpen(c) },
+          el("span.cat__go", { "aria-hidden": "true", html: icon("arrow", { size: 18 }) }), body)
+      : el("span.cat__word", { dataset: look }, body);
   };
 
-  return titled("clients", section("clients",
-    head(t("nav.clients"), tr(clients.title), tr(clients.intro)),
-    el("div.grid.grid--clients.stagger", {}, clients.items.map(card))));
+  return titled("categories", section("categories",
+    head(t("nav.categories"), tr(categoriesHead.title), tr(categoriesHead.intro)),
+    el("ul.grid.grid--cats.stagger", { role: "list" },
+      categories.map((c, i) =>
+        el("li.cat", {}, word(c, i), tr(c.note) ? el("p.cat__note", { text: tr(c.note) }) : null)))));
 }
 
 export function renderAbout(data) {

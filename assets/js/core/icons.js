@@ -31,7 +31,15 @@ const PATHS = {
   reset: '<path d="M4 4v6h6M4 10a8 8 0 1 1 2 6"/>',
   check: '<path d="m5 13 4 4 10-10"/>',
   sun: '<circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M18.7 5.3l-1.6 1.6M6.9 17.1l-1.6 1.6"/>',
-  moon: '<path d="M20 14.2A8.2 8.2 0 0 1 9.8 4 8.4 8.4 0 1 0 20 14.2"/>',
+  // Category tiles: one per kind of printed work.
+  shapes: '<circle cx="7.5" cy="7.5" r="3.5"/><rect x="13.5" y="4" width="7" height="7" rx="1"/><path d="M12 14 17.5 21h-11z"/>',
+  spread: '<path d="M12 6.5C10 5.2 7 4.9 4 5.5v13c3-.6 6-.3 8 1 2-1.3 5-1.6 8-1v-13c-3-.6-6-.3-8 1zM12 6.5v13"/>',
+  fold: '<path d="m3 5 6 2 6-2 6 2v13l-6-2-6 2-6-2zM9 7v13M15 5v13"/>',
+  news: '<path d="M4 5h13v14H6a2 2 0 0 1-2-2zM17 9h3v8a2 2 0 0 1-2 2h-1"/><path d="M7.5 9h6M7.5 12.5h6M7.5 16h3.5"/>',
+  banner: '<path d="M7 3h10v13H7zM12 16v5M8.5 21h7"/><path d="M10 7.5h4M10 11h4"/>',
+  doc: '<path d="M7 3h8l4 4v14H7zM15 3v4h4"/><path d="M10 12h6M10 16h6"/>',
+  grid: '<rect x="3.5" y="3.5" width="17" height="17" rx="1.5"/><path d="M3.5 9h17M10 9v11.5"/>',
+  moon:'<path d="M20 14.2A8.2 8.2 0 0 1 9.8 4 8.4 8.4 0 1 0 20 14.2"/>',
 };
 
 // icon("mail", { class: "service__icon" }) → <svg> string for html:/innerHTML.

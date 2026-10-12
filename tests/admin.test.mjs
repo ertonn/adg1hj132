@@ -70,7 +70,7 @@ pw.value = "admin";
 submit(d.querySelector(".admin-gate form"));
 await wait(800);
 check("shell renders after setup", !!d.querySelector(".admin-bar"));
-check("sidebar lists every panel", d.querySelectorAll(".admin-nav__item").length === 11, String(d.querySelectorAll(".admin-nav__item").length));
+check("sidebar lists every panel", d.querySelectorAll(".admin-nav__item").length === 12, String(d.querySelectorAll(".admin-nav__item").length));
 check("no standalone profile panel", ![...d.querySelectorAll(".admin-nav__item")].some((b) => b.textContent.includes("Profili")));
 check("first panel renders fields", d.querySelectorAll(".admin-panel .field").length > 5, String(d.querySelectorAll(".admin-panel .field").length));
 check("language tabs rendered", d.querySelectorAll(".admin-panel .filters .chip").length >= 6);
@@ -170,7 +170,6 @@ check("cancel clears the staged draft", store.get("__drafts.works") === undefine
 addProject();
 await wait(200);
 store.set("__drafts.works.title.sq", "Projekt testues");
-store.set("__drafts.works.clientId", "c-bunkart");
 [...d.querySelectorAll(".modal__actions .btn")].at(-1).click();
 await wait(80);
 check("valid draft commits", store.get("works").length === before + 1, String(store.get("works").length));
@@ -178,14 +177,9 @@ check("committed values survive", store.get("works").at(-1).title.sq === "Projek
 check("draft cleared after commit", store.get("__drafts.works") === undefined);
 check("drafts never reach an export", !JSON.parse(store.export()).__drafts);
 
-// Client picker is built from live store data, not a static list.
-const clientSelect = [...d.querySelectorAll(".admin-card__body select")].find((s) => [...s.options].some((o) => o.textContent === "BunkArt 1 & 2"));
-check("client select is populated from the store", !!clientSelect);
-check("client select lists every client", clientSelect && clientSelect.options.length === store.get("clients.items").length + 1, clientSelect ? String(clientSelect.options.length) : "-");
-clientSelect.value = "c-bunkart";
-clientSelect.dispatchEvent(new window.Event("change", { bubbles: true }));
-check("choosing a client links the project", store.get("works.0.clientId") === "c-bunkart" || store.get("works")[0].clientId === "c-bunkart");
-
+// Projects carry a free-text credit; there are no client records to link to.
+check("project has no client picker", ![...d.querySelectorAll(".admin-card__body select")].some((s) => [...s.options].some((o) => o.textContent === "pa klient")));
+check("category picker offers the eight categories", [...d.querySelectorAll(".admin-card__body select")].some((s) => s.options.length === store.get("categories").length && [...s.options].some((o) => o.value === "books")));
 // Per-project gallery editor.
 check("gallery editor renders thumbnails", d.querySelectorAll(".gallery-item").length >= 2, String(d.querySelectorAll(".gallery-item").length));
 const firstWorkImages = store.get("works.0.images").length;
@@ -193,14 +187,27 @@ d.querySelectorAll(".gallery-item__bar .icon-btn")[2].click();
 await wait(100);
 check("gallery delete works", store.get("works.0.images").length === firstWorkImages - 1, String(store.get("works.0.images").length));
 
-// Clients panel gained sector and blurb.
-byLabel("Klientët").click();
+// Categories panel: the word, her line, and the files a visitor opens from the tile.
+byLabel("Kategoritë").click();
 await wait(200);
-check("client cards render", d.querySelectorAll(".admin-card").length >= 10, String(d.querySelectorAll(".admin-card").length));
+check("category cards render", d.querySelectorAll(".admin-card").length === 8, String(d.querySelectorAll(".admin-card").length));
+check("no clients panel remains", !byLabel("Klientët"));
+check("testimonials have their own panel", !!byLabel("Referencat"));
 // IDs are derived from the name now, so the panel must not expose them at all.
-check("no ID field is shown", ![...d.querySelectorAll(".admin-card__body .field__label")].some((l) => /^ID/.test(l.textContent.trim())));
+check("no ID field is shown", ![...d.querySelectorAll(".admin-card__body .field__label")].some((l) => /^ID/.test(l.textContent.trim())));
 check("language chips are down to two", d.querySelector(".admin-panel .filters")?.querySelectorAll(".chip").length === 2, String(d.querySelector(".admin-panel .filters")?.querySelectorAll(".chip").length));
-
+check("each category takes a line and files", ["Fjala", "Rreshti poshtë fjalës", "Skedarët brenda (PDF ose JPG)"].every((x) => [...d.querySelectorAll(".admin-card__body .field__label")].some((l) => l.textContent.trim() === x)));
+const iconSelect = [...d.querySelectorAll(".admin-card__body select")].find((s) => [...s.options].some((o) => o.value === "shapes"));
+check("each category has an icon picker set to its icon", iconSelect?.value === "shapes", String(iconSelect?.value));
+check("file picker accepts PDFs and images", /pdf/.test(d.querySelector('.admin-card__body input[type="file"]')?.getAttribute("accept") ?? "") && /image/.test(d.querySelector('.admin-card__body input[type="file"]')?.getAttribute("accept") ?? ""));
+const linkInput = d.querySelector(".admin-card__body .file-link input");
+linkInput.value = "assets/docs/Katalog%202024.pdf";
+d.querySelector(".admin-card__body .file-link button").click();
+check("a pasted path is filed under the category", store.get("categories.0.files").length === 1 && store.get("categories.0.files.0.src") === "assets/docs/Katalog%202024.pdf", JSON.stringify(store.get("categories.0.files")));
+check("the file is named from its path", store.get("categories.0.files.0.name") === "Katalog 2024.pdf", store.get("categories.0.files.0.name"));
+check("a PDF shows as a labelled plate", d.querySelector(".admin-card__body .file-thumb")?.textContent === "PDF");
+d.querySelector(".admin-card__body .gallery-item__bar .icon-btn:last-child").click();
+check("a file can be removed", store.get("categories.0.files").length === 0);
 // Profile fields live where the site shows them.
 const labels = () => [...d.querySelectorAll(".admin-panel .field__label")].map((l) => l.textContent.trim());
 byLabel("Kontakti").click();

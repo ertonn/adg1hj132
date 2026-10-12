@@ -38,6 +38,10 @@ const PAIRS = [
   ["error text", "danger", "paper", 4.5],
   ["success text", "ok", "paper", 4.5],
   ["primary button", "paper", "ink", 4.5],
+  ["category tile", "on-brand", "brand", 4.5],
+  ["category tile, violet", "on-brand", "brand-b", 4.5],
+  ["category tile, blue", "on-brand", "brand-c", 4.5],
+  ["category tile, plum", "on-brand", "brand-d", 4.5],
   ["focus ring", "focus", "paper", 3],
   ["border on ground", "line", "paper", 1.2],
 ];
