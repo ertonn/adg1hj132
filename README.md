@@ -6,7 +6,7 @@ Plain HTML, CSS and ES modules — no framework, no build step, no runtime depen
 ```
 npm install     # jsdom, for the tests only
 npm start       # serve on http://localhost:5173
-npm test        # contrast + motion lints, then 161 site and 64 admin checks, headless
+npm test        # contrast + motion lints, then 141 site and 80 admin checks, headless
 npm run art     # regenerate the placeholder artwork in assets/img
 ```
 
@@ -27,7 +27,7 @@ assets/
   img/                generated placeholder artwork (SVG), replace with real work
   js/core/            dom · store · i18n · a11y · consent · security · icons
   js/site/            chrome · sections · contact · lightbox · gallery · legal · main
-  js/admin/           auth · fields · schema · main
+  js/admin/           auth · fields · schema · preview · main
 tools/demo-art.mjs    placeholder artwork generator (work tiles + client logos)
 tools/pdf-logo.mjs    traces the real logo PDF into SVG; owns favicon/og/logo-full
 tools/photos.mjs      optimises source photographs into WebP
@@ -91,6 +91,26 @@ is how Works, Services, Clients, Testimonials and Socials are all edited
 by the same 20 lines of code. Its **Add** control sits above the list with the current item
 count beside it, so it stays reachable when a list runs to twenty entries.
 
+Collapsed cards identify themselves: a list may declare `itemThumb` and `itemMeta` beside
+`itemTitle`, which is how each project shows its cover, client and year without being opened.
+
+### Live preview
+
+**Pamja paraprake** in the toolbar opens the real site beside the editor, in a same-origin
+`<iframe>` of `./?preview=1` (`assets/js/admin/preview.js`). It shows **unsaved** edits as they
+are typed, scrolls to the section the active panel edits (each panel's `section` in the
+schema), speaks whichever language tab is being edited, and can be sized as phone, tablet or
+desktop — the frame is laid out at the real device width and scaled to fit. From 80rem up it
+is a third column, open by default; below that it is a full-screen sheet, closed by default.
+
+The editor pushes `store.export()` to the frame with `postMessage`; the site only listens when
+it is framed with `?preview`, and only to its own parent on its own origin. Inside the frame
+the page never saves, skips the cookie banner and accessibility dock, and runs with motion
+reduced so a keystroke does not replay the entrance choreography.
+
+The language tabs are one shared choice: switching to EN on any field switches every field.
+Typing marks the panel unsaved immediately, and Ctrl/⌘+S saves.
+
 The panel is usable on a phone: the toolbar compacts (identity and the preview label drop
 first, Save never does), the sidebar becomes one horizontally scrolling snap rail rather than
 two stacked ones, long card titles truncate instead of shoving the reorder buttons off the
@@ -136,7 +156,7 @@ backend issues real sessions. The Security panel says this on screen, in red.
 Real:
 
 - CSP on every page (`script-src self`, no inline script — that is why `boot.js` is a file).
-- Full header set in `_headers` and `.htaccess`: HSTS, `X-Frame-Options: DENY`, nosniff, Referrer-Policy, Permissions-Policy.
+- Full header set in `_headers`, `.htaccess` and `vercel.json`: HSTS, `X-Frame-Options: SAMEORIGIN`, nosniff, Referrer-Policy, Permissions-Policy. Framing is same-origin rather than denied only because the admin preview frames the site; no other origin can embed it.
 - HTML sanitising on all stored rich text; URL scheme allow-list on every href and image path from data.
 - Contact form: honeypot, minimum fill time, length caps, control-character stripping, client-side rate limit.
 - Session expiry with idle keep-alive, and login backoff after repeated failures.

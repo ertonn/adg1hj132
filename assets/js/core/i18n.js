@@ -41,10 +41,11 @@ function bundle(code) {
 
 export const preload = (list = [current, FALLBACK_LANG]) => Promise.all(list.map(bundle));
 
-export async function setLang(code) {
+// `persist: false` is for the admin preview, which follows the editor without becoming the visitor's choice.
+export async function setLang(code, { persist = true } = {}) {
   current = isSupported(code) ? code : DEFAULT_LANG;
   await Promise.all([bundle(current), bundle(FALLBACK_LANG)]);
-  try { localStorage.setItem(STORE_KEY, current); } catch { /* storage blocked */ }
+  if (persist) try { localStorage.setItem(STORE_KEY, current); } catch { /* storage blocked */ }
   const { dir } = meta(current);
   Object.assign(document.documentElement, { lang: current, dir });
   document.dispatchEvent(new CustomEvent("langchange", { detail: { lang: current } }));

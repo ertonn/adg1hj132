@@ -72,7 +72,8 @@ class Store extends EventTarget {
   set(path, value, { silent = false } = {}) {
     set(this.#data, path, value);
     this.#dirty = true;
-    if (!silent) this.#emit("change", { path, value });
+    // Silent writes skip the "change" fan-out but still surface as "input" for the live preview.
+    this.#emit(silent ? "input" : "change", { path, value });
     return value;
   }
 

@@ -70,8 +70,9 @@ pw.value = "admin";
 submit(d.querySelector(".admin-gate form"));
 await wait(800);
 check("shell renders after setup", !!d.querySelector(".admin-bar"));
-check("sidebar lists every panel", d.querySelectorAll(".admin-nav__item").length === 12, String(d.querySelectorAll(".admin-nav__item").length));
-check("profile panel renders fields", d.querySelectorAll(".admin-panel .field").length > 5, String(d.querySelectorAll(".admin-panel .field").length));
+check("sidebar lists every panel", d.querySelectorAll(".admin-nav__item").length === 11, String(d.querySelectorAll(".admin-nav__item").length));
+check("no standalone profile panel", ![...d.querySelectorAll(".admin-nav__item")].some((b) => b.textContent.includes("Profili")));
+check("first panel renders fields", d.querySelectorAll(".admin-panel .field").length > 5, String(d.querySelectorAll(".admin-panel .field").length));
 check("language tabs rendered", d.querySelectorAll(".admin-panel .filters .chip").length >= 6);
 
 const { store } = await imp("assets/js/core/store.js");
@@ -83,8 +84,51 @@ check("dirty flag is raised", d.querySelector("#save-state").textContent.include
 
 const byLabel = (text) => [...d.querySelectorAll(".admin-nav__item")].find((b) => b.textContent.includes(text));
 
+// Live preview: closed on a narrow screen, then fed unsaved edits once the frame reports in.
+const pane = d.querySelector(".preview");
+check("preview pane starts closed on a narrow screen", !!pane && pane.hidden && !pane.querySelector("iframe"));
+d.querySelector(".admin-bar__preview").click();
+const frame = pane.querySelector("iframe");
+check("toggle opens the preview", !pane.hidden && d.querySelector(".admin-bar__preview").getAttribute("aria-pressed") === "true");
+check("preview frames the site in preview mode", /\?preview/.test(frame?.getAttribute("src") ?? ""));
+check("layout makes room for the preview", d.querySelector(".admin-layout").classList.contains("admin-layout--preview"));
+check("the page may frame only itself", /frame-src 'self'/.test(d.querySelector('meta[http-equiv="Content-Security-Policy"]').content));
+
+const posted = [];
+frame.contentWindow.postMessage = (message) => posted.push(message);
+nameInput.value = "Before the frame is ready";
+nameInput.dispatchEvent(new window.Event("input", { bubbles: true }));
+await wait(250);
+check("nothing is posted before the frame is ready", posted.length === 0, String(posted.length));
+window.dispatchEvent(new window.MessageEvent("message", { data: { type: "nsa:preview-ready" }, origin: "https://elsewhere.test", source: frame.contentWindow }));
+check("a foreign origin is ignored", posted.length === 0, String(posted.length));
+window.dispatchEvent(new window.MessageEvent("message", { data: { type: "nsa:preview-ready" }, origin: window.location.origin, source: frame.contentWindow }));
+check("ready frame receives the content", posted.length === 1 && JSON.parse(posted[0].content).profile.name === "Before the frame is ready");
+check("preview is pointed at the panel's section", posted[0]?.focus === "hero", String(posted[0]?.focus));
+
+nameInput.value = "Typed, not saved";
+nameInput.dispatchEvent(new window.Event("input", { bubbles: true }));
+await wait(250);
+check("typing reaches the preview unsaved", JSON.parse(posted.at(-1).content).profile.name === "Typed, not saved");
+check("drafts never reach the preview", !JSON.parse(posted.at(-1).content).__drafts);
+nameInput.value = "Nevila S. Akulli";
+nameInput.dispatchEvent(new window.Event("change", { bubbles: true }));
+
+// The editing language is one shared choice, and the preview speaks it.
+const langChips = (lang) => [...d.querySelectorAll(`.admin-panel .filters .chip[data-lang="${lang}"]`)];
+langChips("en")[0].click();
+check("one language switch moves every field", langChips("en").length > 1 && langChips("en").every((c) => c.getAttribute("aria-pressed") === "true"));
+check("preview follows the editing language", posted.at(-1)?.lang === "en", String(posted.at(-1)?.lang));
+langChips("sq")[0].click();
+
 byLabel("Punët").click();
 await wait(200);
+check("switching panels keeps the same frame", d.querySelector(".preview iframe") === frame);
+check("preview follows the active panel", posted.at(-1)?.focus === "work", String(posted.at(-1)?.focus));
+check("project cards show a cover thumbnail", d.querySelectorAll(".admin-card > summary > img.admin-card__thumb").length > 0, String(d.querySelectorAll(".admin-card__thumb").length));
+check("project cards show client and year", /·/.test(d.querySelector(".admin-card__meta")?.textContent ?? ""), d.querySelector(".admin-card__meta")?.textContent);
+d.querySelector(".preview .icon-btn").click();
+check("preview closes from its own bar", pane.hidden && !d.querySelector(".admin-layout").classList.contains("admin-layout--preview"));
 const before = store.get("works").length;
 check("repeater cards render", d.querySelectorAll(".admin-card").length > 0, String(d.querySelectorAll(".admin-card").length));
 // Add must precede the list, and every mobile CSS hook must match a real element.
@@ -96,6 +140,8 @@ check("list shows its item count", /[0-9]/.test(listField.querySelector(".list-a
 for (const sel of [".admin-bar__who", ".admin-bar__view", ".admin-bar__out", ".admin-nav hr", "#save-state", ".admin-card > summary > span"])
   check(`mobile hook ${sel} exists`, !!d.querySelector(sel));
 check("nested item fields render", !!d.querySelector(".admin-card__body .field"));
+check("no stray \"null\" text in the panel", ![...d.querySelectorAll(".admin-panel *")].some((n) => [...n.childNodes].some((c) => c.nodeType === 3 && c.textContent.trim() === "null")));
+check("the badge toggle says what it does", [...d.querySelectorAll(".admin-card__body .checkbox")].some((c) => /etiketën e kategorisë/.test(c.textContent)) && ![...d.querySelectorAll(".admin-card__body .checkbox")].some((c) => c.textContent.trim() === "Në pah"));
 // Adding opens a draft dialog; nothing is committed until it is confirmed.
 const addProject = () => [...d.querySelectorAll(".admin-panel .btn--ghost")].find((b) => b.textContent.includes("Shto projekt")).click();
 addProject();
@@ -154,6 +200,19 @@ check("client cards render", d.querySelectorAll(".admin-card").length >= 10, Str
 // IDs are derived from the name now, so the panel must not expose them at all.
 check("no ID field is shown", ![...d.querySelectorAll(".admin-card__body .field__label")].some((l) => /^ID/.test(l.textContent.trim())));
 check("language chips are down to two", d.querySelector(".admin-panel .filters")?.querySelectorAll(".chip").length === 2, String(d.querySelector(".admin-panel .filters")?.querySelectorAll(".chip").length));
+
+// Profile fields live where the site shows them.
+const labels = () => [...d.querySelectorAll(".admin-panel .field__label")].map((l) => l.textContent.trim());
+byLabel("Kontakti").click();
+await wait(200);
+check("contact panel edits email, phone and location", ["Email", "Telefon", "Vendndodhja"].every((x) => labels().includes(x)), labels().join(", "));
+const emailInput = d.querySelector('.admin-panel input[type="email"]');
+emailInput.value = "studio@example.test";
+emailInput.dispatchEvent(new window.Event("change", { bubbles: true }));
+check("moved fields still write to profile", store.get("profile.email") === "studio@example.test", String(store.get("profile.email")));
+byLabel("Rreth meje").click();
+await wait(200);
+check("about panel edits the portrait and CV", ["Portreti", "Lidhja e CV-së (PDF)"].every((x) => labels().includes(x)), labels().join(", "));
 
 byLabel("Cilësimet").click();
 await wait(200);

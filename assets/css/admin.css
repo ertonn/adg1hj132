@@ -22,6 +22,40 @@
 .admin-layout { display: grid; align-items: start; min-block-size: calc(100dvh - var(--admin-bar-h)); }
 @media (width >= 60rem) { .admin-layout { grid-template-columns: 15rem 1fr; } }
 
+/* Live preview: a third column on wide screens, a full-screen sheet everywhere else. */
+.preview { display: grid; grid-template-rows: auto minmax(0, 1fr); min-inline-size: 0; background: var(--paper-2); }
+.preview[hidden] { display: none; }
+.preview__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-2) var(--s-4);
+  padding: var(--s-2) var(--s-4);
+  background: var(--paper);
+  border-block-end: 1px solid var(--line);
+}
+.preview__bar strong { font-size: var(--fs-sm); }
+.preview__bar p { margin: 0; }
+.preview__devices { display: flex; gap: var(--s-1); }
+.preview__stage { overflow: hidden; }
+/* preview.js sizes the frame to the chosen device and scales it; this is the unscaled fallback. */
+.preview__frame { display: block; inline-size: 100%; block-size: 100%; border: 0; background: var(--paper); box-shadow: 0 0 0 1px var(--line); transform-origin: 0 0; }
+
+@media (width >= 80rem) {
+  .admin-layout--preview { grid-template-columns: 15rem minmax(0, 1fr) minmax(24rem, 1fr); }
+  .preview {
+    position: sticky;
+    inset-block-start: var(--admin-bar-h);
+    block-size: calc(100dvh - var(--admin-bar-h));
+    border-inline-start: 1px solid var(--line);
+  }
+}
+@media (width < 80rem) {
+  .preview { position: fixed; inset: 0; z-index: var(--z-overlay); }
+}
+
+.admin-bar__preview[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
 .admin-nav {
   padding: var(--s-4);
   border-inline-end: 1px solid var(--line);
@@ -94,6 +128,10 @@
 .admin-card > summary::-webkit-details-marker { display: none; }
 .admin-card > summary::before { content: "▸"; color: var(--ink-3); margin-inline-end: var(--s-2); }
 .admin-card[open] > summary::before { content: "▾"; }
+/* Collapsed cards identify themselves: thumbnail, title, then a quiet line of context. */
+.admin-card > summary > span:first-of-type { flex: 1; min-inline-size: 0; }
+.admin-card__thumb { flex: none; inline-size: 2.5rem; block-size: 2.5rem; object-fit: cover; border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); }
+.admin-card__meta { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: var(--fs-xs); font-weight: 400; color: var(--ink-3); }
 .admin-card__body { padding: 0 var(--s-4) var(--s-4); border-block-start: 1px solid var(--line); padding-block-start: var(--s-4); }
 
 .admin-row {
@@ -168,10 +206,10 @@
 }
 
 @media (width < 30rem) {
-  /* Keep the bar to one line: identity and the preview label are the first to go. */
-  .admin-bar__who { display: none; }
-  .admin-bar__view span { display: none; }
-  .admin-bar__view { padding-inline: 0.7em; }
+  /* Keep the bar to one line: identity, the new-tab link and the preview label are the first to go. */
+  .admin-bar__who, .admin-bar__view { display: none; }
+  .admin-bar__preview span { display: none; }
+  .admin-bar__preview { padding-inline: 0.7em; }
   #save-state { flex-basis: 100%; order: 3; }
   .admin-nav__item span { font-size: var(--fs-xs); }
 }

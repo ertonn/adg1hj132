@@ -31,12 +31,23 @@ const richtext = (f, path) => {
   return wrap(f.label, control, f.hint ?? "HTML i lejuar: p, h3, ul, li, strong, em, a. Gjithçka tjetër hiqet.");
 };
 
+// The language being edited is shared: switching it on one field switches every field
+// and the live preview, so the editor never shows one language beside another.
+let editLang = LANGS[0].code;
+export const getEditLang = () => editLang;
+
 // One tabbed control edits the same field in every supported language.
 function i18nField(f, path, kind = "text") {
   const id = uid("i18n");
   const tabs = el("div.filters", { role: "tablist", "aria-label": f.label });
   const slot = el("div");
-  let active = LANGS[0].code;
+  let active = editLang;
+
+  // Fields come and go with their panel; a detached one stops listening.
+  const off = on(document, "editlang", () => {
+    if (!tabs.isConnected) return off();
+    if (active !== editLang) { active = editLang; paint(); }
+  });
 
   const paint = () => {
     const sub = `${path}.${active}`;
@@ -55,7 +66,11 @@ function i18nField(f, path, kind = "text") {
       type: "button", dataset: { lang: l.code }, "aria-pressed": String(l.code === active),
       text: l.code.toUpperCase(),
       title: l.label,
-      onclick: () => { active = l.code; paint(); },
+      onclick: () => {
+        active = editLang = l.code;
+        paint();
+        document.dispatchEvent(new CustomEvent("editlang", { detail: { lang: editLang } }));
+      },
     })));
 
   paint();
@@ -76,7 +91,8 @@ const toggle = (f, path) => {
   const input = el("input", { type: "checkbox", id: uid("f") });
   input.checked = Boolean(store.get(path, false));
   on(input, "change", () => store.set(path, input.checked));
-  return el("label.checkbox", { style: "margin-block:var(--s-3)" }, input, el("span", { text: f.label }));
+  const box = el("label.checkbox", { style: "margin-block:var(--s-3)" }, input, el("span", { text: f.label }));
+  return f.hint ? el("div.field", {}, box, el("p.field__hint", { text: f.hint })) : box;
 };
 
 const color = (f, path) => {
@@ -126,7 +142,8 @@ function gallery(f, path) {
             el("button.icon-btn", { type: "button", "aria-label": "Zhvendos majtas", html: icon("up", { size: 14 }), onclick: () => { store.move(path, i, i - 1); paint(); } }),
             el("button.icon-btn", { type: "button", "aria-label": "Zhvendos djathtas", html: icon("down", { size: 14 }), onclick: () => { store.move(path, i, i + 1); paint(); } }),
             el("button.icon-btn", { type: "button", "aria-label": "Fshi imazhin", html: icon("trash", { size: 14 }), onclick: () => { store.removeAt(path, i); paint(); } })))),
-      items.length ? null : el("p.tiny", { text: "Ende pa imazhe." }));
+      // replaceChildren prints a bare null as the word "null", so the empty note is spread in.
+      ...(items.length ? [] : [el("p.tiny", { text: "Ende pa imazhe." })]));
   };
 
   on(picker, "change", () => {
@@ -166,15 +183,20 @@ function list(f, path, render) {
       el("div.list-add", {},
         el("button.btn.btn--ghost.btn--sm", { type: "button", html: `${icon("plus", { size: 16 })}<span>${f.addLabel ?? "Shto"}</span>`, onclick: () => openDraft(f, path, render, paint) }),
         items.length ? el("span.tiny", { text: `${items.length}` }) : null),
-      ...items.map((item, i) =>
-        el("details.admin-card", { open: items.length <= 2 },
+      ...items.map((item, i) => {
+        const thumb = f.itemThumb?.(item);
+        const meta = f.itemMeta?.(item, store);
+        return el("details.admin-card", { open: items.length <= 2 },
           el("summary", {},
-            el("span", { text: f.itemTitle?.(item, i) ?? `#${i + 1}` }),
+            // Lists that declare a thumbnail keep an empty slot too, so titles stay aligned.
+            f.itemThumb ? (thumb ? el("img.admin-card__thumb", { src: thumb, alt: "", loading: "lazy" }) : el("i.admin-card__thumb")) : null,
+            el("span", {}, f.itemTitle?.(item, i) ?? `#${i + 1}`, meta ? el("small.admin-card__meta", { text: meta }) : null),
             el("span.row", {},
               el("button.icon-btn", { type: "button", "aria-label": "Lart", html: icon("up", { size: 16 }), onclick: (e) => { e.preventDefault(); store.move(path, i, i - 1); paint(); } }),
               el("button.icon-btn", { type: "button", "aria-label": "Poshtë", html: icon("down", { size: 16 }), onclick: (e) => { e.preventDefault(); store.move(path, i, i + 1); paint(); } }),
               el("button.icon-btn", { type: "button", "aria-label": "Fshi", html: icon("trash", { size: 16 }), onclick: (e) => { e.preventDefault(); if (confirm("Ta fshij këtë element?")) { store.removeAt(path, i); paint(); } } }))),
-          el("div.admin-card__body", {}, render(`${path}.${i}`, item)))));
+          el("div.admin-card__body", {}, render(`${path}.${i}`, item)));
+      }));
   };
 
   paint();

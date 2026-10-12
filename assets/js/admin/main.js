@@ -8,12 +8,21 @@ import { icon } from "../core/icons.js";
 import { build } from "./fields.js";
 import { PANELS } from "./schema.js";
 import { DEV_PASSWORD, currentSession, endSession, gate, keepAlive } from "./auth.js";
+import { createPreview } from "./preview.js";
 
 const root = $("#app");
 let active = PANELS[0].id;
 let dirtyLabel = null;
+let layout = null;
 
 const markDirty = (saved = false) => { if (dirtyLabel) dirtyLabel.textContent = saved ? "Gjithçka e ruajtur" : "Ndryshime të paruajtura"; };
+
+const save = async () => { await store.save(); markDirty(true); toast("U ruajt.", "ok"); };
+
+const preview = createPreview((open) => {
+  layout?.classList.toggle("admin-layout--preview", open);
+  $(".admin-bar__preview")?.setAttribute("aria-pressed", String(open));
+});
 
 const panelById = (id) => PANELS.find((p) => p.id === id) ?? PANELS[0];
 
@@ -94,21 +103,33 @@ function dataPanel(rerender) {
 function renderShell() {
   dirtyLabel = el("span.tiny", { id: "save-state", role: "status", "aria-live": "polite", text: store.dirty ? "Ndryshime të paruajtura" : "Gjithçka e ruajtur" });
 
-  const save = el("button.btn.btn--primary", { type: "button", html: `${icon("save", { size: 16 })}<span>Ruaj</span>`, onclick: async () => { await store.save(); markDirty(true); toast("U ruajt.", "ok"); } });
-
   const body = active === "security" ? securityPanel() : active === "data" ? dataPanel(renderShell) : renderPanel();
 
-  root.replaceChildren(
-    el("header.admin-bar", {},
-      el("div.row", {},
-        el("strong", { text: "Paneli i përmbajtjes" }),
-        el("span.tiny.admin-bar__who", { text: store.get("profile.name", "") })),
-      el("div.row.push", {},
-        dirtyLabel,
-        el("a.btn.btn--ghost.btn--sm.admin-bar__view", { href: "index.html", target: "_blank", rel: "noopener", title: "Shiko faqen", html: `${icon("eye", { size: 16 })}<span>Shiko faqen</span>` }),
-        save,
-        el("button.btn.btn--ghost.btn--sm.admin-bar__out", { type: "button", text: "Dil", onclick: endSession }))),
-    el("div.admin-layout", {}, renderSidebar(renderShell), el("main", { id: "main", tabindex: "-1" }, body)));
+  const bar = el("header.admin-bar", {},
+    el("div.row", {},
+      el("strong", { text: "Paneli i përmbajtjes" }),
+      el("span.tiny.admin-bar__who", { text: store.get("profile.name", "") })),
+    el("div.row.push", {},
+      dirtyLabel,
+      el("a.btn.btn--ghost.btn--sm.admin-bar__view", { href: "index.html", target: "_blank", rel: "noopener", title: "Shiko faqen e ruajtur në një skedë të re", html: `${icon("globe", { size: 16 })}<span>Shiko faqen</span>` }),
+      el("button.btn.btn--ghost.btn--sm.admin-bar__preview", { type: "button", "aria-pressed": String(preview.open), title: "Pamja paraprake", html: `${icon("eye", { size: 16 })}<span>Pamja paraprake</span>`, onclick: () => preview.toggle() }),
+      el("button.btn.btn--primary", { type: "button", title: "Ruaj (Ctrl+S)", html: `${icon("save", { size: 16 })}<span>Ruaj</span>`, onclick: save }),
+      el("button.btn.btn--ghost.btn--sm.admin-bar__out", { type: "button", text: "Dil", onclick: endSession })));
+  const nav = renderSidebar(renderShell);
+  const main = el("main", { id: "main", tabindex: "-1" }, body);
+
+  // The preview pane outlives panel switches: re-inserting an iframe would reload it.
+  if (layout?.isConnected) {
+    $(".admin-bar", root).replaceWith(bar);
+    layout.children[0].replaceWith(nav);
+    layout.children[1].replaceWith(main);
+    document.documentElement.scrollTop = 0;
+  } else {
+    layout = el("div.admin-layout", {}, nav, main, preview.node);
+    layout.classList.toggle("admin-layout--preview", preview.open);
+    root.replaceChildren(bar, layout);
+  }
+  preview.setFocus(PANELS.find((p) => p.id === active)?.section);
 }
 
 (async () => {
@@ -123,5 +144,8 @@ function renderShell() {
   renderShell();
   mountA11yDock();
   store.on("change", () => markDirty(false));
+  // Typing counts as unsaved straight away, not only once the field loses focus.
+  store.on("input", (e) => { if (!e.detail.path.startsWith("__drafts")) markDirty(false); });
+  on(window, "keydown", (e) => { if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "s") { e.preventDefault(); save(); } });
   window.addEventListener("beforeunload", (e) => { if (store.dirty) { e.preventDefault(); e.returnValue = ""; } });
 })().catch((err) => { console.error(err); root.append(el("p.empty", { text: "Paneli nuk u ngarkua dot." })); });
