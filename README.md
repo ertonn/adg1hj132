@@ -6,7 +6,7 @@ Plain HTML, CSS and ES modules — no framework, no build step, no runtime depen
 ```
 npm install     # jsdom, for the tests only
 npm start       # serve on http://localhost:5173
-npm test        # contrast + motion lints, then 153 site and 88 admin checks, headless
+npm test        # contrast + motion lints, then 166 site and 93 admin checks, headless
 npm run art     # regenerate the placeholder artwork in assets/img
 ```
 
@@ -26,11 +26,12 @@ assets/
   i18n/               sq · en · it · de · fr · es UI strings
   img/                generated placeholder artwork (SVG), replace with real work
   js/core/            dom · store · i18n · a11y · consent · security · icons
-  js/site/            chrome · sections · contact · lightbox · category · legal · main
+  js/site/            chrome · sections · contact · lightbox · gallery · legal · main
   js/admin/           auth · fields · schema · preview · main
 tools/demo-art.mjs    placeholder artwork generator (work tiles; the client logos it also draws are no longer used)
 tools/pdf-logo.mjs    traces the real logo PDF into SVG; owns favicon/og/logo-full
 tools/photos.mjs      optimises source photographs into WebP
+tools/waves.mjs       draws the footer's translucent purple wave background (two corner SVGs)
 tools/brand/          source logo PDF, not served
 tests/                headless jsdom suites
 _headers / .htaccess  security headers for Netlify/Cloudflare and Apache
@@ -62,7 +63,7 @@ tile sits an optional one-line saying of her own (`note`); empty means nothing i
 
 Each category also holds `files`: PDFs and images she files inside it. A tile with no files is
 plain text; the moment it has one it becomes a button that opens an overlay of thumbnails and
-PDF plates, each opening in a new tab (`assets/js/site/category.js`). The same `categories`
+PDF plates, each opening in a new tab (`assets/js/site/gallery.js`, shared with Services). The same `categories`
 list drives the filter chips in Work, so there is one list to maintain.
 
 She edits all of it in the panel under **Kategoritë**: the word, the line, and a files
@@ -73,6 +74,17 @@ each** because, until the backend exists, they are stored as data URIs in `local
 A project's credit is now the free-text `client` field (*Për kë*, optional); there are no
 client records. `assets/img/logo-c-*.svg`, their generator in `tools/demo-art.mjs` and the
 logo-plate audit in `tests/contrast.test.mjs` are left over from the old section and unused.
+
+## Services as galleries
+
+A service is just a title and a photo gallery (`images`, the same `{ src, name }` shape as
+category files); there is no description or price line. Each photo carries an optional caption
+of at most 60 characters ("Logo për verë"), typed per photo in the panel, starting empty rather
+than as the file name. The card leads with the first photo as a cover, counts the photos, and
+opens the gallery overlay. Until a service has a photo, its stored icon stands in.
+
+Project cards in Work are deliberately terse: the cover, a title of at most 60 characters
+(clamped to two lines), client and year. The long description lives in the project view.
 
 ## Demo content
 
@@ -128,6 +140,10 @@ two stacked ones, long card titles truncate instead of shoving the reorder butto
 row, and the gallery grid drops to a 7rem minimum. The rail is deliberately **not** sticky
 below the sidebar breakpoint, because the toolbar wraps to two rows on narrow phones and any
 fixed offset would slide underneath it.
+
+Multi-line plain-text fields keep the line breaks she types, so a bullet list stays one bullet
+per line: `cleanText()` saves them, and every element that renders one carries `.text-lines`
+(`white-space: pre-line`). Single-line fields still flatten through `clean()`.
 
 Rich-text fields are passed through `sanitizeHTML()` on every save: anything outside the
 tag allow-list is unwrapped, and `<script>`, `<iframe>`, `<style>` and friends are deleted

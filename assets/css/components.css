@@ -3,8 +3,10 @@
 /* ---------- Animated logo ---------- */
 .logo { display: inline-flex; align-items: center; gap: var(--s-3); text-decoration: none; }
 /* The mark is wider than tall, so height drives the size and width follows the artwork. */
-.logo__mark { block-size: 1.9rem; inline-size: auto; aspect-ratio: 1100 / 840; color: var(--logo-mark); }
+.logo__mark { block-size: 2.6rem; inline-size: auto; aspect-ratio: 1100 / 840; color: var(--logo-mark); }
 .logo__mark path { fill: currentColor; }
+/* The brand's orange "design" stays orange in both themes and on hover, as in the source file. */
+.logo__mark .logo__design { fill: var(--logo-design); }
 
 .logo__word { font-family: var(--font-display); font-weight: 600; font-size: var(--fs-md); letter-spacing: -0.02em; line-height: 1.1; }
 .logo__word span { display: block; font-family: var(--font-body); font-weight: 400; font-size: var(--fs-xs); letter-spacing: var(--tracking-wide); text-transform: uppercase; color: var(--ink-3); }
@@ -111,7 +113,7 @@
   color: var(--ink);
   border-radius: var(--radius-pill);
 }
-.work__title { font-size: var(--fs-md); font-weight: 600; }
+.work__title { font-size: var(--fs-md); font-weight: 600; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden; }
 .work__meta { display: flex; gap: var(--s-3); font-size: var(--fs-xs); color: var(--ink-3); letter-spacing: 0.04em; text-transform: uppercase; }
 
 /* ---------- Service card ---------- */
@@ -128,6 +130,11 @@
 .service__title { font-size: var(--fs-md); }
 .service__desc { font-size: var(--fs-sm); color: var(--ink-2); }
 .service__price { font-size: var(--fs-xs); letter-spacing: var(--tracking-wide); text-transform: uppercase; color: var(--ink-3); margin-block-start: var(--s-2); }
+/* A service with photos is a button that opens its gallery; the cover bleeds to the card edge. */
+.service--gallery { inline-size: 100%; text-align: start; color: inherit; cursor: pointer; padding-block-start: 0; overflow: hidden; }
+.service__cover { display: block; margin-inline: calc(var(--s-5) * -1); margin-block-end: var(--s-2); aspect-ratio: 16 / 10; background: var(--paper-2); border-block-end: 1px solid var(--line); }
+.service__cover img { inline-size: 100%; block-size: 100%; object-fit: cover; }
+.service__more { display: inline-flex; align-items: center; gap: var(--s-2); margin-block-start: var(--s-2); font-size: var(--fs-sm); font-weight: 500; color: var(--accent); }
 
 /* ---------- Category tile ---------- */
 /* An icon and the word. Four tones cut from the logo's navy and four faint patterns are
@@ -504,6 +511,9 @@ button.cat__word { cursor: pointer; }
 
 /* ---------- Utilities ---------- */
 .stack { display: grid; gap: var(--s-4); align-content: start; }
+/* Plain-text fields keep the line breaks typed in the panel (bullets, short paragraphs). */
+.text-lines, .text-lines p { white-space: pre-line; }
+
 .row { display: flex; flex-wrap: wrap; gap: var(--s-3); align-items: center; }
 .push { margin-inline-start: auto; }
 .muted { color: var(--ink-2); }

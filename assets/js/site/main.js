@@ -9,7 +9,7 @@ import { mountFooter, mountHeader, trackActiveNav } from "./chrome.js";
 import { renderAbout, renderCategories, renderHero, renderServices, renderTestimonials, renderWork } from "./sections.js";
 import { renderContact } from "./contact.js";
 import { openProject } from "./lightbox.js";
-import { openCategory } from "./category.js";
+import { openCategory, openService } from "./gallery.js";
 
 const root = $("#page");
 
@@ -17,7 +17,7 @@ const root = $("#page");
 const RENDERERS = {
   hero: (d) => renderHero(d),
   work: (d) => renderWork(d, (w) => openProject(w, d.categories)),
-  services: renderServices,
+  services: (d) => renderServices(d, openService),
   categories: (d) => renderCategories(d, openCategory),
   about: renderAbout,
   testimonials: renderTestimonials,

@@ -152,5 +152,10 @@
   "categories": {
     "open": "Vedi i lavori",
     "openFile": "Apri il file"
+  },
+  "services": {
+    "photos": "{n} foto",
+    "photosOne": "1 foto",
+    "open": "Vedi la galleria"
   }
 }

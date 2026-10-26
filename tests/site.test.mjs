@@ -61,14 +61,18 @@ const check = (label, cond, extra = "") => report.push(`${cond ? "PASS" : "FAIL"
 
 check("header rendered", !!d.querySelector(".site-header"));
 check("logo svg present", !!d.querySelector(".logo__mark .logo__stem"));
-check("logo renders her real mark", d.querySelector(".logo__mark").querySelectorAll("path").length === 4, String(d.querySelector(".logo__mark").querySelectorAll("path").length));
+check("logo renders her real mark", d.querySelector(".logo__mark").querySelectorAll("path").length === 5, String(d.querySelector(".logo__mark").querySelectorAll("path").length));
 check("both swooshes present", d.querySelector(".logo__mark").querySelectorAll(".logo__sweep").length === 2);
+check("mark carries the orange design wordmark", (d.querySelector(".logo__mark .logo__design")?.getAttribute("d") ?? "").length > 1000);
 check("mark carries no stale monogram", !d.querySelector(".logo__mark .glyph, .logo__mark .ring"));
 check("nav has 5 links", d.querySelectorAll(".nav__link").length === 5, `${d.querySelectorAll(".nav__link").length}`);
 check("hero title filled", /komunikon|communicates/.test(d.querySelector(".hero__title")?.textContent ?? ""));
 check("work cards rendered", d.querySelectorAll(".work").length === seed.works.length, `${d.querySelectorAll(".work").length} of ${seed.works.length}`);
 check("category chips rendered", d.querySelectorAll(".filters .chip").length === seed.categories.length + 1, `${d.querySelectorAll(".filters .chip").length}`);
 check("services rendered", d.querySelectorAll(".service").length === 6, `${d.querySelectorAll(".service").length}`);
+check("services without photos stay plain cards", d.querySelectorAll("button.service").length === 0 && d.querySelectorAll(".service .service__icon").length === 6);
+check("services are photos and captions only: no description or price", d.querySelectorAll(".service__desc, .service__price").length === 0);
+check("project cards are photo and a short title only", d.querySelectorAll("#work-grid .work .muted").length === 0 && d.querySelectorAll("#work-grid .work__title").length === seed.works.length);
 check("process section is gone", !d.querySelector("#process"));
 check("category tiles rendered", d.querySelectorAll("#categories .cat").length === seed.categories.length, `${d.querySelectorAll("#categories .cat").length}`);
 check("a tile is just the word", [...d.querySelectorAll("#categories .cat__word")].every((n, i) => n.textContent.trim() === (seed.categories[i].label.sq || seed.categories[i].label.en) || n.textContent.trim() === seed.categories[i].label.en));
@@ -222,6 +226,15 @@ check("theme toggle carries its motion hook", !!d.querySelector(".theme-toggle")
 // Security helpers
 const sec = await imp("assets/js/core/security.js");
 check("sanitize strips script", sec.sanitizeHTML('<p>ok</p><script>alert(1)</script>') === "<p>ok</p>", sec.sanitizeHTML('<p>ok</p><script>alert(1)</script>'));
+check("multi-line text keeps its line breaks", sec.cleanText("• Një\r\n• Dy  \n\n\n\n• Tre\u0007") === "• Një\n• Dy\n\n• Tre", JSON.stringify(sec.cleanText("• Një\r\n• Dy  \n\n\n\n• Tre\u0007")));
+check("single-line text still flattens", sec.clean("a\nb") === "a b");
+check("footer blurb renders its lines", !!d.querySelector(".site-footer .footer__blurb.text-lines"));
+{
+  const layout = fs.readFileSync(path.join(root, "assets/css/layout.css"), "utf8");
+  const art = ["a", "b"].map((k) => fs.readFileSync(path.join(root, `assets/img/footer-waves-${k}.svg`), "utf8"));
+  check("the wave background is on the footer, not the hero", layout.includes("footer-waves-a.svg") && layout.includes("footer-waves-b.svg") && !layout.includes("hero-waves"));
+  check("the waves are purple, not orange", art.every((s) => /#5b47b8/i.test(s) && !/#f47b20/i.test(s)));
+}
 check("sanitize drops iframe", sec.sanitizeHTML('<iframe src=x></iframe><p>y</p>') === "<p>y</p>", sec.sanitizeHTML('<iframe src=x></iframe><p>y</p>'));
 check("sanitize keeps allowed markup", sec.sanitizeHTML('<h3>T</h3><ul><li><strong>a</strong></li></ul>') === "<h3>T</h3><ul><li><strong>a</strong></li></ul>");
 check("sanitize strips onclick", !sec.sanitizeHTML('<a href="/x" onclick="evil()">a</a>').includes("onclick"));
@@ -286,14 +299,28 @@ await new Promise((r) => setTimeout(r, 50));
 check("the written line shows under its tile", d.querySelector("#categories .cat__note")?.textContent.length > 5);
 check("only the filled tile becomes a button", d.querySelectorAll("#categories button.cat__word").length === 1, `${d.querySelectorAll("#categories button.cat__word").length}`);
 d.querySelector("#categories button.cat__word").click();
-const catDialog = d.querySelector('.overlay [role="dialog"][aria-labelledby="cat-title"]');
-check("category opens a labelled dialog", !!catDialog && !!d.getElementById("cat-title"));
+const catDialog = d.querySelector('.overlay [role="dialog"][aria-labelledby="gallery-title"]');
+check("category opens a labelled dialog", !!catDialog && !!d.getElementById("gallery-title"));
 check("unsafe files are dropped", catDialog?.querySelectorAll(".catfile").length === 3, `${catDialog?.querySelectorAll(".catfile").length}`);
 check("images show as thumbnails, PDFs as documents", catDialog?.querySelectorAll(".catfile__img").length === 1 && catDialog?.querySelectorAll(".catfile__doc").length === 2);
 check("a hosted PDF links to its file", catDialog?.querySelectorAll(".catfile")[1].getAttribute("href") === "assets/docs/katalog.pdf");
 check("an uploaded PDF never navigates to a data: URL", catDialog?.querySelectorAll(".catfile")[2].getAttribute("href") === "#");
 catDialog?.querySelector(".panel__head .icon-btn").click();
 check("category dialog closes", !d.querySelector(".overlay"));
+
+// Services: photos turn the card into a gallery; captions are optional and short.
+store.set("services.items.0.images", [{ src: "assets/img/work-04.svg", name: "Logo për verë" }, { src: "assets/img/work-09.svg", name: "" }]);
+await new Promise((r) => setTimeout(r, 50));
+const svc = d.querySelector("#services button.service--gallery");
+check("a service with photos becomes a gallery card", !!svc && d.querySelectorAll("#services button.service").length === 1);
+check("its first photo is the cover", svc?.querySelector(".service__cover img")?.getAttribute("src") === "assets/img/work-04.svg");
+check("the card counts its photos", /2/.test(svc?.querySelector(".service__more")?.textContent ?? ""), svc?.querySelector(".service__more")?.textContent);
+svc.click();
+const svcDialog = d.querySelector('.overlay [role="dialog"][aria-labelledby="gallery-title"]');
+check("the service gallery opens", !!svcDialog && svcDialog.querySelectorAll(".catfile__img").length === 2);
+check("a caption shows under its photo, and only where written", [...svcDialog.querySelectorAll(".catfile__name")].map((n) => n.textContent).join("|") === "Logo për verë");
+svcDialog.querySelector(".panel__head .icon-btn").click();
+check("the service gallery closes", !d.querySelector(".overlay"));
 
 // Content saved before the client section became categories must upgrade itself on load.
 const { upgrade } = await imp("assets/js/core/store.js");

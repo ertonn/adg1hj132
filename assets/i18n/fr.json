@@ -152,5 +152,10 @@
   "categories": {
     "open": "Voir les travaux",
     "openFile": "Ouvrir le fichier"
+  },
+  "services": {
+    "photos": "{n} photos",
+    "photosOne": "1 photo",
+    "open": "Voir la galerie"
   }
 }

@@ -132,6 +132,6 @@ export function renderContact(data) {
         el("p.eyebrow", { text: t("nav.contact") }),
         el("div", {},
           el("h2.section-title", { id: "contact-title", text: tr(contact.title) }),
-          el("p.section-intro", { text: tr(contact.intro) }))),
+          el("p.section-intro.text-lines", { text: tr(contact.intro) }))),
       el("div.grid.grid--contact", {}, form, aside)));
 }

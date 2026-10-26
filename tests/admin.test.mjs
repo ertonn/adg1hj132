@@ -191,6 +191,7 @@ check("gallery delete works", store.get("works.0.images").length === firstWorkIm
 byLabel("Kategoritë").click();
 await wait(200);
 check("category cards render", d.querySelectorAll(".admin-card").length === 8, String(d.querySelectorAll(".admin-card").length));
+check("the panel lists categories in Albanian whatever the browser language", d.querySelector(".admin-card summary span")?.firstChild.textContent.trim() === "Branding total", d.querySelector(".admin-card summary span")?.firstChild.textContent);
 check("no clients panel remains", !byLabel("Klientët"));
 check("testimonials have their own panel", !!byLabel("Referencat"));
 // IDs are derived from the name now, so the panel must not expose them at all.
@@ -208,6 +209,33 @@ check("the file is named from its path", store.get("categories.0.files.0.name") 
 check("a PDF shows as a labelled plate", d.querySelector(".admin-card__body .file-thumb")?.textContent === "PDF");
 d.querySelector(".admin-card__body .gallery-item__bar .icon-btn:last-child").click();
 check("a file can be removed", store.get("categories.0.files").length === 0);
+
+// Services: a photo gallery whose captions she writes herself.
+byLabel("Shërbimet").click();
+await wait(200);
+const svcPicker = d.querySelector('.admin-card__body input[type="file"]');
+check("services take photos only", svcPicker?.getAttribute("accept") === "image/*", svcPicker?.getAttribute("accept"));
+check("a service is just a title and its photos", [...d.querySelectorAll(".admin-card:first-of-type .admin-card__body > .field > .field__label")].map((l) => l.textContent.trim()).join("|") === "Titulli|Galeria (foto)", [...d.querySelectorAll(".admin-card:first-of-type .admin-card__body > .field > .field__label")].map((l) => l.textContent.trim()).join("|"));
+const svcLink = d.querySelector(".admin-card__body .file-link input");
+svcLink.value = "assets/img/IMG_2041.jpg";
+d.querySelector(".admin-card__body .file-link button").click();
+check("a service photo starts without a file-name caption", store.get("services.items.0.images.0.name") === "", JSON.stringify(store.get("services.items.0.images")));
+const caption = d.querySelector(".admin-card__body .file-caption");
+caption.value = "Logo për verë";
+caption.dispatchEvent(new window.Event("change", { bubbles: true }));
+check("a caption is typed per photo", store.get("services.items.0.images.0.name") === "Logo për verë");
+store.removeAt("services.items.0.images", 0);
+byLabel("Punët").click();
+await wait(200);
+check("projects no longer ask for a summary", ![...d.querySelectorAll(".admin-card__body .field__label")].some((l) => /Përmbledhje/.test(l.textContent)));
+// A bullet list typed into a multi-line field keeps one bullet per line once saved.
+byLabel("Fundi i faqes").click();
+await wait(200);
+const blurb = d.querySelector(".admin-panel textarea");
+blurb.value = "• Studio dizajni grafik\n• Zhvillimi i faqeve web";
+blurb.dispatchEvent(new window.Event("change", { bubbles: true }));
+check("multi-line fields keep their line breaks", Object.values(store.get("footer.blurb")).includes("• Studio dizajni grafik\n• Zhvillimi i faqeve web"), JSON.stringify(store.get("footer.blurb")));
+
 // Profile fields live where the site shows them.
 const labels = () => [...d.querySelectorAll(".admin-panel .field__label")].map((l) => l.textContent.trim());
 byLabel("Kontakti").click();

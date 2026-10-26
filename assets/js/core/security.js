@@ -49,6 +49,15 @@ export const isURL = (v) => { try { const u = new URL(v); return ["http:", "http
 // Drop control characters, collapse runs of whitespace, hard-cap length.
 export const clean = (v, max = 2000) => String(v ?? "").replace(/\p{Cc}/gu, " ").replace(/\s{2,}/g, " ").trim().slice(0, max);
 
+// Like clean(), but for multi-line fields: the owner's line breaks (bullet lists, paragraphs)
+// survive. Other control characters still go, and blank lines collapse to at most one.
+export const cleanText = (v, max = 6000) => String(v ?? "")
+  .replace(/\r\n?/g, "\n")
+  .replace(/[^\P{Cc}\n]/gu, " ")
+  .split("\n").map((line) => line.replace(/[ \t]{2,}/g, " ").trim()).join("\n")
+  .replace(/\n{3,}/g, "\n\n")
+  .trim().slice(0, max);
+
 const enc = new TextEncoder();
 const toHex = (buf) => [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, "0")).join("");
 

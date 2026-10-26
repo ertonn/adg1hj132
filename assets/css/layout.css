@@ -161,6 +161,20 @@
 @media (width >= 62rem) { .grid--contact { grid-template-columns: minmax(0, 1.7fr) minmax(16rem, 1fr); gap: var(--s-7); } }
 
 /* Footer */
+/* Fine purple wave bundles in two opposite corners, kept translucent so the footer text leads.
+   Each corner is its own file pinned to its own edge, so a narrow phone still shows both. */
+.site-footer { position: relative; isolation: isolate; }
+.site-footer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: var(--footer-waves);
+  background:
+    url("../img/footer-waves-a.svg") left top / min(48rem, 120%) auto no-repeat,
+    url("../img/footer-waves-b.svg") right bottom / min(48rem, 120%) auto no-repeat;
+}
 .site-footer {
   background: var(--paper-2);
   border-block-start: 1px solid var(--line);

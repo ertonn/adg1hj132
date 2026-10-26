@@ -1,10 +1,10 @@
 // Section renderers. Each takes the store slice it needs and returns a DOM node.
 
 import { el, esc, stagger, transition } from "../core/dom.js";
-import { t, tr } from "../core/i18n.js";
+import { plural, t, tr } from "../core/i18n.js";
 import { icon } from "../core/icons.js";
 import { safeURL, sanitizeHTML } from "../core/security.js";
-import { filesOf } from "./category.js";
+import { filesOf } from "./gallery.js";
 
 // Initials for the testimonial avatars.
 const monogram = (name) =>
@@ -22,7 +22,7 @@ const head = (eyebrow, title, intro) =>
     el("p.eyebrow", { text: eyebrow }),
     el("div", {},
       el("h2.section-title", { text: title }),
-      intro ? el("p.section-intro", { text: intro }) : null));
+      intro ? el("p.section-intro.text-lines", { text: intro }) : null));
 
 const section = (id, ...children) => el("section.section.reveal", { id, "aria-labelledby": `${id}-title` }, el("div.container", {}, children));
 
@@ -39,7 +39,7 @@ export function renderHero(data) {
       el("p.eyebrow", {},
         el("span", { text: `${tr(profile.role)} · ${tr(profile.location)}` })),
       el("h1.hero__title", { id: "hero-title", html: sanitizeHTML(tr(hero.headline)) }),
-      el("p.hero__lede", { text: tr(hero.lede) }),
+      el("p.hero__lede.text-lines", { text: tr(hero.lede) }),
       el("div.hero__actions", {},
         el("a.btn.btn--primary", { href: "#contact", text: t("hero.ctaPrimary") }),
         el("a.btn.btn--ghost", { href: "#work", text: t("hero.ctaSecondary") })),
@@ -67,7 +67,6 @@ export function renderWork(data, onOpen) {
         w.featured ? el("span.work__badge", { text: tr(categories.find((c) => c.id === w.category)?.label ?? w.category) }) : null),
       el("div", {},
         el("h3.work__title", { text: tr(w.title) }),
-        el("p.muted", { style: "font-size:var(--fs-sm)", text: tr(w.summary) }),
         el("p.work__meta", {}, w.client ? el("span", { text: w.client }) : null, el("span", { text: w.year }))));
 
   const paint = () => transition(() => {
@@ -94,17 +93,28 @@ export function renderWork(data, onOpen) {
   return node;
 }
 
-export function renderServices(data) {
+export function renderServices(data, onOpen) {
   const { services } = data;
+
+  // A service is photos with short captions: the first photo is the cover, the card opens the rest.
+  // Until she adds one, the card keeps its icon as a placeholder.
+  const card = (s) => {
+    const photos = filesOf(s.images);
+    const body = [
+      photos.length
+        ? el("span.service__cover", {}, el("img", { src: safeURL(photos[0].src, ""), alt: "", loading: "lazy", decoding: "async" }))
+        : el("span", { html: icon(s.icon, { cls: "service__icon" }) }),
+      el("h3.service__title", { text: tr(s.title) }),
+      photos.length ? el("span.service__more", {}, el("span", { text: plural("services.photos", photos.length) }), el("span", { "aria-hidden": "true", html: icon("arrow", { size: 16 }) })) : null,
+    ];
+    return photos.length
+      ? el("button.service.service--gallery", { type: "button", "aria-label": `${tr(s.title)}: ${t("services.open")}`, onclick: () => onOpen(s) }, body)
+      : el("article.service", {}, body);
+  };
+
   return titled("services", section("services",
     head(t("nav.services"), tr(services.title), tr(services.intro)),
-    el("div.grid.grid--services.stagger", {},
-      services.items.map((s) =>
-        el("article.service", {},
-          el("span", { html: icon(s.icon, { cls: "service__icon" }) }),
-          el("h3.service__title", { text: tr(s.title) }),
-          el("p.service__desc", { text: tr(s.desc) }),
-          s.note ? el("p.service__price", { text: tr(s.note) }) : null)))));
+    el("div.grid.grid--services.stagger", {}, services.items.map(card))));
 }
 
 // Tone and pattern per tile position. The two rows are offset so that in the four-across
@@ -124,7 +134,7 @@ export function renderCategories(data, onOpen) {
       el("span.cat__icon", { "aria-hidden": "true", html: icon(c.icon, { size: 22 }) }),
       el("span", { text: tr(c.label) }),
     ];
-    return filesOf(c).length
+    return filesOf(c.files).length
       ? el("button.cat__word", { type: "button", dataset: look, "aria-label": `${tr(c.label)}: ${t("categories.open")}`, onclick: () => onOpen(c) },
           el("span.cat__go", { "aria-hidden": "true", html: icon("arrow", { size: 18 }) }), body)
       : el("span.cat__word", { dataset: look }, body);
@@ -148,7 +158,7 @@ export function renderAbout(data) {
             el("figcaption.portrait__cap", {}, el("strong", { text: profile.name }), el("span", { text: tr(profile.role) })))
         : null,
       el("div.stack", {},
-        el("p", { style: "font-size:var(--fs-md)", text: tr(about.body) }),
+        el("p.text-lines", { style: "font-size:var(--fs-md)", text: tr(about.body) }),
         // Jump links reuse the nav labels, so they stay translated with no new keys.
         el("div.about__links", {},
           ABOUT_LINKS.map((id) =>
@@ -182,7 +192,7 @@ export function renderTestimonials(data) {
     el("div.grid.grid--quotes.stagger", {},
       testimonials.items.map((q) =>
         el("figure.quote", {},
-          el("blockquote.quote__text", { text: tr(q.quote) }),
+          el("blockquote.quote__text.text-lines", { text: tr(q.quote) }),
           el("figcaption.quote__by", {},
             el("span.quote__avatar", { "aria-hidden": "true", text: monogram(q.author) }),
             el("span", {},

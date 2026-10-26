@@ -21,6 +21,7 @@ export function logoMark() {
     <path class="logo__sweep logo__sweep--a" d="${MARK.upper}"/>
     <path class="logo__sweep logo__sweep--b" d="${MARK.lower}"/>
     <path class="logo__tip" d="${MARK.tip}"/>
+    <path class="logo__design" d="${MARK.design}"/>
   </svg>`;
 }
 
@@ -135,7 +136,7 @@ export function mountFooter(host, data, { base = "" } = {}) {
       el("div.footer__grid", {},
         el("div.footer__brand", {},
           renderLogo(profile, `${base}#hero`),
-          el("p.footer__blurb", { text: tr(footer.blurb) })),
+          el("p.footer__blurb.text-lines", { text: tr(footer.blurb) })),
         el("div", {},
           el("p.footer__title", { text: t("footer.nav") }),
           list(NAV.map((id) => [t(`nav.${id}`), `${base}#${id}`]))),

@@ -152,5 +152,10 @@
   "categories": {
     "open": "Shiko materialet",
     "openFile": "Hap skedarin"
+  },
+  "services": {
+    "photos": "{n} foto",
+    "photosOne": "1 foto",
+    "open": "Shiko galerinë"
   }
 }

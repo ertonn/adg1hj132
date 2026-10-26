@@ -2,7 +2,7 @@
 
 import { $, el, on, toast } from "../core/dom.js";
 import { store } from "../core/store.js";
-import { detect, setLang } from "../core/i18n.js";
+import { DEFAULT_LANG, setLang } from "../core/i18n.js";
 import { initA11y, mountA11yDock } from "../core/a11y.js";
 import { icon } from "../core/icons.js";
 import { build } from "./fields.js";
@@ -135,7 +135,9 @@ function renderShell() {
 (async () => {
   initA11y();
   const data = await store.init();
-  await setLang(detect(data.settings.defaultLang));
+  // The panel is written in Albanian, so list titles and pickers read in Albanian too, whatever
+  // the browser's language. Not persisted: it must not change the language visitors get.
+  await setLang(DEFAULT_LANG, { persist: false });
 
   const minutes = store.get("admin.sessionMinutes", 60);
   if (!currentSession()) await gate(root, minutes);

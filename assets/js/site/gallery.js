@@ -1,4 +1,5 @@
-// Per-category overlay: the PDFs and images she has filed under one category.
+// Shared gallery overlay: the photos and PDFs filed under a category or a service,
+// each with an optional short caption.
 
 import { el, on, lockScroll, trapFocus } from "../core/dom.js";
 import { t, tr } from "../core/i18n.js";
@@ -11,7 +12,7 @@ export const isPDF = (src) => INLINE_PDF.test(String(src ?? "")) || /\.pdf([?#]|
 
 // A file needs somewhere to open: a safe path, an inline image, or an inline PDF.
 const usable = (f) => Boolean(f?.src) && (INLINE_PDF.test(f.src) || safeURL(f.src, "") !== "");
-export const filesOf = (category) => (category.files ?? []).filter(usable);
+export const filesOf = (list) => (list ?? []).filter(usable);
 
 // Browsers refuse to navigate a tab to a data: URL, so uploaded files open as blobs.
 function openInline(src) {
@@ -22,15 +23,16 @@ function openInline(src) {
   setTimeout(() => URL.revokeObjectURL(url), 60_000);
 }
 
-export function openCategory(category) {
-  const files = filesOf(category);
+export function openGallery({ eyebrow, title, intro, files: list }) {
+  const files = filesOf(list);
   const overlay = el("div.overlay", { role: "presentation" });
-  const panel = el("div.panel.panel--wide", { role: "dialog", "aria-modal": "true", "aria-labelledby": "cat-title" });
+  const panel = el("div.panel.panel--wide", { role: "dialog", "aria-modal": "true", "aria-labelledby": "gallery-title" });
   const close = () => { release(); lockScroll(false); overlay.remove(); };
 
   const tile = (f, i) => {
     const pdf = isPDF(f.src);
     const inline = f.src.startsWith("data:");
+    // A caption is optional; the label falls back to a numbered name so links stay announced.
     const name = f.name || `${pdf ? "PDF" : t("common.image")} ${i + 1}`;
     return el("a.catfile", {
       href: inline ? "#" : safeURL(f.src),
@@ -42,15 +44,15 @@ export function openCategory(category) {
       pdf
         ? el("span.catfile__doc", { "aria-hidden": "true" }, el("span", { html: icon("book", { size: 28 }) }), el("span", { text: "PDF" }))
         : el("img.catfile__img", { src: safeURL(f.src, ""), alt: "", loading: "lazy", decoding: "async" }),
-      el("span.catfile__name", { text: name }));
+      f.name ? el("span.catfile__name", { text: f.name }) : null);
   };
 
   panel.append(
     el("div.panel__head", {},
       el("div.stack", {},
-        el("p.eyebrow", { text: t("nav.categories") }),
-        el("h2", { id: "cat-title", text: tr(category.label) }),
-        tr(category.note) ? el("p.muted", { text: tr(category.note) }) : null),
+        el("p.eyebrow", { text: eyebrow }),
+        el("h2", { id: "gallery-title", text: title }),
+        intro ? el("p.muted.text-lines", { text: intro }) : null),
       el("button.icon-btn", { type: "button", "aria-label": t("common.close"), onclick: close, html: icon("close", { size: 20 }) })),
     el("div.catfiles", {}, files.map(tile)));
 
@@ -61,3 +63,9 @@ export function openCategory(category) {
   const release = trapFocus(panel, close);
   return overlay;
 }
+
+export const openCategory = (c) =>
+  openGallery({ eyebrow: t("nav.categories"), title: tr(c.label), intro: tr(c.note), files: c.files });
+
+export const openService = (s) =>
+  openGallery({ eyebrow: t("nav.services"), title: tr(s.title), files: s.images });

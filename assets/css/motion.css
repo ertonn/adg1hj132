@@ -76,6 +76,8 @@
 .chip { transition: color var(--dur-1) var(--ease), background var(--dur-1) var(--ease), border-color var(--dur-1) var(--ease), transform var(--dur-1) var(--ease); }
 .chip:active { transform: scale(0.96); }
 
+.service--gallery { transition: transform var(--dur-2) var(--ease-out); }
+.service--gallery:hover, .service--gallery:focus-visible { transform: translateY(-3px); }
 button.cat__word { transition: transform var(--dur-2) var(--ease-out); }
 button.cat__word:hover, button.cat__word:focus-visible { transform: translateY(-3px); }
 .catfiles > * { animation: rise var(--dur-2) var(--ease-out) both; }
@@ -123,6 +125,8 @@ button.cat__word:hover, button.cat__word:focus-visible { transform: translateY(-
 /* fill-box keeps the origin on the path itself, not the whole viewBox. */
 .logo__mark .logo__stem { transform-box: fill-box; transform-origin: bottom; animation: grow-y var(--dur-2) var(--ease-out) backwards; }
 .logo__mark .logo__tip { transform-box: fill-box; transform-origin: center; animation: pop var(--dur-2) var(--ease-spring) 480ms backwards; }
+/* The word writes itself in after the swooshes land. */
+.logo__mark .logo__design { animation: logo-wipe var(--dur-3) var(--ease-out) 300ms backwards; }
 .logo__mark { transition: color var(--dur-2) var(--ease); }
 .logo:hover .logo__mark { color: var(--accent); }
 

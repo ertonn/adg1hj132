@@ -3,7 +3,7 @@
 import { el, on, openModal, toast, uid } from "../core/dom.js";
 import { LANGS, tr } from "../core/i18n.js";
 import { icon } from "../core/icons.js";
-import { clean, sanitizeHTML } from "../core/security.js";
+import { clean, cleanText, sanitizeHTML } from "../core/security.js";
 import { store } from "../core/store.js";
 
 const MAX_IMAGE_BYTES = 600_000;
@@ -56,7 +56,7 @@ function i18nField(f, path, kind = "text") {
       : kind === "textarea"
         ? el("textarea.textarea", { id, rows: f.rows ?? 4, maxlength: f.max ?? 4000 })
         : el("input.input", { id, type: "text", maxlength: f.max ?? 240 });
-    bind(control, sub, kind === "richtext" ? sanitizeHTML : (v) => clean(v, f.max ?? 20000));
+    bind(control, sub, kind === "richtext" ? sanitizeHTML : kind === "textarea" ? (v) => cleanText(v, f.max ?? 20000) : (v) => clean(v, f.max ?? 20000));
     slot.replaceChildren(control);
     tabs.querySelectorAll(".chip").forEach((c) => c.setAttribute("aria-pressed", String(c.dataset.lang === active)));
   };
@@ -166,11 +166,15 @@ function gallery(f, path) {
 
 const isPDF = (src) => /^data:application\/pdf/i.test(src ?? "") || /\.pdf([?#]|$)/i.test(src ?? "");
 
-// Array of { src, name }: the PDFs and images a visitor opens from a category tile.
+// Array of { src, name }: the photos (and, where allowed, PDFs) a visitor opens from a category
+// tile or a service card. `name` is the short caption shown under each one; it is typed per item.
 function files(f, path) {
+  const captionMax = f.captionMax ?? 60;
+  // Services want a caption she writes, not "IMG_2041.jpg"; categories start from the file name.
+  const nameOf = (raw) => (f.nameFromFile === false ? "" : clean(raw, captionMax));
   const host = el("div.gallery-grid");
-  const picker = el("input", { type: "file", accept: "image/*,application/pdf", multiple: true, class: "input", "aria-label": `${f.label}: ngarko skedarë` });
-  const link = el("input.input", { type: "text", placeholder: "assets/docs/katalog.pdf ose https://…", "aria-label": `${f.label}: lidhje ose shteg` });
+  const picker = el("input", { type: "file", accept: f.accept ?? "image/*,application/pdf", multiple: true, class: "input", "aria-label": `${f.label}: ngarko skedarë` });
+  const link = el("input.input", { type: "text", placeholder: f.placeholder ?? "assets/docs/katalog.pdf ose https://…", "aria-label": `${f.label}: lidhje ose shteg` });
 
   const paint = () => {
     const items = store.get(path, []) ?? [];
@@ -178,12 +182,17 @@ function files(f, path) {
       ...items.map((item, i) =>
         el("figure.gallery-item", {},
           isPDF(item.src) ? el("div.admin-thumb.file-thumb", { text: "PDF" }) : el("img.admin-thumb", { src: item.src || "", alt: "" }),
-          el("figcaption.file-name", { text: item.name || `#${i + 1}`, title: item.name || "" }),
+          el("input.input.file-caption", {
+            type: "text", value: item.name ?? "", maxlength: captionMax,
+            placeholder: f.captionPlaceholder ?? "Shpjegim i shkurtër",
+            "aria-label": `Shpjegimi i skedarit ${i + 1}`,
+            onchange: (e) => store.set(`${path}.${i}.name`, clean(e.target.value, captionMax)),
+          }),
           el("div.gallery-item__bar", {},
             el("button.icon-btn", { type: "button", "aria-label": "Zhvendos majtas", html: icon("up", { size: 14 }), onclick: () => { store.move(path, i, i - 1); paint(); } }),
             el("button.icon-btn", { type: "button", "aria-label": "Zhvendos djathtas", html: icon("down", { size: 14 }), onclick: () => { store.move(path, i, i + 1); paint(); } }),
             el("button.icon-btn", { type: "button", "aria-label": "Fshi skedarin", html: icon("trash", { size: 14 }), onclick: () => { store.removeAt(path, i); paint(); } })))),
-      ...(items.length ? [] : [el("p.tiny", { text: "Ende pa skedarë. Pllaka hapet në faqe sapo të shtoni të parin." })]));
+      ...(items.length ? [] : [el("p.tiny", { text: f.empty ?? "Ende pa skedarë. Pllaka hapet në faqe sapo të shtoni të parin." })]));
   };
 
   // Size is checked before reading, so an oversized file never leaves an empty slot behind.
@@ -191,7 +200,7 @@ function files(f, path) {
     [...(picker.files ?? [])].forEach((file) => {
       if (file.size > MAX_IMAGE_BYTES) return toast(`«${file.name}» është mbi ${Math.round(MAX_IMAGE_BYTES / 1000)} KB. Vendoseni në server dhe shtoni shtegun.`, "error");
       const reader = new FileReader();
-      reader.onload = () => { store.push(path, { src: reader.result, name: clean(file.name, 120) }); paint(); };
+      reader.onload = () => { store.push(path, { src: reader.result, name: nameOf(file.name) }); paint(); };
       reader.readAsDataURL(file);
     });
     picker.value = "";
@@ -200,7 +209,7 @@ function files(f, path) {
   const addLink = () => {
     const src = clean(link.value, 400);
     if (!src) return;
-    store.push(path, { src, name: clean(decodeURIComponent(src.split(/[?#]/)[0].split("/").pop() || src), 120) });
+    store.push(path, { src, name: nameOf(decodeURIComponent(src.split(/[?#]/)[0].split("/").pop() || src)) });
     link.value = "";
     paint();
   };

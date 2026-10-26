@@ -57,7 +57,7 @@ export function openProject(work, categories = []) {
     figure,
     counter,
     el("div.grid.grid--split", { style: "margin-block-start:1.5rem" },
-      el("div.prose", { html: sanitizeHTML(`<p>${tr(work.body)}</p>`) }),
+      el("div.prose.text-lines", { html: sanitizeHTML(`<p>${tr(work.body)}</p>`) }),
       el("dl.stack", { style: "font-size:var(--fs-sm)" },
         work.client ? el("div", {}, el("dt.footer__title", { text: t("work.client") }), el("dd", { text: work.client })) : null,
         el("div", {}, el("dt.footer__title", { text: t("work.year") }), el("dd", { text: work.year })))));
